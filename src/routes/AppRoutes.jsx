@@ -9,7 +9,7 @@ import Layout from "../components/layout/Layout";
 import Loader from "../components/loader/Loader";
 
 // Lazy-loaded customer & shopping pages
-const Allproducts = lazy(() => import('../pages/allproducts/Allproducts'));
+const Allproducts = lazy(() => import('../pages/allproducts/AllProducts'));
 const Cart = lazy(() => import("../pages/cart/Cart"));
 const ProductDetails = lazy(() => import("../pages/ProductDetails/ProductDetails"));
 const CheckoutPage = lazy(() => import('../pages/checkout/CheckoutPage'));
