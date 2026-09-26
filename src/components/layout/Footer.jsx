@@ -61,7 +61,11 @@ function Footer() {
         .filter(p => p.isActive !== false && Boolean(p.docUrl || p.pdfUrl || p.content))
         .map(p => ({ title: p.name, path: `/legal/${p.slug}` }));
 
-    const legalLinks = [...activeFixedLinks, ...activeCustomLinks];
+    const legalLinks = [
+        { title: "Meet Our Founder", path: "/founder" },
+        ...activeFixedLinks,
+        ...activeCustomLinks
+    ];
 
     return (
         <footer className="bg-bg-surface border-t border-border-base transition-colors duration-300">

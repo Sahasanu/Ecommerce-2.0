@@ -27,7 +27,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
       <div className="flex items-center justify-between pb-2 border-b border-border-base/50">
         <div>
           <h3 className="text-base font-bold text-text-base">Profile Information</h3>
-          <p className="text-[11px] text-text-muted mt-0.5">Manage your personal account details and credentials</p>
+          <p className="text-[11px] text-text-muted mt-0.5">Manage your personal Details</p>
         </div>
 
         {!isEditing && (
@@ -44,9 +44,9 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
 
       {/* Mode A: Clean Read-Only Summary View */}
       {!isEditing ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Full Name */}
-          <div className="p-2.5 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
+          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
             <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
               <FaUser size={11} className="text-primary" />
               <span>Full Name</span>
@@ -57,7 +57,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
           </div>
 
           {/* Email Address */}
-          <div className="p-2.5 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
+          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
                 <FaEnvelope size={11} className="text-primary" />
@@ -67,13 +67,13 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
                 Primary
               </span>
             </div>
-            <p className="font-semibold text-sm text-text-base pl-5">
+            <p className="font-semibold text-sm text-text-base pl-5 truncate" title={profile.email}>
               {profile.email || <span className="italic text-text-muted font-normal">Not added</span>}
             </p>
           </div>
 
           {/* Phone Number */}
-          <div className="p-2.5 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
+          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
             <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
               <FaPhone size={11} className="text-primary" />
               <span>Phone Number</span>
@@ -85,8 +85,8 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
         </div>
       ) : (
         /* Mode B: Edit Form */
-        <form onSubmit={handleSubmit} className="space-y-3.5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Full Name Input */}
             <div className="space-y-1">
               <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
@@ -145,19 +145,19 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
           </div>
 
           {/* Edit Actions Bar */}
-          <div className="pt-2 border-t border-border-base/50 flex items-center justify-end gap-2.5">
+          <div className="pt-3 border-t border-border-base/50 flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={handleCancelEdit}
               disabled={saving}
-              className="px-4 py-1.5 rounded-xl border border-border-base text-text-base font-bold text-xs hover:bg-bg-base transition cursor-pointer"
+              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl border border-border-base text-text-base font-bold text-xs hover:bg-bg-base transition cursor-pointer text-center"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="flex items-center gap-1.5 px-5 py-1.5 rounded-xl bg-primary hover:bg-primary-hover text-compli text-xs font-bold shadow-2xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-5 py-2 rounded-xl bg-primary hover:bg-primary-hover text-compli text-xs font-bold shadow-2xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               {saving ? (
                 <>

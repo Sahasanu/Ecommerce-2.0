@@ -6,7 +6,6 @@ import useAuth from '../../hooks/auth/useAuth'
 import { useFilter } from '../../context/FilterContext'
 import SearchBar from '../Common/SearchBar'
 import WarningModal from '../modal/WarningModal'
-import c from "../../assets/c.png"
 import { useSiteConfig } from '../../context/SiteConfigContext'
 
 
@@ -26,7 +25,8 @@ export default function Navbar() {
   const { mode } = useTheme()
   const { user, userName, logout: authLogout, setIsLoginOpen } = useAuth()
   const { searchkey, setSearchkey } = useFilter()
-  const { config } = useSiteConfig()
+  const { config, loading: isConfigLoading } = useSiteConfig()
+  const [logoImageLoaded, setLogoImageLoaded] = useState(false)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false)
 
@@ -96,21 +96,40 @@ export default function Navbar() {
         {/* Top Navbar */}
         <div className="h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src={config.companyLogo || c}
-              className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
-              alt={config.companyName || "CompanyName"}
-            />
+          {/* Logo & Company Name */}
+          {isConfigLoading ? (
+            <div className="flex items-center gap-2.5 py-1" aria-label="Loading logo and brand">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gray-200 dark:bg-zinc-800 animate-pulse shrink-0" />
+              <div className="hidden sm:block h-6 sm:h-7 w-28 sm:w-36 rounded-lg bg-gray-200 dark:bg-zinc-800 animate-pulse" />
+            </div>
+          ) : (
+            <Link to="/" className="flex items-center gap-2 group">
+              {config.companyLogo && (
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
+                  {!logoImageLoaded && (
+                    <div className="absolute inset-0 rounded-xl bg-gray-200 dark:bg-zinc-800 animate-pulse" />
+                  )}
+                  <img
+                    src={config.companyLogo}
+                    onLoad={() => setLogoImageLoaded(true)}
+                    className={`w-9 h-9 sm:w-10 sm:h-10 object-contain transition-opacity duration-200 ${
+                      logoImageLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                    alt={config.companyName || "Logo"}
+                  />
+                </div>
+              )}
 
-            <h1
-              className="hidden sm:block text-xl lg:text-2xl font-extrabold tracking-tight"
-              style={{ fontFamily: "Pirou" }}
-            >
-              {config.companyName || "CompanyName"}
-            </h1>
-          </Link>
+              {config.companyName && (
+                <h1
+                  className="hidden sm:block text-xl lg:text-2xl font-extrabold tracking-tight"
+                  style={{ fontFamily: "Pirou" }}
+                >
+                  {config.companyName}
+                </h1>
+              )}
+            </Link>
+          )}
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
@@ -161,13 +180,16 @@ export default function Navbar() {
               />
             </div>
 
-            {/* Mobile Search Toggle */}
-            <button
-              onClick={() => setIsMobileSearchOpen((prev) => !prev)}
-              className="lg:hidden text-gray-700 hover:text-primary transition"
-            >
-              <span className="material-symbols-outlined">search</span>
-            </button>
+            {/* Mobile Actions: Search */}
+            <div className="flex items-center gap-1.5 lg:hidden">
+              <button
+                onClick={() => setIsMobileSearchOpen((prev) => !prev)}
+                className="text-gray-700 hover:text-primary transition p-1.5 rounded-lg active:scale-95"
+                aria-label="Search"
+              >
+                <span className="material-symbols-outlined text-2xl">search</span>
+              </button>
+            </div>
 
             {/* Cart & Profile Area (Desktop Only) */}
             <div className="hidden lg:flex items-center gap-5">
