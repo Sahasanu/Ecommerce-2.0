@@ -1,39 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { paymentService } from '../../../services/payment/paymentService';
 import { getFriendlyErrorMessage } from '../../../utils/firebaseErrorHandler.js';
-import { couponService } from '../../../services/coupon/couponService';
-import { validateAndCalculateCoupon } from '../../../utils/couponValidation';
+import OrderSummaryCard from '../../../components/Common/OrderSummaryCard';
 
-const formatCurrency = (amount) => {
-  const num = Number(amount) || 0;
-  return num.toLocaleString('en-IN', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-};
+const fmt = (n) => Number(n || 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 /**
- * OrderSummary
- * Displays subtotal, shipping fees, tax rates, promo code triggers, and checkout buttons.
- * Supports standard checkout and prefilled WhatsApp Order routing.
- * Desktop: Sidebar block.
- * Mobile: Expandable floating bottom sheet that sits above the bottom navigation bar.
+ * OrderSummary (Cart Page Wrapper)
+ * Uses the shared unified OrderSummaryCard component.
+ * Supports Desktop sticky sidebar and Mobile floating bottom drawer.
  */
-export default function OrderSummary({ subtotal, shippingFee, taxRate, cartItems = [], onCheckout }) {
+export default function OrderSummary({ subtotal = 0, shippingFee = "Free", cartItems = [], onCheckout }) {
   const [promoCode, setPromoCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [discountAmount, setDiscountAmount] = useState(0);
   const [applying, setApplying] = useState(false);
+  const [couponError, setCouponError] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const estimatedTax = subtotal * taxRate;
-  const grandTotal = Math.max(0, subtotal - discountAmount + (shippingFee === 'Free' ? 0 : Number(shippingFee || 0)));
+  const isShippingFree = shippingFee === "Free" || shippingFee === "FREE" || shippingFee === 0 || shippingFee === "0";
+  const numShipping = isShippingFree ? 0 : (Number(shippingFee) || 0);
+  const grandTotal = Math.max(0, subtotal - discountAmount + numShipping);
 
   // Sync / load saved coupon on mount or subtotal change
-  React.useEffect(() => {
+  useEffect(() => {
+    const numSubtotal = Number(subtotal) || 0;
+    if (numSubtotal <= 0 || cartItems.length === 0) {
+      setAppliedCoupon(null);
+      setDiscountAmount(0);
+      sessionStorage.removeItem('appliedCoupon');
+      return;
+    }
+
     const saved = sessionStorage.getItem('appliedCoupon');
     if (saved) {
       try {
@@ -44,26 +45,35 @@ export default function OrderSummary({ subtotal, shippingFee, taxRate, cartItems
           let discount = Number(parsed.discountAmount || 0);
           if (parsed.type === 'PERCENTAGE' || parsed.type === 'percentage') {
             const val = Number(parsed.discountValue || parsed.value || 0);
-            discount = (subtotal * val) / 100;
+            discount = (numSubtotal * val) / 100;
           }
-          setDiscountAmount(discount);
+          setDiscountAmount(Math.min(discount, numSubtotal));
         }
       } catch (e) {
         console.warn("Failed to parse stored coupon:", e);
       }
     }
-  }, [subtotal]);
+  }, [subtotal, cartItems.length]);
 
   const handleApplyCoupon = async () => {
     if (!promoCode.trim()) {
+      setCouponError('Please enter a coupon code.');
       toast.error('Please enter a coupon code');
       return;
     }
 
+    const currentSubtotal = Number(subtotal) || 0;
+    if (currentSubtotal <= 0 || cartItems.length === 0) {
+      const msg = 'Add items to your cart before applying a coupon.';
+      setCouponError(msg);
+      toast.error(msg);
+      return;
+    }
+
     setApplying(true);
+    setCouponError('');
     try {
-      // Validate via Cloud Function
-      const res = await paymentService.validateCoupon(promoCode.trim(), subtotal);
+      const res = await paymentService.validateCoupon(promoCode.trim(), currentSubtotal);
       if (res && res.valid) {
         const couponObj = {
           code: res.code,
@@ -74,16 +84,21 @@ export default function OrderSummary({ subtotal, shippingFee, taxRate, cartItems
         };
         setAppliedCoupon(couponObj);
         setDiscountAmount(res.discountAmount);
+        setCouponError('');
         sessionStorage.setItem('appliedCoupon', JSON.stringify(couponObj));
-        toast.success(`Coupon ${res.code} applied! Saved ₹${formatCurrency(res.discountAmount)}`);
+        toast.success(`Coupon "${res.code}" applied! You save ₹${fmt(res.discountAmount)}`);
       } else {
-        toast.error(getFriendlyErrorMessage(res?.message, 'Invalid or expired coupon code'));
+        const errorMsg = getFriendlyErrorMessage(res?.message, 'Invalid or expired coupon code.');
+        setCouponError(errorMsg);
+        toast.error(errorMsg);
         setAppliedCoupon(null);
         setDiscountAmount(0);
         sessionStorage.removeItem('appliedCoupon');
       }
     } catch (err) {
-      toast.error(getFriendlyErrorMessage(err, 'Invalid or expired coupon code'));
+      const errorMsg = getFriendlyErrorMessage(err, 'Invalid or expired coupon code.');
+      setCouponError(errorMsg);
+      toast.error(errorMsg);
       setAppliedCoupon(null);
       setDiscountAmount(0);
       sessionStorage.removeItem('appliedCoupon');
@@ -96,143 +111,41 @@ export default function OrderSummary({ subtotal, shippingFee, taxRate, cartItems
     setAppliedCoupon(null);
     setDiscountAmount(0);
     setPromoCode('');
+    setCouponError('');
     sessionStorage.removeItem('appliedCoupon');
     toast.info('Coupon removed');
   };
 
-  const handlePayViaWhatsApp = () => {
-    if (cartItems.length === 0) return;
-
-    const itemsText = cartItems
-      .map(item => {
-        const variantStr = item.selectedVariant
-          ? Object.entries(item.selectedVariant).map(([k, v]) => `${k}: ${v}`).join(', ')
-          : 'Standard';
-        return `• ${item.title} (${variantStr}) x ${item.quantity} = ₹${formatCurrency(Number(item.price) * item.quantity)}`;
-      })
-      .join('\n');
-
-    const message = `Hi, I would like to place an order:\n\n${itemsText}\n\nSubtotal: ₹${formatCurrency(subtotal)}${discountAmount > 0 ? `\nDiscount (${appliedCoupon?.code}): -₹${formatCurrency(discountAmount)}` : ''}\nEstimated Taxes (5%): ₹${formatCurrency(estimatedTax)}\nGrand Total: ₹${formatCurrency(grandTotal)}\n\nPlease confirm my order. Thanks!`;
-
-    window.open(`https://wa.me/9564140786?text=${encodeURIComponent(message)}`, '_blank');
-  };
-
-  const handleCheckout = () => {
+  const handleProceed = () => {
     if (onCheckout) {
       onCheckout();
     } else {
-      navigate('/order', { state: { appliedCoupon } });
+      navigate('/checkout', { state: { appliedCoupon } });
     }
   };
 
   return (
     <>
-      {/* 1. Desktop Sidebar View */}
-      <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-[120px] space-y-6 w-full">
-        <div className="bg-bg-surface p-4 rounded-[24px] shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-border-base/40">
-          <h2 className="text-xl font-bold text-text-base mb-2">Order Summary</h2>
-
-          <div className="space-y-4 mb-6">
-            <div className="flex justify-between items-center text-text-muted">
-              <span className="text-sm font-medium">Subtotal</span>
-              <span className="text-sm font-bold text-text-base">₹{formatCurrency(subtotal)}</span>
-            </div>
-            {discountAmount > 0 && (
-              <div className="flex justify-between items-center text-emerald-600 dark:text-emerald-400 font-bold text-sm">
-                <span>Discount ({appliedCoupon?.code})</span>
-                <span>-₹{formatCurrency(discountAmount)}</span>
-              </div>
-            )}
-            <div className="flex justify-between items-center text-text-muted">
-              <span className="text-sm font-medium">Shipping</span>
-              <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{shippingFee}</span>
-            </div>
-            {/* <div className="flex justify-between items-center text-text-muted">
-              <span className="text-sm font-medium">Estimated Taxes</span>
-              <span className="text-sm font-bold text-text-base">₹{formatCurrency(estimatedTax)}</span>
-            </div> */}
-            <div className="pt-4 border-t border-border-base/40 flex justify-between items-center">
-              <span className="text-lg font-bold text-text-base">Total</span>
-              <span className="text-xl text-primary font-black">₹{formatCurrency(grandTotal)}</span>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {appliedCoupon ? (
-              <div className="flex items-center justify-between p-3.5 bg-emerald-50 border border-emerald-500/40 rounded-xl text-xs shadow-2xs">
-                <div className="space-y-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="font-black text-emerald-900 text-sm tracking-wider uppercase">
-                      {appliedCoupon.code}
-                    </span>
-                    <span className="px-2 py-0.5 bg-emerald-600 text-white rounded-md text-[9px] font-black uppercase tracking-wider shadow-2xs">
-                      Active
-                    </span>
-                  </div>
-                  <p className="text-xs font-bold text-emerald-800">
-                    Coupon Applied: <strong className="font-black text-emerald-950">-₹{formatCurrency(discountAmount)}</strong>
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleRemoveCoupon}
-                  className="px-3 py-1.5 rounded-lg bg-white dark:bg-bg-surface hover:bg-rose-50 dark:hover:bg-rose-950/50 text-rose-600 hover:text-rose-700 border border-rose-300 dark:border-rose-700 font-extrabold text-xs transition-all cursor-pointer shadow-2xs shrink-0"
-                >
-                  Remove
-                </button>
-              </div>
-            ) : (
-              <div className="flex gap-2">
-                <input
-                  className="flex-grow bg-bg-base border border-border-base/40 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-xs text-text-base"
-                  placeholder="Promo Code"
-                  type="text"
-                  value={promoCode}
-                  onChange={(e) => setPromoCode(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={handleApplyCoupon}
-                  disabled={applying}
-                  className="bg-primary hover:bg-primary-hover text-compli px-4 py-2.5 rounded-xl font-bold text-xs transition-colors active:scale-95 disabled:opacity-50 cursor-pointer"
-                >
-                  {applying ? "Checking..." : "Apply"}
-                </button>
-              </div>
-            )}
-
-            <button
-              onClick={handleCheckout}
-              className="w-full bg-green-400 hover:bg-green-500 py-3.5 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md shadow-primary/10 cursor-pointer"
-            >
-              Checkout Now
-              <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
-            </button>
-
-            {/* <button
-              onClick={handlePayViaWhatsApp}
-              className="w-full bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-emerald-500/20 transition-all active:scale-[0.98] cursor-pointer"
-            >
-              <i className="fa-brands fa-whatsapp fa-lg"></i>
-              Pay via WhatsApp
-            </button> */}
-          </div>
-
-          <div className="mt-2 pt-2 grid grid-cols-3 gap-2">
-            {[
-              { icon: 'verified_user', label: 'Secure Checkout' },
-              { icon: 'package_2', label: 'Easy Returns' },
-              { icon: 'local_shipping', label: 'Free Delivery' }
-            ].map((badge, idx) => (
-              <div key={idx} className="flex flex-col border border-border-base rounded-xl items-center gap-1 py-2 text-text-muted">
-                <span className="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  {badge.icon}
-                </span>
-                <p className="text-xs font-bold">{badge.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* 1. Desktop Sticky Sidebar View */}
+      <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-[120px] w-full">
+        <OrderSummaryCard
+          subtotal={subtotal}
+          couponDiscount={discountAmount}
+          shippingCharge={shippingFee}
+          finalTotal={grandTotal}
+          cartCount={cartItems.length}
+          appliedCoupon={appliedCoupon}
+          couponCode={promoCode}
+          couponLoading={applying}
+          couponError={couponError}
+          onChangeCoupon={setPromoCode}
+          onApplyCoupon={handleApplyCoupon}
+          onRemoveCoupon={handleRemoveCoupon}
+          onProceed={handleProceed}
+          pageType="cart"
+          showPaymentOptions={false}
+          showTrustBadges={true}
+        />
       </div>
 
       {/* 2. Mobile Floating Drawer Backdrop */}
@@ -243,133 +156,54 @@ export default function OrderSummary({ subtotal, shippingFee, taxRate, cartItems
         />
       )}
 
-      {/* 3. Mobile Floating Drawer View */}
+      {/* 3. Mobile Floating Summary Drawer */}
       <div
-        className={`lg:hidden fixed left-4 right-4 z-40 transition-all duration-300 bg-primary text-white rounded-2xl shadow-xl border border-primary/20 overflow-hidden ${isExpanded ? "bottom-[76px] max-h-[80vh] overflow-y-auto" : "bottom-[76px] h-16"
-          }`}
+        className={`lg:hidden fixed left-4 right-4 z-40 transition-all duration-300 bg-primary text-white rounded-2xl shadow-xl border border-primary/20 overflow-hidden ${
+          isExpanded ? "bottom-[76px] max-h-[85vh] overflow-y-auto" : "bottom-[76px] h-16"
+        }`}
       >
-        {/* Toggle Header */}
+        {/* Toggle Bar */}
         <div
           onClick={() => setIsExpanded(!isExpanded)}
-          className="h-16 px-5 flex items-center justify-between cursor-pointer select-none border-b border-white/10"
+          className="h-16 px-5 flex items-center justify-between cursor-pointer select-none border-b border-white/10 bg-primary"
         >
           <div className="flex flex-col">
             <span className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">
               {cartItems.length} {cartItems.length === 1 ? 'Item' : 'Items'}
             </span>
-            <span className="text-base sm:text-lg font-black leading-tight">₹{formatCurrency(grandTotal)}</span>
+            <span className="text-base sm:text-lg font-black leading-tight">₹{fmt(grandTotal)}</span>
           </div>
 
           <div className="flex items-center gap-1 bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition text-[11px] font-bold">
-            <span>{isExpanded ? "Hide Summary" : "View Summary"}</span>
+            <span>{isExpanded ? "Hide Details" : "View Summary"}</span>
             <span className="material-symbols-outlined text-base">
               {isExpanded ? "expand_more" : "expand_less"}
             </span>
           </div>
         </div>
 
-        {/* Collapsible Content */}
+        {/* Collapsible Full Order Summary Card */}
         {isExpanded && (
-          <div className="p-5 space-y-5 bg-bg-surface text-text-base max-h-[60vh] overflow-y-auto border-t border-border-base/30">
-            {/* Calculations */}
-            <div className="space-y-3 text-xs">
-              <div className="flex justify-between items-center text-text-muted">
-                <span>Subtotal</span>
-                <span className="font-bold text-text-base">₹{formatCurrency(subtotal)}</span>
-              </div>
-              {discountAmount > 0 && (
-                <div className="flex justify-between items-center text-emerald-600 dark:text-emerald-400 font-bold">
-                  <span>Discount ({appliedCoupon?.code})</span>
-                  <span>-₹{formatCurrency(discountAmount)}</span>
-                </div>
-              )}
-              <div className="flex justify-between items-center text-text-muted">
-                <span>Shipping</span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400">{shippingFee}</span>
-              </div>
-              {/* <div className="flex justify-between items-center text-text-muted">
-                <span>Estimated Taxes</span>
-                <span className="font-bold text-text-base">₹{formatCurrency(estimatedTax)}</span>
-              </div> */}
-              <div className="pt-3 border-t border-border-base/40 flex justify-between items-center text-sm font-extrabold text-text-base">
-                <span>Total</span>
-                <span className="text-base text-primary font-black">₹{formatCurrency(grandTotal)}</span>
-              </div>
-            </div>
-
-            {/* Promo & Actions */}
-            <div className="space-y-3 pt-2">
-              {appliedCoupon ? (
-                <div className="flex items-center justify-between p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/40 dark:border-emerald-600/50 rounded-xl text-xs shadow-2xs">
-                  <div className="space-y-0.5 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-black text-emerald-900 dark:text-emerald-200 text-xs tracking-wider uppercase">
-                        {appliedCoupon.code}
-                      </span>
-                      <span className="px-1.5 py-0.5 bg-emerald-600 dark:bg-emerald-500 text-white rounded text-[8px] font-black uppercase tracking-wider">
-                        Active
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300">
-                      Applied: <strong className="font-black text-emerald-950 dark:text-emerald-100">-₹{formatCurrency(discountAmount)}</strong>
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveCoupon();
-                    }}
-                    className="px-2.5 py-1 rounded-lg bg-white dark:bg-bg-surface hover:bg-rose-50 text-rose-600 border border-rose-300 font-extrabold text-[11px] transition cursor-pointer shadow-2xs shrink-0"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ) : (
-                <div className="flex gap-2">
-                  <input
-                    className="flex-grow bg-bg-base border border-border-base/40 rounded-xl px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-xs text-text-base placeholder:text-text-muted/50"
-                    placeholder="Promo Code"
-                    type="text"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleApplyCoupon();
-                    }}
-                    disabled={applying}
-                    className="bg-primary hover:bg-primary-hover text-compli px-4 py-2 rounded-xl font-bold text-xs transition active:scale-95 border border-border-base/40 disabled:opacity-50 cursor-pointer"
-                  >
-                    {applying ? "Checking..." : "Apply"}
-                  </button>
-                </div>
-              )}
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCheckout();
-                }}
-                className="w-full bg-primary hover:bg-primary-hover py-3 rounded-xl font-bold text-xs text-compli flex items-center justify-center gap-2 transition active:scale-[0.98] shadow-md shadow-primary/10 cursor-pointer"
-              >
-                Checkout Now
-                <span className="material-symbols-outlined text-sm font-bold">arrow_forward</span>
-              </button>
-
-              {/* <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePayViaWhatsApp();
-                }}
-                className="w-full bg-emerald-500/10 border-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-emerald-500/20 transition active:scale-[0.98] cursor-pointer"
-              >
-                <i className="fa-brands fa-whatsapp fa-lg"></i>
-                Pay via WhatsApp
-              </button> */}
-            </div>
+          <div className="p-2 sm:p-4 bg-bg-surface text-text-base max-h-[65vh] overflow-y-auto border-t border-border-base/30">
+            <OrderSummaryCard
+              subtotal={subtotal}
+              couponDiscount={discountAmount}
+              shippingCharge={shippingFee}
+              finalTotal={grandTotal}
+              cartCount={cartItems.length}
+              appliedCoupon={appliedCoupon}
+              couponCode={promoCode}
+              couponLoading={applying}
+              couponError={couponError}
+              onChangeCoupon={setPromoCode}
+              onApplyCoupon={handleApplyCoupon}
+              onRemoveCoupon={handleRemoveCoupon}
+              onProceed={handleProceed}
+              pageType="cart"
+              showPaymentOptions={false}
+              showTrustBadges={true}
+              className="shadow-none border-0"
+            />
           </div>
         )}
       </div>

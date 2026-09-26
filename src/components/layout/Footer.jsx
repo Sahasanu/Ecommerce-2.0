@@ -72,7 +72,7 @@ function Footer() {
                     <div className="space-y-2 text-center lg:text-left">
                         <Link to="/" className="inline-block">
                             <h2 className="text-2xl font-black tracking-tight text-primary">
-                                {companyName || "HN Enterprise"}
+                                {companyName || "Company Name"}
                             </h2>
                         </Link>
                         
@@ -86,7 +86,7 @@ function Footer() {
                         )}
 
                         <p className="font-semibold text-xs text-text-muted pt-0.5">
-                            © {new Date().getFullYear()} {companyName || "HN Enterprise"}. All rights reserved.
+                            © {new Date().getFullYear()} {companyName || "Company Name"}. All rights reserved.
                         </p>
 
                         {(fullAddress || address?.mapUrl) && (

@@ -24,7 +24,7 @@ export default function BottomNavigation({ activeView, handleNavClick }) {
                         key={item.id}
                         onClick={() => handleNavClick(item.id)}
                         className={`flex flex-col items-center justify-center gap-1 flex-1 py-1 transition-colors cursor-pointer ${
-                            isActive ? 'text-[#17700d] font-bold' : 'text-text-muted hover:text-text-base'
+                            isActive ? 'text-primary font-bold' : 'text-text-muted hover:text-text-base'
                         }`}
                     >
                         {item.icon}

@@ -66,7 +66,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
 
                             <div className="bg-gray-50/55 p-3 rounded-xl space-y-1">
                                 <div className="text-[10px] uppercase tracking-wider font-bold text-text-muted">Product</div>
-                                <div className="font-bold text-[#17700d] text-xs truncate">
+                                <div className="font-bold text-primary text-xs truncate">
                                     {productName}
                                 </div>
                             </div>
@@ -162,7 +162,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
 
                                         {/* Product */}
                                         <td className="px-6 py-4">
-                                            <span className="inline-flex px-2.5 py-0.5 rounded-full bg-emerald-50 text-[#17700d] font-bold text-xs border border-emerald-100/50 max-w-[200px] truncate">
+                                            <span className="inline-flex px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold text-xs border border-primary/20 max-w-[200px] truncate">
                                                 {productName}
                                             </span>
                                         </td>

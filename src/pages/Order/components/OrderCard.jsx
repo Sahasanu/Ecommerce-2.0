@@ -6,6 +6,14 @@ import { toast } from "react-toastify";
 import { InvoiceDownloadButton } from "../../../invoice/index";
 import { isCodOrder } from "../../../admin/orders/tableComponents/orderHelpers";
 
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 function OrderCard({ order, onViewDetails }) {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
@@ -148,7 +156,7 @@ function OrderCard({ order, onViewDetails }) {
 
           <div className="text-right">
             <span className="text-[10px] text-text-muted font-bold block leading-none">Total</span>
-            <span className="font-black text-sm text-text-base leading-tight">₹{grandTotal}</span>
+            <span className="font-black text-sm text-text-base leading-tight">₹{fmt(grandTotal)}</span>
           </div>
         </div>
       </div>

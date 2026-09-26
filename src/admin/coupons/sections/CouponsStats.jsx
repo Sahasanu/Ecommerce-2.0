@@ -28,7 +28,7 @@ function CouponStats({ coupons = [] }) {
             title: "Active Coupons",
             value: active,
             icon: <FaCheckCircle size={16} />,
-            color: "text-[#17700d] bg-emerald-50 border-emerald-100",
+            color: "text-emerald-700 bg-emerald-50 border-emerald-100",
         },
         {
             title: "Inactive Coupons",

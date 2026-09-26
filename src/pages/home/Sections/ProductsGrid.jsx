@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../../redux/cartSlice';
 import { useFilter } from '../../../context/FilterContext';
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '../../../utils/queryKeys';
+import { computeTotalStock } from '../../../utils/productUtils';
 import ProductCard from '../../../components/Common/ProductCard';
 import ProductCardSkeleton from '../../../components/loader/SkeletonLoader/ProductCardSkeleton';
 import useProductsQuery from '../../../hooks/product/useProductsQuery';
@@ -62,7 +63,21 @@ function ProductsGrid() {
         setFilterPrice('');
     }, []);
 
+    const navigate = useNavigate();
+
     const addCart = (product) => {
+        const totalStock = computeTotalStock(product);
+        if (totalStock <= 0 || product.isActive === false) {
+            toast.error("This product is currently out of stock.");
+            return;
+        }
+        const hasVariants = (product.variantTypes && product.variantTypes.length > 0) || 
+                            (Array.isArray(product.variants) && product.variants.length > 1);
+        if (hasVariants) {
+            navigate(`/productdetails/${product.id}`);
+            toast.info("Please select variant options first.");
+            return;
+        }
         const { time, ...serializableProduct } = product;
         dispatch(addToCart(serializableProduct));
         toast.success('Added to cart');

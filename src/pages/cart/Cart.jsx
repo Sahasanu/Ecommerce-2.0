@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import useProducts from '../../hooks/product/useProducts';
 import useAuth from '../../hooks/auth/useAuth';
+import { productService } from '../../services/product/productService';
 import CartSkeleton from '../../components/loader/SkeletonLoader/CartSkeleton';
 
 function Cart() {
@@ -62,16 +63,75 @@ function Cart() {
   const subtotal = cart.reduce((acc, item) => acc + (Number(item.price) * item.quantity), 0);
   const grandTotal = subtotal + (subtotal * 0.05);
 
-  const handleInitiateCheckout = () => {
+  const handleInitiateCheckout = async () => {
     if (cart.length === 0) {
       toast.error('Your shopping cart is empty!');
       return;
     }
+
+    // Live stock verification for all cart items before proceeding
+    for (const item of cart) {
+      try {
+        const prod = await productService.getProductById(item.id);
+        if (!prod || prod.isActive === false) {
+          toast.error(`"${item.title || 'An item'}" is currently unavailable.`);
+          return;
+        }
+
+        let availableStock = 0;
+        if (item.selectedVariant && Array.isArray(prod.variants) && prod.variants.length > 0) {
+          const matchedVariant = prod.variants.find(v => {
+            const vAttrs = v.attributes || v.selectedVariant || v;
+            return item.selectedVariant && Object.keys(item.selectedVariant).every(k => vAttrs[k] === item.selectedVariant[k]);
+          });
+          availableStock = matchedVariant ? Number(matchedVariant.inStock ?? matchedVariant.stock ?? 0) : 0;
+        } else {
+          availableStock = Number(prod.inStock ?? prod.stock ?? 0);
+        }
+
+        if (availableStock <= 0) {
+          toast.error(`"${item.title || 'Product'}" is currently out of stock. Please remove it from your cart.`);
+          return;
+        }
+        if (Number(item.quantity || 1) > availableStock) {
+          toast.error(`Only ${availableStock} units of "${item.title || 'Product'}" are available in stock.`);
+          return;
+        }
+      } catch (e) {
+        console.warn("Stock verification warning:", e);
+      }
+    }
+
     if (!user) {
       setIsLoginOpen(true);
     } else {
       navigate('/checkout');
     }
+  };
+
+  // Check stock information for each item in the cart
+  const getItemStockInfo = (item) => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) return { inStock: true, availableStock: 999 };
+
+    if (product.isActive === false) {
+      return { inStock: false, availableStock: 0, reason: "Product inactive" };
+    }
+
+    if (item.selectedVariant && Array.isArray(product.variants) && product.variants.length > 0) {
+      const matchedVariant = product.variants.find(v => {
+        const vAttrs = v.attributes || v.selectedVariant || v;
+        return item.selectedVariant && Object.keys(item.selectedVariant).every(k => vAttrs[k] === item.selectedVariant[k]);
+      });
+      if (!matchedVariant || matchedVariant.isActive === false || matchedVariant.isAvailable === false) {
+        return { inStock: false, availableStock: 0, reason: "Variant unavailable" };
+      }
+      const stock = Number(matchedVariant.inStock ?? matchedVariant.stock ?? 0);
+      return { inStock: stock > 0, availableStock: stock };
+    }
+
+    const stock = Number(product.inStock ?? product.stock ?? 0);
+    return { inStock: stock > 0, availableStock: stock };
   };
 
   // Filter suggested cross-sell items (products in DB not already in cart)
@@ -100,6 +160,7 @@ function Cart() {
                   <CartItem 
                     key={`${item.id}-${index}`} 
                     item={item} 
+                    stockInfo={getItemStockInfo(item)}
                     onUpdateQuantity={handleUpdateQuantity} 
                     onRemove={handleRemoveItem} 
                   />

@@ -1,24 +1,25 @@
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
+import Loader from '../components/loader/Loader.jsx';
 
 const AdminRoute = () => {
-  const userString = localStorage.getItem('user');
+  const { user, loading } = useAuth();
   const location = useLocation();
 
-  if (!userString) {
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  try {
-    const admin = JSON.parse(userString);
-    const role = admin?.user?.role;
-    const isRoleAdmin = role === 'ADMIN' || role === 'SUPERADMIN';
+  const role = String(user?.user?.role || user?.role || '').toUpperCase();
+  const isRoleAdmin = role === 'ADMIN' || role === 'SUPERADMIN';
 
-    if (isRoleAdmin) {
-      return <Outlet />;
-    }
-  } catch (error) {
-    console.error("Error parsing user data in AdminRoute", error);
+  if (isRoleAdmin) {
+    return <Outlet />;
   }
 
   return <Navigate to="/" replace />;

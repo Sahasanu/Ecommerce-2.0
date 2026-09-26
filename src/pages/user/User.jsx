@@ -21,6 +21,14 @@ const MENU_ITEMS = [
     { id: "orders", label: "My Orders", shortLabel: "Orders", icon: <FaShoppingBag size={14} /> },
 ];
 
+const fmt = (val) => {
+    const num = Number(val) || 0;
+    return num.toLocaleString('en-IN', {
+        minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+        maximumFractionDigits: 2,
+    });
+};
+
 function getInitials(name, email) {
     const target = (name && name.trim()) || email || "";
     if (!target) return "U";
@@ -170,15 +178,15 @@ function User() {
                             </div>
 
                             {/* Mini Metric Row */}
-                            <div className="grid grid-cols-2 border-t border-border-base/50 divide-x divide-border-base/50">
+                            <div className="grid grid-cols-2 border-t border-border-base/50 divide-x border-border-base/50">
                                 <div className="flex flex-col items-center py-3 gap-0.5">
-                                    <p className="text-base font-black text-text-base">{validOrders.length}</p>
+                                    <p className="text-base font-black text-text-base">{orders.length}</p>
                                     <p className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">Orders</p>
                                 </div>
                                 <div className="flex flex-col items-center py-3 gap-0.5 px-1">
                                     <p className="text-base font-black text-text-base truncate w-full text-center"
-                                       title={`₹${Math.round(totalSpent).toLocaleString("en-IN")}`}>
-                                        ₹{Math.round(totalSpent).toLocaleString("en-IN")}
+                                       title={`₹${fmt(totalSpent)}`}>
+                                        ₹{fmt(totalSpent)}
                                     </p>
                                     <p className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">Spent</p>
                                 </div>
@@ -250,7 +258,7 @@ function User() {
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-[9px] font-semibold text-text-muted uppercase tracking-wide">Orders</p>
-                                    <p className="text-sm font-black text-text-base">{validOrders.length}</p>
+                                    <p className="text-sm font-black text-text-base">{orders.length}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-100">
@@ -259,8 +267,8 @@ function User() {
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-[9px] font-semibold text-text-muted uppercase tracking-wide">Spent</p>
-                                    <p className="text-sm font-black text-text-base truncate" title={`₹${Math.round(totalSpent).toLocaleString("en-IN")}`}>
-                                        ₹{Math.round(totalSpent).toLocaleString("en-IN")}
+                                    <p className="text-sm font-black text-text-base truncate" title={`₹${fmt(totalSpent)}`}>
+                                        ₹{fmt(totalSpent)}
                                     </p>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
@@ -82,7 +82,7 @@ export default function useCustomerOrderDetail() {
   const rawStatus = (order?.orderStatus || order?.status || "PLACED").toUpperCase();
   const canCancel = ["PLACED", "PAYMENT_PENDING", "CONFIRMED"].includes(rawStatus);
 
-  const handleCancelOrder = async (reason = "Customer cancelled order") => {
+  const handleCancelOrder = async (_reason = "Customer cancelled order") => {
     if (!order || !canCancel) {
       toast.error("This order is no longer eligible for cancellation.");
       return;

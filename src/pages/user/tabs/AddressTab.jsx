@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FaHome, FaBriefcase, FaMapPin, FaPlus, FaEdit, FaTrash, FaCheckCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { userService } from "../../../services/user/userService";
-import AddressFormModal from "../../checkout/components/AddressFormModal";
+import AddressFormModal from "../../../components/modal/AddressFormModal";
 import { getFriendlyErrorMessage } from "../../../utils/firebaseErrorHandler.js";
 
 const TYPE_ICONS = {

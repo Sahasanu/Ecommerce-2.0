@@ -11,7 +11,8 @@ export default function MobileDrawer({
     activeView,
     handleNavClick,
     config,
-    handleLogout
+    handleLogout,
+    onOpenChangePassword
 }) {
     return (
         <div className={`fixed inset-0 z-50 transition-opacity duration-300 md:hidden ${
@@ -52,11 +53,11 @@ export default function MobileDrawer({
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors cursor-pointer text-sm font-semibold ${
                                     isActive 
-                                        ? 'bg-emerald-50 text-[#17700d]' 
+                                        ? 'bg-primary/10 text-primary' 
                                         : 'text-text-muted hover:bg-gray-50 hover:text-text-base'
                                 }`}
                             >
-                                <span className={isActive ? 'text-[#17700d]' : 'text-text-muted'}>
+                                <span className={isActive ? 'text-primary' : 'text-text-muted'}>
                                     {item.icon}
                                 </span>
                                 <span>{item.label}</span>
@@ -67,6 +68,20 @@ export default function MobileDrawer({
 
                 {/* Footer Actions */}
                 <div className="p-4 border-t border-border-base space-y-2">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            if (typeof onOpenChangePassword === 'function') {
+                                onOpenChangePassword();
+                            }
+                            setDrawerOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-text-muted hover:bg-gray-50 hover:text-text-base transition-colors cursor-pointer"
+                    >
+                        <span className="material-symbols-outlined text-[20px] text-amber-500">lock_reset</span>
+                        <span>Change Password</span>
+                    </button>
+
                     <a
                         href="/"
                         className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-text-muted hover:bg-gray-50 hover:text-text-base transition-colors"

@@ -4,10 +4,12 @@ import StatusBadge from "../../Components/common/StatusBadge";
 import ToggleButton from "../../../components/Common/ToggleButton";
 import {
   getProductStockCount,
+  getProductStockInfo,
   getProductDisplayPrice,
   getStockBadgeProps,
   formatProductDate,
 } from "../utils/productTableUtils";
+import VariantStockDropdown from "./VariantStockDropdown";
 
 /**
  * ProductMobileCard Component (Admin Products Module)
@@ -24,9 +26,9 @@ export default function ProductMobileCard({
   const { title, price, category, isActive, date } = item;
   const imageUrl = item.imageUrl || item.images?.[0] || "https://via.placeholder.com/80";
   const isLive = isActive !== false;
-  const stockCount = getProductStockCount(item);
+  const stockInfo = getProductStockInfo(item);
   const displayPrice = getProductDisplayPrice(item) || price;
-  const badgeProps = getStockBadgeProps(stockCount);
+  const badgeProps = getStockBadgeProps(stockInfo.totalStock);
 
   return (
     <div
@@ -58,6 +60,13 @@ export default function ProductMobileCard({
               {category || "General"}
             </span>
             <StatusBadge {...badgeProps} />
+            {stockInfo.hasVariants && (
+              <VariantStockDropdown
+                product={item}
+                stockInfo={stockInfo}
+                onEditClick={onEditClick}
+              />
+            )}
             <span className="text-base font-extrabold text-text-base ml-auto">
               ₹{Number(displayPrice || 0).toLocaleString("en-IN")}
             </span>

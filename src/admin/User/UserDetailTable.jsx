@@ -9,9 +9,11 @@ import StatusBadge from '../Components/common/StatusBadge';
 import DataTable from '../Components/common/DataTable';
 import { 
   FaUserPlus, FaShieldAlt, FaTimes, FaSpinner, 
-  FaEye, FaEyeSlash, FaTrash, FaCrown, FaLock
+  FaEye, FaEyeSlash, FaTrash, FaCrown, FaLock,
+  FaEnvelope
 } from 'react-icons/fa';
 import { userService, isSuperAdmin } from '../../services/user/userService';
+import { authService } from '../../services/auth/authService';
 import { activityService } from '../../services/activity/activityService';
 import { toast } from 'react-toastify';
 import { getFriendlyErrorMessage } from '../../utils/firebaseErrorHandler.js';
@@ -181,7 +183,6 @@ function UserDetailTable({
             setDeleting(false);
         }
     };
-
     const filterConfig = [
         {
             value: roleFilter,
@@ -282,22 +283,27 @@ function UserDetailTable({
             cellClassName: 'text-center',
             render: (item) => {
                 const locked = isSuperAdmin(item.role);
-                return locked ? (
-                    <span
-                        className="inline-flex items-center gap-1 p-2 text-amber-400 cursor-not-allowed opacity-60"
-                        title="SUPERADMIN accounts cannot be deleted"
-                    >
-                        <FaLock size={12} />
-                    </span>
-                ) : (
-                    <button
-                        type="button"
-                        onClick={() => handleDeleteClick(item)}
-                        className="p-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-all cursor-pointer"
-                        title={(item.role || 'USER').toUpperCase() === 'ADMIN' ? "Remove Admin Profile" : "Delete Account"}
-                    >
-                        <FaTrash size={13} />
-                    </button>
+                return (
+                    <div className="flex items-center justify-center">
+                        {/* Delete Action */}
+                        {locked ? (
+                            <span
+                                className="inline-flex items-center p-2 text-amber-400 cursor-not-allowed opacity-60"
+                                title="SUPERADMIN accounts cannot be deleted"
+                            >
+                                <FaLock size={12} />
+                            </span>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => handleDeleteClick(item)}
+                                className="p-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-all cursor-pointer"
+                                title={(item.role || 'USER').toUpperCase() === 'ADMIN' ? "Remove Admin Profile" : "Delete Account"}
+                            >
+                                <FaTrash size={13} />
+                            </button>
+                        )}
+                    </div>
                 );
             },
         },

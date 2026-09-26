@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { FaReceipt, FaCopy, FaCheck, FaMoneyBillWave } from "react-icons/fa";
 
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 export default function OrderPaymentSummarySection({
   subtotal,
   couponDiscount,
+  couponCode = "",
   shippingCharge,
   grandTotal,
   paymentGateway,
@@ -40,26 +49,26 @@ export default function OrderPaymentSummarySection({
       <div className="space-y-2.5 text-xs">
         <div className="flex justify-between text-text-muted">
           <span>Items Subtotal</span>
-          <span className="font-extrabold text-text-base">₹{subtotal.toLocaleString("en-IN")}</span>
+          <span className="font-extrabold text-text-base">₹{fmt(subtotal)}</span>
         </div>
 
         {couponDiscount > 0 && (
           <div className="flex justify-between text-emerald-600 font-extrabold">
-            <span>Coupon Discount</span>
-            <span>- ₹{couponDiscount.toLocaleString("en-IN")}</span>
+            <span>Coupon Discount {couponCode && <strong className="font-mono text-[11px] font-bold">({couponCode})</strong>}</span>
+            <span>- ₹{fmt(couponDiscount)}</span>
           </div>
         )}
 
         <div className="flex justify-between text-text-muted">
           <span>Shipping Fee</span>
           <span className="font-extrabold text-text-base">
-            {shippingCharge === 0 ? "FREE" : `₹${shippingCharge.toLocaleString("en-IN")}`}
+            {Number(shippingCharge) === 0 ? "FREE" : `₹${fmt(shippingCharge)}`}
           </span>
         </div>
 
         <div className="border-t border-border-base/70 pt-3 flex justify-between items-center">
           <span className="text-xs font-black text-text-base">Grand Total</span>
-          <span className="text-lg font-black text-primary">₹{grandTotal.toLocaleString("en-IN")}</span>
+          <span className="text-lg font-black text-primary">₹{fmt(grandTotal)}</span>
         </div>
       </div>
 

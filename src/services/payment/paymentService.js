@@ -7,9 +7,16 @@ export const paymentService = {
    * Validates a coupon code and calculates potential savings.
    */
   async validateCoupon(couponCode, subtotal) {
+    if (!couponCode || !couponCode.trim()) {
+      return { valid: false, message: "Please enter a valid coupon code." };
+    }
+    const numSubtotal = Number(subtotal) || 0;
+    if (numSubtotal <= 0) {
+      return { valid: false, message: "Cart order value must be greater than zero to apply a coupon." };
+    }
     try {
       const validateFn = httpsCallable(functions, "validateCoupon");
-      const res = await validateFn({ couponCode, subtotal });
+      const res = await validateFn({ couponCode: couponCode.trim(), subtotal: numSubtotal });
       return res.data;
     } catch (err) {
       console.error("Error validating coupon:", err);

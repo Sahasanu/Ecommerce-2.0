@@ -32,13 +32,23 @@ export function computeMinPrice(productData) {
 export function computeTotalStock(productData) {
   if (!productData) return 0;
 
-  if (productData.hasVariants && Array.isArray(productData.variants) && productData.variants.length > 0) {
+  if (productData.isActive === false) return 0;
+
+  const hasVariants = productData.hasVariants || (Array.isArray(productData.variants) && productData.variants.length > 0);
+  if (hasVariants && Array.isArray(productData.variants) && productData.variants.length > 0) {
     return productData.variants.reduce((acc, v) => {
-      const stock = Number(v.inStock ?? v.quantity ?? 0);
+      if (v.isActive === false || v.isAvailable === false) return acc;
+      const stock = Number(v.inStock ?? v.stock ?? v.quantity ?? 0);
       return acc + (isNaN(stock) ? 0 : stock);
     }, 0);
   }
 
-  const rootStock = Number(productData.inStock ?? productData.stock ?? 0);
+  const rootStock = Number(
+    productData.inStock ?? 
+    productData.stock ?? 
+    productData.quantity ?? 
+    productData.totalStock ?? 
+    0
+  );
   return !isNaN(rootStock) ? rootStock : 0;
 }

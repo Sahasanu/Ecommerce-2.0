@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../redux/cartSlice';
 import { toast } from 'react-toastify';
 import { queryKeys } from '../../../utils/queryKeys';
+import { computeTotalStock } from '../../../utils/productUtils';
 
 /**
  * RelatedProducts Component
@@ -19,6 +20,18 @@ export default function RelatedProducts({ category, currentProductId }) {
   const dispatch = useDispatch();
 
   const addCart = (product) => {
+    const totalStock = computeTotalStock(product);
+    if (totalStock <= 0 || product.isActive === false) {
+      toast.error("This product is currently out of stock.");
+      return;
+    }
+    const hasVariants = (product.variantTypes && product.variantTypes.length > 0) || 
+                        (Array.isArray(product.variants) && product.variants.length > 1);
+    if (hasVariants) {
+      navigate(`/productdetails/${product.id}`);
+      toast.info("Please select variant options first.");
+      return;
+    }
     const { time, ...serializableProduct } = product;
     dispatch(addToCart(serializableProduct));
     toast.success('Added to cart!');

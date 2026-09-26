@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import AdminLayout from './adminLayout/AdminLayout';
+import Loader from '../components/loader/Loader';
 
 function Admin() {
     const location = useLocation();
@@ -20,7 +21,9 @@ function Admin() {
 
     return (
         <AdminLayout activeView={getActiveView()}>
-            <Outlet />
+            <Suspense fallback={<Loader />}>
+                <Outlet />
+            </Suspense>
         </AdminLayout>
     );
 }

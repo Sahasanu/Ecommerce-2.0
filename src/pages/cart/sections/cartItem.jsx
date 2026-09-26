@@ -7,50 +7,93 @@ import QuantitySelector from '../../../components/Common/QuantitySelector';
  * Displays individual cart items with variant specifications, quantity counters,
  * and remove controls.
  */
-export default function CartItem({ item, onUpdateQuantity, onRemove }) {
+export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo = { inStock: true, availableStock: 999 } }) {
   const displayName = item.title || 'Product';
   const displayImage = item.imageUrl || '';
   const displayVariant = item.selectedVariant 
     ? Object.entries(item.selectedVariant).map(([k, v]) => `${k}: ${v}`).join(' | ') 
     : 'Standard';
 
+  const isOutOfStock = stockInfo.inStock === false || Number(stockInfo.availableStock || 0) <= 0;
+  const isExceedingStock = !isOutOfStock && stockInfo.availableStock < item.quantity;
+
   return (
-    <div className="group bg-bg-surface p-3 shadow-lg rounded-[20px] flex flex-col sm:flex-row gap-6 items-center transition-all duration-300 border border-border-base/50 hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+    <div className={`group bg-bg-surface p-3.5 shadow-sm rounded-2xl flex flex-col sm:flex-row gap-5 items-center transition-all duration-300 border ${
+      isOutOfStock 
+        ? "border-rose-300 dark:border-rose-900/60 bg-rose-50/20" 
+        : "border-border-base/50 hover:shadow-md"
+    }`}>
       {/* Product Thumbnail */}
-      <Link to={`/productdetails/${item.id}`} className="w-24 h-24 flex-shrink-0 bg-bg-base/20 rounded-xl overflow-hidden flex items-center justify-center p-2 border border-border-base/20 hover:border-primary transition cursor-pointer">
-        <img className="max-h-full max-w-full object-contain" alt={displayName} src={displayImage} />
-      </Link>
+      <div className="relative w-24 h-24 flex-shrink-0 bg-bg-base/20 rounded-xl overflow-hidden flex items-center justify-center p-2 border border-border-base/20">
+        <Link to={`/productdetails/${item.id}`} className="w-full h-full flex items-center justify-center">
+          <img 
+            className={`max-h-full max-w-full object-contain ${isOutOfStock ? "grayscale-50 opacity-70" : ""}`} 
+            alt={displayName} 
+            src={displayImage} 
+          />
+        </Link>
+        {isOutOfStock && (
+          <span className="absolute bottom-1 left-1 right-1 bg-rose-600/90 text-white text-[8px] font-black uppercase tracking-wider text-center py-0.5 rounded shadow-xs">
+            Out of Stock
+          </span>
+        )}
+      </div>
 
       {/* Product info and actions */}
       <div className="flex-grow w-full">
-        <div className="flex justify-between items-start">
+        <div className="flex justify-between items-start gap-2">
           <div>
-            <span className="text-[10px] text-text-muted uppercase tracking-wider mb-1 block font-bold">
-              {item.category || 'ReadyMade'}
-            </span>
-            <Link to={`/productdetails/${item.id}`} className="text-base font-bold text-text-base hover:text-primary transition cursor-pointer">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[10px] text-text-muted uppercase tracking-wider block font-bold">
+                {item.category || 'ReadyMade'}
+              </span>
+              {isOutOfStock && (
+                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-rose-500/10 text-rose-600 border border-rose-500/20">
+                  Out of Stock
+                </span>
+              )}
+            </div>
+            
+            <Link to={`/productdetails/${item.id}`} className="text-sm sm:text-base font-bold text-text-base hover:text-primary transition cursor-pointer line-clamp-1 mt-0.5">
               {displayName}
             </Link>
-            <p className="text-xs text-text-muted mt-1 font-medium">Variant: {displayVariant}</p>
+            <p className="text-xs text-text-muted mt-0.5 font-medium">Variant: {displayVariant}</p>
+
+            {isOutOfStock && (
+              <p className="text-xs text-rose-600 font-bold mt-1.5 flex items-center gap-1">
+                <span className="material-symbols-outlined text-sm font-bold">error</span>
+                <span>Currently out of stock. Please remove to proceed.</span>
+              </p>
+            )}
+
+            {isExceedingStock && (
+              <p className="text-xs text-amber-600 font-bold mt-1.5 flex items-center gap-1">
+                <span className="material-symbols-outlined text-sm font-bold">warning</span>
+                <span>Only {stockInfo.availableStock} available in stock.</span>
+              </p>
+            )}
           </div>
           
           <button 
             onClick={() => onRemove(item)}
-            className="text-text-muted hover:text-rose-600 transition-all px-1.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/20 active:scale-95"
+            className="text-text-muted hover:text-rose-600 transition-all p-1.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/20 active:scale-95 cursor-pointer shrink-0"
             aria-label="Remove item"
+            title="Remove item"
           >
             <span className="material-symbols-outlined text-lg">delete</span>
           </button>
         </div>
 
-        <div className="flex justify-between items-end mt-4">
+        <div className="flex justify-between items-end mt-4 pt-2 border-t border-border-base/30">
           {/* Quantity selector */}
           <QuantitySelector
             quantity={item.quantity}
+            max={isOutOfStock ? 0 : Number(stockInfo.availableStock || Infinity)}
+            disabled={isOutOfStock}
             onChange={(newQty) => onUpdateQuantity(item, newQty)}
           />
 
-          <span className="text-base text-primary font-extrabold">
+          <span className={`text-base font-black ${isOutOfStock ? "text-text-muted line-through" : "text-primary"}`}>
             ₹{(Number(item.price) * item.quantity).toLocaleString('en-IN')}
           </span>
         </div>

@@ -6,6 +6,14 @@ import { InvoiceDownloadButton } from "../../../../invoice/index";
  * OrderPriceDetailsCard Component
  * Displays authentic order price breakdown, delivery charges, discounts, payment method, and invoice download.
  */
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 export default function OrderPriceDetailsCard({ order }) {
   const pricing = order?.pricing || {};
   const items = Array.isArray(order?.products) && order.products.length > 0
@@ -82,7 +90,7 @@ export default function OrderPriceDetailsCard({ order }) {
         <div className="flex justify-between items-center text-text-muted">
           <span>Items Subtotal</span>
           <span className="font-bold text-text-base">
-            ₹{Math.round(itemsSubtotal).toLocaleString("en-IN")}
+            ₹{fmt(itemsSubtotal)}
           </span>
         </div>
 
@@ -93,7 +101,7 @@ export default function OrderPriceDetailsCard({ order }) {
               <FaTag size={10} />
               <span>Coupon Savings {couponCode && <strong className="font-mono">({couponCode})</strong>}</span>
             </span>
-            <span className="font-bold">-₹{Math.round(couponDiscount).toLocaleString("en-IN")}</span>
+            <span className="font-bold">-₹{fmt(couponDiscount)}</span>
           </div>
         )}
 
@@ -101,7 +109,7 @@ export default function OrderPriceDetailsCard({ order }) {
         <div className="flex justify-between items-center text-text-muted">
           <span>Delivery Charges</span>
           <span className="font-bold text-text-base">
-            {deliveryFee > 0 ? `₹${Math.round(deliveryFee).toLocaleString("en-IN")}` : (
+            {deliveryFee > 0 ? `₹${fmt(deliveryFee)}` : (
               <span className="text-emerald-600 dark:text-emerald-400 uppercase text-[10px] tracking-wider font-bold">
                 FREE
               </span>
@@ -114,7 +122,7 @@ export default function OrderPriceDetailsCard({ order }) {
           <div className="flex justify-between items-center text-text-muted">
             <span>COD Handling Fee</span>
             <span className="font-bold text-text-base">
-              ₹{Math.round(Number(pricing.codHandlingFee)).toLocaleString("en-IN")}
+              ₹{fmt(Number(pricing.codHandlingFee))}
             </span>
           </div>
         )}
@@ -136,7 +144,7 @@ export default function OrderPriceDetailsCard({ order }) {
         <div className="flex justify-between items-center text-sm font-bold text-text-base">
           <span>Total Amount</span>
           <span className="text-base font-black text-primary">
-            ₹{Math.round(grandTotal).toLocaleString("en-IN")}
+            ₹{fmt(grandTotal)}
           </span>
         </div>
         {/* Download Invoice Button */}

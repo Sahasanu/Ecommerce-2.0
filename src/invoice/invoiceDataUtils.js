@@ -69,7 +69,7 @@ export function normalizeInvoiceData(order = {}, siteConfig = {}) {
 
   const lineItems = [];
 
-  if (Boolean(order.isCustom || order.itemInfo)) {
+  if (order.isCustom || order.itemInfo) {
     // Custom Artwork Commission Item
     const drawingType = order.itemInfo?.selectedDrawingType || "Handmade Custom Portrait";
     const sheetType = order.itemInfo?.selectedSheetType || "Standard";

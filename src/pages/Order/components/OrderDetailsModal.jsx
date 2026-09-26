@@ -2,6 +2,14 @@ import React from "react";
 import { FaTimes, FaMapMarkerAlt, FaCreditCard, FaTruck, FaReceipt, FaCheckCircle, FaClock, FaBoxOpen } from "react-icons/fa";
 import { InvoiceDownloadButton } from "../../../invoice/index";
 
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 function OrderDetailsModal({ open, onClose, order }) {
   if (!open || !order) return null;
 
@@ -120,17 +128,16 @@ function OrderDetailsModal({ open, onClose, order }) {
                   itemTotal = price * qty;
                 }
 
-
                 return (
                   <div key={idx} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-base/60 border border-border-base/50">
                     <div className="flex items-center gap-3">
                       <img src={img} alt={title} className="w-12 h-12 rounded-lg object-cover bg-white border border-border-base" />
                       <div>
                         <p className="font-bold text-text-base">{title}</p>
-                        <p className="text-[10px] text-text-muted font-medium mt-0.5">Qty: {qty} × ₹{price}</p>
+                        <p className="text-[10px] text-text-muted font-medium mt-0.5">Qty: {qty} × ₹{fmt(price)}</p>
                       </div>
                     </div>
-                    <span className="font-black text-xs text-text-base">₹{price * qty}</span>
+                    <span className="font-black text-xs text-text-base">₹{fmt(price * qty)}</span>
                   </div>
                 );
               })}
@@ -158,24 +165,24 @@ function OrderDetailsModal({ open, onClose, order }) {
 
               <div className="flex justify-between text-text-muted">
                 <span>Subtotal:</span>
-                <span className="font-semibold text-text-base">₹{pricing.subtotal || grandTotal}</span>
+                <span className="font-semibold text-text-base">₹{fmt(pricing.subtotal || grandTotal)}</span>
               </div>
               {pricing.discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-600 font-semibold">
                   <span>Discount:</span>
-                  <span>-₹{pricing.discountAmount}</span>
+                  <span>-₹{fmt(pricing.discountAmount)}</span>
                 </div>
               )}
               <div className="flex justify-between text-text-muted">
                 <span>Shipping Fee:</span>
                 <span className="font-semibold text-text-base">
-                  {pricing.shippingFee ? `₹${pricing.shippingFee}` : "FREE"}
+                  {pricing.shippingFee ? `₹${fmt(pricing.shippingFee)}` : "FREE"}
                 </span>
               </div>
 
               <div className="pt-2 border-t border-border-base/60 flex justify-between font-black text-sm text-text-base">
                 <span>Grand Total:</span>
-                <span className="text-primary">₹{grandTotal}</span>
+                <span className="text-primary">₹{fmt(grandTotal)}</span>
               </div>
 
               <div className="pt-1 text-[10px] text-text-muted font-bold flex items-center justify-between">

@@ -1,23 +1,67 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { computeTotalStock } from '../../utils/productUtils'
 
 /**
  * ProductCard
  * Renders a premium, interactive product catalog item.
- * Features hover transformations, dynamic rating stars, category labels, and cart add triggers.
+ * Features hover transformations, dynamic rating stars, category labels, stock validation, and cart add triggers.
  * Enforces uniform height and alignment across grid layouts.
  */
 function ProductCard({ item = {}, index, addCart }) {
     const navigate = useNavigate();
-    const { title = '', price = 0, description = '', imageUrl = '', images = [], category = '', averageRating, rating } = item;
+    const { 
+        title = '', 
+        price = 0, 
+        originalPrice, 
+        mrp, 
+        variants = [], 
+        variantTypes = [],
+        description = '', 
+        imageUrl = '', 
+        images = [], 
+        category = '', 
+        averageRating, 
+        rating 
+    } = item;
+    
     const displayImage = imageUrl || (Array.isArray(images) && images.length > 0 ? images[0] : '');
 
     const ratingValue = Number(averageRating || rating || 0);
     const hasRating = !isNaN(ratingValue) && ratingValue > 0;
 
+    const totalStock = computeTotalStock(item);
+    const isOutOfStock = totalStock <= 0 || item.isActive === false;
+
+    const sellingPrice = Number(
+        price || item.minPrice || (Array.isArray(variants) && variants.length > 0 ? variants[0].price : 0) || 0
+    );
+    const rawOriginalPrice = Number(
+        originalPrice || mrp || (Array.isArray(variants) && variants.length > 0 ? variants[0].originalPrice : 0) || 0
+    );
+    const hasDiscount = rawOriginalPrice > sellingPrice && sellingPrice > 0;
+    const discountPercent = hasDiscount ? Math.round(((rawOriginalPrice - sellingPrice) / rawOriginalPrice) * 100) : 0;
+
     const descText = typeof description === "object"
         ? (description?.short || "")
         : (typeof description === "string" ? description : "");
+
+    const handleAddToCartClick = (e) => {
+        e.stopPropagation();
+        if (isOutOfStock) return;
+
+        // If item requires selecting variants (size, color, etc.), open detail page
+        const hasVariantOptions = (Array.isArray(variantTypes) && variantTypes.length > 0) || 
+                                  (Array.isArray(variants) && variants.length > 1);
+        if (hasVariantOptions) {
+            navigate(`/productdetails/${item.id}`);
+            return;
+        }
+
+        if (addCart) {
+            addCart(item);
+        }
+    };
 
     return (
         <div
@@ -30,7 +74,9 @@ function ProductCard({ item = {}, index, addCart }) {
                 <img
                     src={displayImage}
                     alt={title}
-                    className="max-h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    className={`max-h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-105 ${
+                        isOutOfStock ? "grayscale-50 opacity-80" : ""
+                    }`}
                 />
 
                 {/* Floating Category Tag */}
@@ -40,7 +86,7 @@ function ProductCard({ item = {}, index, addCart }) {
                     </span>
                 )}
 
-                {/* Floating Rating Badge (Functional: only displays authentic star rating if reviews exist) */}
+                {/* Floating Rating Badge */}
                 {hasRating && (
                     <div className="absolute top-2 right-2 bg-bg-surface/90 backdrop-blur px-1.5 py-0.5 rounded-md text-[9px] font-bold text-amber-500 flex items-center gap-0.5 shadow-xs border border-border-base/10 shrink-0">
                         <span
@@ -51,6 +97,13 @@ function ProductCard({ item = {}, index, addCart }) {
                         </span>
                         <span>{ratingValue.toFixed(1)}</span>
                     </div>
+                )}
+
+                {/* Out of Stock Overlay Badge */}
+                {isOutOfStock && (
+                    <span className="absolute bottom-2 left-2 bg-rose-600/95 backdrop-blur text-white px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-black uppercase tracking-wider shadow-xs">
+                        Out of Stock
+                    </span>
                 )}
             </div>
 
@@ -69,25 +122,41 @@ function ProductCard({ item = {}, index, addCart }) {
                 </div>
 
                 {/* Price and Cart Action (pinned to bottom) */}
-                <div className="flex items-center justify-between pt-2.5 mt-auto border-t border-border-base/30 shrink-0">
-                    <div>
+                <div className="flex items-center justify-between pt-2.5 mt-auto border-t border-border-base/30 shrink-0 gap-2">
+                    <div className="min-w-0 flex-1">
                         <span className="block text-[8px] sm:text-[9px] uppercase tracking-wider text-text-muted font-bold">
                             Price
                         </span>
-                        <span className="text-xs sm:text-sm lg:text-base font-extrabold text-text-base">
-                            ₹{Number(price).toLocaleString("en-IN")}
-                        </span>
+                        <div className="flex items-baseline gap-1.5 flex-wrap">
+                            <span className="text-xs sm:text-sm lg:text-base font-extrabold text-text-base leading-tight">
+                                ₹{sellingPrice.toLocaleString("en-IN")}
+                            </span>
+                            {hasDiscount && (
+                                <span className="text-[10px] sm:text-xs text-text-muted line-through font-medium opacity-65 leading-tight">
+                                    ₹{rawOriginalPrice.toLocaleString("en-IN")}
+                                </span>
+                            )}
+                            {hasDiscount && (
+                                <span className="text-[9px] sm:text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400 leading-tight">
+                                    {discountPercent}% off
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            addCart(item);
-                        }}
-                        className="w-8 h-8 sm:w-9 h-9 rounded-xl bg-primary text-compli flex items-center justify-center hover:bg-primary-hover active:scale-95 transition-all shadow-xs cursor-pointer"
+                        type="button"
+                        disabled={isOutOfStock}
+                        onClick={handleAddToCartClick}
+                        className={`w-8 h-8 sm:w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-xs shrink-0 ${
+                            isOutOfStock
+                                ? "bg-bg-base text-text-muted/60 border border-border-base/60 cursor-not-allowed opacity-60"
+                                : "bg-primary text-compli hover:bg-primary-hover active:scale-95 cursor-pointer"
+                        }`}
+                        title={isOutOfStock ? "Out of Stock" : "Add to Cart"}
                     >
                         <span className="material-symbols-outlined text-base sm:text-lg">
-                            add_shopping_cart
+                            {isOutOfStock ? "remove_shopping_cart" : "add_shopping_cart"}
                         </span>
                     </button>
                 </div>
@@ -96,4 +165,4 @@ function ProductCard({ item = {}, index, addCart }) {
     );
 }
 
-export default ProductCard
+export default ProductCard;

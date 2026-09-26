@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../../hooks/checkout/useCheckout";
 import AddressSection from "./sections/AddressSection";
 import ProductsSection from "./sections/ProductsSection";
-import OrderSummaryCard from "./components/OrderSummaryCard";
+import OrderSummaryCard from "../../components/Common/OrderSummaryCard";
 import PaymentProcessingOverlay from "./components/PaymentProcessingOverlay";
 import CheckoutSkeleton from "./components/CheckoutSkeleton";
 
@@ -139,6 +139,9 @@ export default function CheckoutPage() {
               onChangeCoupon={checkout.setCouponCode}
               onApplyCoupon={checkout.handleApplyCoupon}
               onRemoveCoupon={checkout.handleRemoveCoupon}
+              pageType="checkout"
+              showPaymentOptions={true}
+              showTrustBadges={true}
             />
           </div>
         </div>

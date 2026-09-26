@@ -37,7 +37,7 @@ function ReviewStats({ reviews = [] }) {
             title: "5-Star Reviews",
             value: fiveStars,
             icon: "thumb_up",
-            color: "text-[#17700d] bg-emerald-50 border-emerald-100",
+            color: "text-primary bg-primary/10 border-primary/20",
         },
     ];
 

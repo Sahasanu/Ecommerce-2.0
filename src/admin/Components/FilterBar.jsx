@@ -25,7 +25,7 @@ function FilterBar({
                         placeholder={searchPlaceholder}
                         value={search || ""}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full h-11 pl-10 pr-9 rounded-xl border border-border-base bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#17700d]/15 focus:border-[#17700d] transition-all font-medium text-text-base placeholder:text-text-muted/70 shadow-2xs"
+                        className="w-full h-11 pl-10 pr-9 rounded-xl border border-border-base bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary transition-all font-medium text-text-base placeholder:text-text-muted/70 shadow-2xs"
                     />
                     {search && (
                         <button
@@ -57,9 +57,9 @@ function FilterBar({
                                             <select
                                                 value={filter.value}
                                                 onChange={(e) => filter.onChange(e.target.value)}
-                                                className={`w-full appearance-none h-11 rounded-xl border pl-3.5 pr-8 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#17700d]/15 focus:border-[#17700d] transition-all cursor-pointer font-semibold shadow-2xs ${
+                                                className={`w-full appearance-none h-11 rounded-xl border pl-3.5 pr-8 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary transition-all cursor-pointer font-semibold shadow-2xs ${
                                                     isFiltered
-                                                        ? "border-[#17700d]/50 bg-[#17700d]/5 text-[#17700d]"
+                                                        ? "border-primary/50 bg-primary/5 text-primary"
                                                         : "border-border-base bg-white text-text-base hover:border-gray-300"
                                                 }`}
                                             >
@@ -70,7 +70,7 @@ function FilterBar({
                                                 ))}
                                             </select>
                                             <FaChevronDown className={`absolute right-3 top-1/2 -translate-y-1/2 text-[10px] pointer-events-none transition-colors ${
-                                                isFiltered ? "text-[#17700d]" : "text-text-muted"
+                                                isFiltered ? "text-primary" : "text-text-muted"
                                             }`} />
                                         </div>
                                     );

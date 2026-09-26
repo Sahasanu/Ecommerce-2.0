@@ -27,7 +27,7 @@ export default function SeoTab({ draft, updateDraft }) {
                     <Input
                         value={seo.metaTitle}
                         onChange={(e) => set("metaTitle", e.target.value)}
-                        placeholder="HN Enterprise — Quality you can trust"
+                        placeholder=""
                     />
                     <p className="text-[10px] text-text-muted font-bold pl-0.5">{(seo.metaTitle || "").length}/60 chars recommended</p>
                 </div>

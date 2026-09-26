@@ -18,35 +18,34 @@ export function AuthProvider({ children }) {
 
   // Sync user state on start
   useEffect(() => {
+    let isMounted = true;
+
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       try {
         const parsed = JSON.parse(savedUser);
-        setUser(parsed);
+        if (isMounted) setUser(parsed);
       } catch (err) {
         console.error("Error parsing user from localStorage", err);
       }
     }
 
     const unsubscribe = authService.onAuthChange(async (firebaseUser) => {
+      if (!isMounted) return;
+
       if (firebaseUser) {
         try {
           const profile = await userService.getUserProfile(firebaseUser.uid, firebaseUser.email);
+          if (!isMounted) return;
+
           const name = profile?.name || "";
           const role = profile?.role || "USER";
           
-          // Ensure document always exists at users/{uid} for Firestore Security Rules.
-          // isAdmin() in rules uses exists(/users/{uid}), so this MUST complete before
-          // setLoading(false) is called, otherwise any Firestore queries that fire
-          // immediately after login will get 403 Forbidden.
           if (profile && profile.docId !== firebaseUser.uid) {
-            // Check if uid-keyed doc already exists — if so, merge only missing fields
-            // to avoid silently downgrading a SUPERADMIN role with a stale value
             const { getDoc: _getDoc, doc: _doc } = await import('firebase/firestore');
             const existingUidDoc = await _getDoc(_doc(fireDB, "users", firebaseUser.uid));
             const existingRole = existingUidDoc.exists() ? existingUidDoc.data()?.role : null;
 
-            // Role precedence: SUPERADMIN > ADMIN > USER
             const ROLE_PRIORITY = { SUPERADMIN: 3, superadmin: 3, ADMIN: 2, admin: 2, USER: 1, user: 1 };
             const finalRole = (ROLE_PRIORITY[existingRole] || 0) > (ROLE_PRIORITY[role] || 0) ? existingRole : role;
 
@@ -55,11 +54,7 @@ export function AuthProvider({ children }) {
               uid: firebaseUser.uid,
               role: finalRole,
             }, { merge: true });
-
-            // If old email-keyed doc had a higher role than uid-keyed doc, delete the duplicate
-            // to prevent anomaly where same user appears twice in the users list
           } else if (!profile) {
-            // New user with no Firestore profile yet — create a minimal one
             await setDoc(doc(fireDB, "users", firebaseUser.uid), {
               uid: firebaseUser.uid,
               email: firebaseUser.email || "",
@@ -68,6 +63,8 @@ export function AuthProvider({ children }) {
               createdAt: new Date().toISOString(),
             }, { merge: true });
           }
+
+          if (!isMounted) return;
 
           setUserName(name);
           const cleanUser = {
@@ -88,17 +85,23 @@ export function AuthProvider({ children }) {
           console.error("Error loading user profile from Firestore", err);
         }
       } else {
-        setUser(null);
-        setUserName('');
-        localStorage.removeItem('user');
-        // Reset to guest cart when no authenticated user
-        const guestCart = loadCartFromStorage(null);
-        store.dispatch(setCart(guestCart));
+        if (isMounted) {
+          setUser(null);
+          setUserName('');
+          localStorage.removeItem('user');
+          const guestCart = loadCartFromStorage(null);
+          store.dispatch(setCart(guestCart));
+        }
       }
-      setLoading(false);
+      if (isMounted) {
+        setLoading(false);
+      }
     });
 
-    return () => unsubscribe();
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
 
   const login = async (email, password) => {
@@ -190,14 +193,17 @@ export function AuthProvider({ children }) {
   };
 
   const setupRecaptcha = (containerId, size) => authService.setupRecaptcha(containerId, size);
+  const checkPhoneExists = async (phoneNumber) => authService.checkPhoneExists(phoneNumber);
   const sendOtp = async (phoneNumber, recaptchaVerifier) => authService.sendOtp(phoneNumber, recaptchaVerifier);
   const verifyOtp = async (confirmationResult, otpCode, customName) => authService.verifyOtp(confirmationResult, otpCode, customName);
+  const sendPasswordResetEmail = async (email) => authService.sendPasswordResetEmail(email);
 
   return (
     <AuthContext.Provider value={{ 
       user, userName, loading, setLoading, 
       login, signup, logout,
-      setupRecaptcha, sendOtp, verifyOtp,
+      setupRecaptcha, checkPhoneExists, sendOtp, verifyOtp,
+      sendPasswordResetEmail,
       isLoginOpen, setIsLoginOpen,
       isSignupOpen, setIsSignupOpen
     }}>
@@ -215,8 +221,10 @@ const defaultAuthContext = {
   signup: async () => {},
   logout: async () => {},
   setupRecaptcha: () => {},
+  checkPhoneExists: async () => false,
   sendOtp: async () => {},
   verifyOtp: async () => {},
+  sendPasswordResetEmail: async () => {},
   isLoginOpen: false,
   setIsLoginOpen: () => {},
   isSignupOpen: false,

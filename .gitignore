@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 .env
 
-src/firebase/FirebaseConfig.js
+
 src/firebase/serviceAccountKey.json
 seeding/
 Plans/

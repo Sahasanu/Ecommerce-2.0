@@ -311,7 +311,8 @@ export default function AdminOrderDetail() {
   const productsList = order.products || order.items || order.cart || [];
   const rawSubtotal = order.pricing?.subtotal ?? order.totalAmount ?? 0;
   const subtotal = typeof rawSubtotal === "number" ? rawSubtotal : parseFloat(rawSubtotal) || 0;
-  const couponDiscount = Number(order.pricing?.couponDiscount ?? order.coupon?.discountValue ?? 0);
+  const couponDiscount = Number(order.pricing?.couponDiscount ?? order.coupon?.discountValue ?? order.couponDiscount ?? order.discount ?? 0);
+  const couponCode = order.couponCode || order.pricing?.appliedCoupon || order.coupon?.code || "";
   const shippingCharge = Number(order.pricing?.shippingCharge ?? 40);
   const grandTotal = Number(order.pricing?.grandTotal ?? order.totalAmount ?? (subtotal - couponDiscount + shippingCharge));
 
@@ -413,6 +414,7 @@ export default function AdminOrderDetail() {
           <OrderPaymentSummarySection
             subtotal={subtotal}
             couponDiscount={couponDiscount}
+            couponCode={couponCode}
             shippingCharge={shippingCharge}
             grandTotal={grandTotal}
             paymentGateway={paymentGateway}

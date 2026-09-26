@@ -5,6 +5,7 @@ import useAuth from '../../hooks/auth/useAuth';
 import Loader from '../../components/loader/Loader';
 import { FaUser, FaEnvelope, FaPhoneAlt, FaLock, FaKey, FaArrowLeft } from 'react-icons/fa';
 import { getFriendlyErrorMessage } from '../../utils/firebaseErrorHandler.js';
+import { useSiteConfig } from '../../context/SiteConfigContext';
 
 /**
  * Signup Component (Adaptive Modal or Page)
@@ -13,6 +14,8 @@ import { getFriendlyErrorMessage } from '../../utils/firebaseErrorHandler.js';
  * Supports Email & Password registration AND Phone OTP registration with reCAPTCHA verification.
  */
 function Signup() {
+    const { config } = useSiteConfig();
+    const companyName = config?.companyName || "Company Name";
     const [authMode, setAuthMode] = useState('email'); // 'email' | 'phone'
 
     // Email Signup State
@@ -30,7 +33,7 @@ function Signup() {
     const [otpVerifying, setOtpVerifying] = useState(false);
     const [timer, setTimer] = useState(0);
 
-    const { loading, signup, setupRecaptcha, sendOtp, verifyOtp, setIsLoginOpen, setIsSignupOpen } = useAuth();
+    const { loading, signup, setupRecaptcha, checkPhoneExists, sendOtp, verifyOtp, setIsLoginOpen, setIsSignupOpen } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -83,6 +86,18 @@ function Signup() {
 
         setOtpSending(true);
         try {
+            // Verify if account already exists with this phone number
+            const phoneExists = await checkPhoneExists(cleanPhone);
+            if (phoneExists) {
+                toast.info("An account with this mobile number already exists. Redirecting to Login...");
+                setIsSignupOpen(false);
+                setIsLoginOpen(true);
+                if (isPage) {
+                    navigate('/login');
+                }
+                return;
+            }
+
             const verifier = setupRecaptcha("recaptcha-signup-container", "invisible");
             const result = await sendOtp(cleanPhone, verifier);
             setConfirmationResult(result);
@@ -141,7 +156,7 @@ function Signup() {
             {/* Header */}
             <div className="mb-5 mt-1 text-center">
                 <h1 className="text-slate-800 text-2xl font-bold tracking-tight">Create Account</h1>
-                <p className="text-xs text-slate-500 mt-1 font-medium">Join HN Enterprise today</p>
+                <p className="text-xs text-slate-500 mt-1 font-medium">Join {companyName} today</p>
             </div>
 
             {/* Mode Switcher Tabs */}

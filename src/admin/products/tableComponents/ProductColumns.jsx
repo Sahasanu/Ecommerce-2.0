@@ -4,10 +4,12 @@ import StatusBadge from '../../Components/common/StatusBadge';
 import ToggleButton from '../../../components/Common/ToggleButton';
 import {
   getProductStockCount,
+  getProductStockInfo,
   getProductDisplayPrice,
   getStockBadgeProps,
   formatProductDate,
 } from '../utils/productTableUtils';
+import VariantStockDropdown from './VariantStockDropdown';
 
 /**
  * Builds table column definitions for desktop product table view
@@ -74,12 +76,24 @@ function getProductTableColumns({
       key: 'stock',
       header: 'Stock Status',
       align: 'center',
-      className: 'w-36 text-center hidden md:table-cell',
+      className: 'w-44 text-center hidden md:table-cell',
       cellClassName: 'text-center hidden md:table-cell',
       render: (item) => {
-        const stockCount = getProductStockCount(item);
-        const badgeProps = getStockBadgeProps(stockCount);
-        return <StatusBadge {...badgeProps} />;
+        const stockInfo = getProductStockInfo(item);
+        const badgeProps = getStockBadgeProps(stockInfo.totalStock);
+        return (
+          <div className="flex flex-col items-center justify-center gap-1.5 py-1">
+            <StatusBadge {...badgeProps} />
+            {stockInfo.hasVariants && (
+              <VariantStockDropdown
+                product={item}
+                stockInfo={stockInfo}
+                onEditClick={onEditClick}
+                align="center"
+              />
+            )}
+          </div>
+        );
       },
     },
     {

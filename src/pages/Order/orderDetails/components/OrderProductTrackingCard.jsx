@@ -84,12 +84,20 @@ function resolveItemPrice(item, order) {
       0
     );
     const totalItemsCount = (Array.isArray(order?.products) ? order.products.length : (Array.isArray(order?.items) ? order.items.length : 1)) || 1;
-    unitPrice = Math.round((fallbackTotal / totalItemsCount) / qty);
+    unitPrice = (fallbackTotal / totalItemsCount) / qty;
     itemTotal = unitPrice * qty;
   }
 
   return { unitPrice, itemTotal, qty };
 }
+
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
 
 /**
  * OrderProductTrackingCard Component
@@ -224,12 +232,12 @@ export default function OrderProductTrackingCard({
 
                   <div className="flex items-center gap-2 text-xs pt-0.5 flex-wrap">
                     <span className="text-base font-black text-text-base">
-                      ₹{Math.round(unitPrice).toLocaleString("en-IN")}
+                      ₹{fmt(unitPrice)}
                     </span>
                     <span className="text-text-muted font-medium">• Qty: {qty}</span>
                     {qty > 1 && (
                       <span className="text-primary font-bold">
-                        (Total: ₹{Math.round(itemTotal).toLocaleString("en-IN")})
+                        (Total: ₹{fmt(itemTotal)})
                       </span>
                     )}
                   </div>

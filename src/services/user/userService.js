@@ -8,9 +8,7 @@ import {
   updateDoc,
   setDoc,
   getDoc,
-  deleteDoc,
-  arrayUnion,
-  deleteField
+  deleteDoc
 } from 'firebase/firestore';
 import { initializeApp, getApps, deleteApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, deleteUser as deleteFirebaseAuthUser } from "firebase/auth";
@@ -611,7 +609,7 @@ export const userService = {
     }
 
     const lastVisible = pageDocs[pageDocs.length - 1] || null;
-    const cleanUsers = users.map(({ docSnap, ...rest }) => rest);
+    const cleanUsers = users.map(({ docSnap: _docSnap, ...rest }) => rest);
     return { users: cleanUsers, lastDoc: lastVisible, hasMore };
   },
 };

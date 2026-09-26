@@ -103,11 +103,6 @@ export default function OrderRateExperienceCard({ items = [], orderId, onReviewS
         <h3 className="text-sm sm:text-base font-bold text-text-base">
           Rate your experience
         </h3>
-        {existingRating && (
-          <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/40">
-            ✓ Rated {existingRating.rating} / 5 Stars
-          </span>
-        )}
       </div>
 
       {/* Multi-item switcher tabs (if order contains more than 1 item) */}

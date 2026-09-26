@@ -146,7 +146,7 @@ export default function useProductDetails() {
       variantId: variantId,
       quantity: quantity
     };
-    const { time, ...serializable } = cartItem;
+    const { time: _time, ...serializable } = cartItem;
     dispatch(addToCart(serializable));
     toast.success('Added to cart!');
   }, [dispatch]);

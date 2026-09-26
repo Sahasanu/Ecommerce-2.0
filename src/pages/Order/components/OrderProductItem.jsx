@@ -13,6 +13,14 @@ function formatVariantName(variant) {
   return String(variant);
 }
 
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 function OrderProductItem({ item, orderStatus }) {
   const img = item.productImage || item.imageUrl || item.images?.[0] || "https://via.placeholder.com/150";
   const title = item.productName || item.title || item.name || "Product Item";
@@ -77,7 +85,7 @@ function OrderProductItem({ item, orderStatus }) {
           <div className="mt-1.5 flex items-center gap-3 text-[11px] text-text-muted">
             <span className="font-semibold">Qty: <strong className="text-text-base">{qty}</strong></span>
             <span>•</span>
-            <span className="font-semibold">Price: <strong className="text-text-base">₹{price.toLocaleString("en-IN")}</strong></span>
+            <span className="font-semibold">Price: <strong className="text-text-base">₹{fmt(price)}</strong></span>
           </div>
         </div>
       </div>
@@ -87,7 +95,7 @@ function OrderProductItem({ item, orderStatus }) {
         <div className="text-right">
           <span className="text-[10px] text-text-muted block font-semibold">Total Item Price</span>
           <span className="font-black text-sm text-text-base">
-            ₹{itemTotal.toLocaleString("en-IN")}
+            ₹{fmt(itemTotal)}
           </span>
         </div>
       </div>

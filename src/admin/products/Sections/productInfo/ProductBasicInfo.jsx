@@ -50,13 +50,14 @@ export function ProductBasicInfo({ products, setProducts, handleTagsChange }) {
                             Category <span className="text-red-500">*</span>
                         </label>
                         {(() => {
-                            const DEFAULT_CATS = ["Custom", "ReadyMade", "ReadyMade-Premium", "Electronics", "Fashion", "Footwear", "Home & Art", "Accessories"];
+                            const DEFAULT_CATS = ["Accessories", "Grocery", "Electronics", "Fashion", "Footwear", "Beauty & Personal Care", "Home & Kitchen", "Books & Stationery", "Sports & Fitness", "Toys & Games"];
                             const isCustomCat = products.category && !DEFAULT_CATS.includes(products.category);
+                            const isCustom = Boolean(products.isAddingCustomCategory || isCustomCat);
 
                             return (
                                 <div className="space-y-2">
                                     <select
-                                        value={isCustomCat ? "__NEW__" : (products.category || "")}
+                                        value={isCustom ? "__NEW__" : (products.category || "")}
                                         onChange={(e) => {
                                             const val = e.target.value;
                                             if (val === "__NEW__") {
@@ -68,23 +69,33 @@ export function ProductBasicInfo({ products, setProducts, handleTagsChange }) {
                                         className="w-full rounded-xl border border-border-base bg-bg-base px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 font-semibold cursor-pointer"
                                     >
                                         <option value="">Select Category...</option>
+                                        <option value="__NEW__" className="font-bold text-primary">+ Add Custom Category</option>
                                         {DEFAULT_CATS.map((cat) => (
                                             <option key={cat} value={cat}>
                                                 {cat}
                                             </option>
                                         ))}
-                                        <option value="__NEW__">+Add New Category</option>
                                     </select>
 
-                                    {(products.isAddingCustomCategory || isCustomCat) && (
-                                        <input
-                                            type="text"
-                                            value={products.category || ""}
-                                            onChange={(e) => setProducts({ ...products, category: e.target.value })}
-                                            placeholder="Type new category name..."
-                                            className="w-full rounded-xl border border-primary/40 bg-bg-surface px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 font-bold"
-                                            autoFocus
-                                        />
+                                    {isCustom && (
+                                        <div className="flex items-center gap-1.5">
+                                            <input
+                                                type="text"
+                                                value={products.category || ""}
+                                                onChange={(e) => setProducts({ ...products, category: e.target.value })}
+                                                placeholder="Type new category name..."
+                                                className="flex-1 rounded-xl border border-primary/40 bg-bg-surface px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 font-bold"
+                                                autoFocus
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setProducts({ ...products, category: "", isAddingCustomCategory: false })}
+                                                className="px-2.5 py-2 rounded-xl border border-border-base bg-bg-base hover:bg-gray-100 text-text-muted hover:text-text-base text-xs font-bold transition cursor-pointer"
+                                                title="Cancel custom category"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                             );

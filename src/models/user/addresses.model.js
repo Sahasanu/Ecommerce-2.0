@@ -1,4 +1,4 @@
-const address = {
+export const address = {
   addressId: "",
   userId: "",
   fullName: "",

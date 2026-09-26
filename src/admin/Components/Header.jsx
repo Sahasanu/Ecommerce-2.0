@@ -19,7 +19,7 @@ function Header({ title, description, icon, buttonText, clickhandler, disabled }
                 <button
                     onClick={clickhandler}
                     disabled={disabled}
-                    className="py-1.5 px-3 bg-[#17700d] hover:bg-[#15803d] text-white font-bold text-xs rounded-lg transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer shrink-0 disabled:opacity-50"
+                    className="py-1.5 px-3 bg-primary hover:bg-primary-hover text-compli font-bold text-xs rounded-lg transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer shrink-0 disabled:opacity-50"
                 >
                     {icon}
                     <span>{buttonText}</span>

@@ -6,7 +6,6 @@ import {
   setDoc, 
   deleteDoc, 
   query, 
-  orderBy, 
   onSnapshot,
   getDocs,
   where
@@ -308,7 +307,7 @@ export const productService = {
     const hasMore = products.length > pageSize;
     const pageProducts = hasMore ? products.slice(0, pageSize) : products;
     const lastVisible = pageProducts.length > 0 ? pageProducts[pageProducts.length - 1].docSnap : null;
-    const cleanProducts = pageProducts.map(({ docSnap, ...rest }) => rest);
+    const cleanProducts = pageProducts.map(({ docSnap: _docSnap, ...rest }) => rest);
 
     return { products: cleanProducts, lastDoc: lastVisible, hasMore };
   },
@@ -408,7 +407,7 @@ export const productService = {
     const hasMore = products.length > pageSize;
     const pageProducts = hasMore ? products.slice(0, pageSize) : products;
     const lastVisible = pageProducts.length > 0 ? pageProducts[pageProducts.length - 1].docSnap : null;
-    const cleanProducts = pageProducts.map(({ docSnap, ...rest }) => rest);
+    const cleanProducts = pageProducts.map(({ docSnap: _docSnap, ...rest }) => rest);
 
     return { products: cleanProducts, lastDoc: lastVisible, hasMore };
   },

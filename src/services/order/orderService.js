@@ -274,7 +274,7 @@ export const orderService = {
     const hasMore = orders.length > pageSize;
     const pageOrders = hasMore ? orders.slice(0, pageSize) : orders;
     const lastVisible = pageOrders.length > 0 ? pageOrders[pageOrders.length - 1].docSnap : null;
-    const cleanOrders = pageOrders.map(({ docSnap, ...rest }) => rest);
+    const cleanOrders = pageOrders.map(({ docSnap: _docSnap, ...rest }) => rest);
 
     return { orders: cleanOrders, lastDoc: lastVisible, hasMore };
   },

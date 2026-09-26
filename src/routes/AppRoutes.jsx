@@ -1,38 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Routes, Outlet, useNavigate, Navigate } from "react-router-dom";
 import Home from "../pages/home/Home";
-import NoPage from "../pages/nopage/NoPage";
-import Cart from "../pages/cart/Cart";
-import Dashboard from "../admin/dashboard/Dashboard";
-import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import { useAuth } from "../context/AuthContext";
-import Orders from "../admin/orders/Orders";
-import Products from "../admin/products/Products";
-import AdminUsersPage from "../admin/User/AdminUsersPage";
-import AddProduct from "../admin/products/AddProduct";
-import UpdateProduct from "../admin/products/UpdateProduct";
-import Allproducts from '../pages/allproducts/Allproducts';
-import Admin from "../admin/Admin";
-import Coupons from "../admin/coupons/Coupons";
-import CouponFormPage from "../admin/coupons/CouponForm/CouponForm";
-import AboutUs from '../pages/consumerservice/AboutUs';
-import PrivacyPolicy from '../pages/consumerservice/PrivacyPolicy';
-import ReturnPolicy from '../pages/consumerservice/ReturnPolicy';
-import TermsConditions from '../pages/consumerservice/TermsConditions';
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
-import Review from '../admin/Review/Review';
-import Configure from '../admin/configure/Configure';
+import GuestRoute from "./GuestRoute";
 import Layout from "../components/layout/Layout";
-import User from '../pages/user/User';
-import CustomerOrderDetail from "../pages/order/orderDetails/CustomerOrderDetail";
+import Loader from "../components/loader/Loader";
 
-import ShippingPolicy from '../pages/consumerservice/ShippingPolicy';
-import RefundPolicy from '../pages/consumerservice/RefundPolicy';
-import CustomLegalPage from '../pages/consumerservice/CustomLegalPage';
-import CheckoutPage from '../pages/checkout/CheckoutPage';
-import AdminOrderDetail from '../admin/orders/AdminOrderDetail';
-import OrderInvoice from '../admin/orders/OrderInvoice';
+// Lazy-loaded customer & shopping pages
+const Allproducts = lazy(() => import('../pages/allproducts/Allproducts'));
+const Cart = lazy(() => import("../pages/cart/Cart"));
+const ProductDetails = lazy(() => import("../pages/ProductDetails/ProductDetails"));
+const CheckoutPage = lazy(() => import('../pages/checkout/CheckoutPage'));
+const CustomerOrderDetail = lazy(() => import("../pages/order/orderDetails/CustomerOrderDetail"));
+const User = lazy(() => import('../pages/user/User'));
+const NoPage = lazy(() => import("../pages/nopage/NoPage"));
+
+// Lazy-loaded legal & customer service pages
+const AboutUs = lazy(() => import('../pages/consumerservice/AboutUs'));
+const PrivacyPolicy = lazy(() => import('../pages/consumerservice/PrivacyPolicy'));
+const ReturnPolicy = lazy(() => import('../pages/consumerservice/ReturnPolicy'));
+const TermsConditions = lazy(() => import('../pages/consumerservice/TermsConditions'));
+const ShippingPolicy = lazy(() => import('../pages/consumerservice/ShippingPolicy'));
+const RefundPolicy = lazy(() => import('../pages/consumerservice/RefundPolicy'));
+const CustomLegalPage = lazy(() => import('../pages/consumerservice/CustomLegalPage'));
+
+// Lazy-loaded admin pages
+const Admin = lazy(() => import("../admin/Admin"));
+const Dashboard = lazy(() => import("../admin/dashboard/Dashboard"));
+const Orders = lazy(() => import("../admin/orders/Orders"));
+const Products = lazy(() => import("../admin/products/Products"));
+const AdminUsersPage = lazy(() => import("../admin/User/AdminUsersPage"));
+const AddProduct = lazy(() => import("../admin/products/AddProduct"));
+const UpdateProduct = lazy(() => import("../admin/products/UpdateProduct"));
+const Coupons = lazy(() => import("../admin/coupons/Coupons"));
+const CouponFormPage = lazy(() => import("../admin/coupons/CouponForm/CouponForm"));
+const Review = lazy(() => import('../admin/Review/Review'));
+const Configure = lazy(() => import('../admin/configure/Configure'));
+const AdminOrderDetail = lazy(() => import('../admin/orders/AdminOrderDetail'));
+const OrderInvoice = lazy(() => import('../admin/orders/OrderInvoice'));
 
 function LoginRedirect() {
   const navigate = useNavigate();
@@ -57,8 +64,18 @@ function SignupRedirect() {
 function AppLayout() {
   return (
     <Layout>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </Layout>
+  );
+}
+
+function SuspenseWrapper({ children }) {
+  return (
+    <Suspense fallback={<Loader />}>
+      {children}
+    </Suspense>
   );
 }
 
@@ -79,6 +96,7 @@ export default function AppRoutes() {
         <Route path="/shippingpolicy" element={<ShippingPolicy />} />
         <Route path="/refundpolicy" element={<RefundPolicy />} />
         <Route path="/legal/:slug" element={<CustomLegalPage />} />
+
         {/* User Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/checkout" element={<CheckoutPage />} />
@@ -88,13 +106,15 @@ export default function AppRoutes() {
         </Route>
       </Route>
 
-      {/* Auth Routes (Redirects to Home + Modal trigger) */}
-      <Route path="/login" element={<LoginRedirect />} />
-      <Route path="/signup" element={<SignupRedirect />} />
+      {/* Auth Routes (Guest-guarded; redirects to Home + Modal trigger) */}
+      <Route element={<GuestRoute />}>
+        <Route path="/login" element={<LoginRedirect />} />
+        <Route path="/signup" element={<SignupRedirect />} />
+      </Route>
 
       {/* Admin Protected Routes */}
       <Route element={<AdminRoute />}>
-        <Route element={<Admin />}>
+        <Route element={<SuspenseWrapper><Admin /></SuspenseWrapper>}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/products" element={<Products />} />
@@ -113,7 +133,7 @@ export default function AppRoutes() {
         </Route>
       </Route>
 
-      <Route path="/*" element={<NoPage />} />
+      <Route path="/*" element={<SuspenseWrapper><NoPage /></SuspenseWrapper>} />
     </Routes>
   );
 }

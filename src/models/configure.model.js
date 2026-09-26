@@ -12,7 +12,7 @@
 const configure = {
 
   // ─── Company Identity ──────────────────────────────────────────────────────
-  companyName: "HN Enterprise",
+  companyName: "Company Name",
   companyTagline: "Quality you can trust.",
   companyLogo: "",   // Firebase Storage URL
   faviconUrl: "",    // Firebase Storage URL

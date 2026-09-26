@@ -53,7 +53,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
         setUploading(true);
         setProgress(0);
         try {
-            const url = await uploadService.uploadProductImage(pendingFile, setProgress);
+            const url = await uploadService.uploadCompanyAsset(pendingFile, setProgress);
             await onUpload(url);
             setLocalPreview(null);
             setPendingFile(null);

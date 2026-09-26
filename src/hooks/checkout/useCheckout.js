@@ -7,6 +7,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { clearCart } from "../../redux/cartSlice.jsx";
 import { paymentService } from "../../services/payment/paymentService";
+import { productService } from "../../services/product/productService";
 import { userService } from "../../services/user/userService";
 import useAuth from "../auth/useAuth";
 import { useSiteConfig } from "../../context/SiteConfigContext";
@@ -78,7 +79,9 @@ export function useCheckout() {
             setCodHandlingFee(Math.max(0, Number(cfg.codHandlingFee)));
           }
         }
-      } catch (_) {}
+      } catch {
+        // Silently ignore corrupted cache
+      }
     }
   }, [config]);
 
@@ -193,11 +196,13 @@ export function useCheckout() {
       }
     })();
 
-    if (initialCoupon && initialCoupon.code) {
+    const numSubtotal = Number(subtotal) || 0;
+
+    if (initialCoupon && initialCoupon.code && numSubtotal > 0) {
       setCouponCode(initialCoupon.code);
       setAppliedCoupon(initialCoupon);
       // Auto-validate against current subtotal
-      paymentService.validateCoupon(initialCoupon.code, subtotal)
+      paymentService.validateCoupon(initialCoupon.code, numSubtotal)
         .then((res) => {
           if (res && res.valid) {
             const couponObj = {
@@ -208,13 +213,19 @@ export function useCheckout() {
             };
             setAppliedCoupon(couponObj);
             sessionStorage.setItem('appliedCoupon', JSON.stringify(couponObj));
+          } else {
+            setAppliedCoupon(null);
+            sessionStorage.removeItem('appliedCoupon');
           }
         })
         .catch((err) => {
           console.warn("Auto-validating initial checkout coupon warning:", err);
         });
+    } else if (numSubtotal <= 0) {
+      setAppliedCoupon(null);
+      sessionStorage.removeItem('appliedCoupon');
     }
-  }, []);
+  }, [subtotal, location.state?.appliedCoupon]);
 
   // Coupon Actions
   const handleApplyCoupon = useCallback(async () => {
@@ -222,10 +233,19 @@ export function useCheckout() {
       setCouponError("Please enter a coupon code.");
       return;
     }
+
+    const currentSubtotal = Number(subtotal) || 0;
+    if (currentSubtotal <= 0 || cart.length === 0) {
+      const errorMsg = "Add items to your cart before applying a coupon.";
+      setCouponError(errorMsg);
+      toast.error(errorMsg);
+      return;
+    }
+
     setCouponLoading(true);
     setCouponError("");
     try {
-      const res = await paymentService.validateCoupon(couponCode.trim(), subtotal);
+      const res = await paymentService.validateCoupon(couponCode.trim(), currentSubtotal);
       if (res?.valid) {
         const couponObj = {
           code: res.code,
@@ -253,7 +273,7 @@ export function useCheckout() {
     } finally {
       setCouponLoading(false);
     }
-  }, [couponCode, subtotal]);
+  }, [couponCode, subtotal, cart.length]);
 
   const handleRemoveCoupon = useCallback(() => {
     setAppliedCoupon(null);
@@ -303,6 +323,43 @@ export function useCheckout() {
   const handleProceedToPayment = useCallback(async () => {
     if (cart.length === 0) { toast.error("Your cart is empty."); return; }
     if (!selectedAddress) { toast.error("Please select a shipping address."); return; }
+
+    // Verify live stock before submitting order
+    for (const item of cart) {
+      const prodId = item.id || item.productId;
+      if (prodId) {
+        try {
+          const freshProd = await productService.getProductById(prodId);
+          if (!freshProd || freshProd.isActive === false) {
+            toast.error(`"${item.title || 'An item'}" is currently unavailable.`);
+            return;
+          }
+
+          let availableStock = 0;
+          if (item.selectedVariant && Array.isArray(freshProd.variants) && freshProd.variants.length > 0) {
+            const matchedVariant = freshProd.variants.find(v => {
+              const vAttrs = v.attributes || v.selectedVariant || v;
+              return item.selectedVariant && Object.keys(item.selectedVariant).every(k => vAttrs[k] === item.selectedVariant[k]);
+            });
+            availableStock = matchedVariant ? Number(matchedVariant.inStock ?? matchedVariant.stock ?? 0) : 0;
+          } else {
+            availableStock = Number(freshProd.inStock ?? freshProd.stock ?? 0);
+          }
+
+          if (availableStock <= 0) {
+            toast.error(`"${item.title || 'Product'}" is currently out of stock.`);
+            return;
+          }
+          if (Number(item.quantity || 1) > availableStock) {
+            toast.error(`Only ${availableStock} units of "${item.title || 'Product'}" are available in stock.`);
+            return;
+          }
+        } catch (e) {
+          console.warn("Stock pre-check warning:", e);
+        }
+      }
+    }
+
     hasHandledSuccessRef.current = false;
     setStage("submitting");
     setErrorMessage("");
@@ -403,7 +460,7 @@ export function useCheckout() {
         });
         if (!result.success && result.cancelled) setStage("ready");
       } else if (paymentMethod === "COD") {
-        const codRes = await paymentService.createCodOrder({
+        await paymentService.createCodOrder({
           items: itemsPayload,
           shippingAddressId: selectedAddress?.addressId || selectedAddressId,
           shippingAddress: normalizedAddress,
@@ -424,7 +481,7 @@ export function useCheckout() {
       setErrorMessage(msg);
       toast.error(msg);
     }
-  }, [cart, selectedAddress, paymentMethod, appliedCoupon, user, estimatedTotal, listenForOrderPlaced, dispatch, navigate, queryClient]);
+  }, [cart, selectedAddress, selectedAddressId, paymentMethod, appliedCoupon, user, listenForOrderPlaced, dispatch, navigate, queryClient]);
 
   const handleRetry = useCallback(() => { setStage("ready"); setErrorMessage(""); }, []);
 

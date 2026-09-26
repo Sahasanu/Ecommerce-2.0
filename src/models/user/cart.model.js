@@ -1,4 +1,4 @@
-const cartItem = {
+export const cartItem = {
   productId: "",
   variantId: "",
   quantity: 1,

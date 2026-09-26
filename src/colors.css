@@ -1,36 +1,36 @@
-         /* HN Enterprise Theme Color Variables */
+         /*  Theme Color Variables (Golden & Black, Mostly White) */
 
 :root {
   /* =========================
      Brand Colors
   ========================= */
-  --color-primary: #17700d;                /* Green primary brand color */
-  --color-primary-hover: #15803d;          /* Darker green hover state */
-  --color-primary-light: #dcfce7;          /* Soft green tint background/badge */
+  --color-primary: #c59b27;                /* Elegant Golden primary */
+  --color-primary-hover: #b0881e;          /* Rich deep gold hover */
+  --color-primary-light: #fdf8ea;          /* Warm champagne/gold tint background */
   
-  --color-secondary: #4f46e5;              /* Secondary brand color (Indigo) */
-  --color-secondary-hover: #4338ca;        /* Hover state for secondary actions */
+  --color-secondary: #18181b;              /* Obsidian black secondary */
+  --color-secondary-hover: #27272a;        /* Deep charcoal hover */
   
-  --color-accent: #6bff8f;                 /* Accent color for badges/highlights */
-  --color-accent-text: #002109;            /* Contrast text for badges/highlights */
+  --color-accent: #d4af37;                 /* Metallic gold accent */
+  --color-accent-text: #18181b;            /* Black text for gold highlights */
 
   /* =========================
-     Background Colors
+     Background Colors (Mostly White)
   ========================= */
-  --color-bg-base: #ffffff;                /* Main page background */
-  --color-bg-surface: #f9fafb;             /* Surface cards and section background */
+  --color-bg-base: #ffffff;                /* Pure crisp white main page background */
+  --color-bg-surface: #fafaf9;             /* Soft clean surface card background */
   
   /* =========================
      Text Colors
   ========================= */
-  --color-text-base: #111827;              /* Primary text color (slate-900) */
-  --color-text-compli: #ffffff;              /* complementary text color (white) */
-  --color-text-muted: #4b5563;             /* Secondary/muted text (slate-600) */
+  --color-text-base: #111827;              /* Deep black primary text */
+  --color-text-compli: #ffffff;            /* Complementary white text */
+  --color-text-muted: #52525b;             /* Neutral muted secondary text */
   
   /* =========================
      Border Colors
   ========================= */
-  --color-border-base: #e5e7eb;            /* Default border/divider color */
+  --color-border-base: #e5e7eb;            /* Subtle light border/divider */
 
   /* =========================
      Status Colors
@@ -45,24 +45,24 @@
   /* =========================
      Background Colors (Dark)
   ========================= */
-  --color-bg-base: #0f172a;                /* Slate-900 background */
-  --color-bg-surface: #1e293b;             /* Slate-800 surface */
+  --color-bg-base: #09090b;                /* Deep obsidian black */
+  --color-bg-surface: #18181b;             /* Charcoal black surface */
   
   /* =========================
      Text Colors (Dark)
   ========================= */
-  --color-text-base: #f8fafc;              /* Slate-50 primary text */
-  --color-text-muted: #94a3b8;             /* Slate-400 secondary text */
+  --color-text-base: #f8fafc;              /* Crisp white text */
+  --color-text-muted: #a1a1aa;             /* Soft silver secondary text */
   
   /* =========================
      Border Colors (Dark)
   ========================= */
-  --color-border-base: #334155;            /* Slate-700 divider */
+  --color-border-base: #27272a;            /* Dark divider */
   
   /* =========================
      Brand Colors (Dark Override)
   ========================= */
-  --color-primary: #22c55e;                /* Bright green primary for dark mode */
-  --color-primary-hover: #4ade80;          /* Lighter green hover */
-  --color-primary-light: #14532d;          /* Dark green tint background/badge */
+  --color-primary: #e5b842;                /* Luminous gold for dark mode */
+  --color-primary-hover: #f0c75e;          /* Bright warm gold hover */
+  --color-primary-light: #2c220c;          /* Deep gold tint background/badge */
 }

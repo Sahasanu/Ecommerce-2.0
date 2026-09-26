@@ -9,6 +9,14 @@ import Pagination from "../../../components/common/Pagination";
 import { InvoiceDownloadButton } from "../../../invoice/index";
 import { useNavigate } from "react-router-dom";
 
+const fmt = (val) => {
+  const num = Number(val) || 0;
+  return num.toLocaleString('en-IN', {
+    minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 function formatDate(dateVal) {
   if (!dateVal) return "N/A";
   if (typeof dateVal === "string") return dateVal;
@@ -299,7 +307,7 @@ export default function OrdersTab({ orders = [] }) {
 
                   <div className="flex items-center gap-2.5 sm:gap-3 ml-auto shrink-0">
                     <span className="text-sm sm:text-base font-black text-text-base">
-                      ₹{Math.round(totalAmt).toLocaleString("en-IN")}
+                      ₹{fmt(totalAmt)}
                     </span>
                     <div onClick={(e) => e.stopPropagation()}>
                       <InvoiceDownloadButton
@@ -337,7 +345,7 @@ export default function OrdersTab({ orders = [] }) {
                       if (!displayPrice && rawItemTotal > 0) {
                         displayPrice = rawItemTotal / itemQty;
                       } else if (!displayPrice && !rawItemTotal) {
-                        displayPrice = Math.round(totalAmt / (items.length || 1) / itemQty);
+                        displayPrice = totalAmt / (items.length || 1) / itemQty;
                       }
 
                       const variantText = item.selectedVariant
@@ -371,7 +379,7 @@ export default function OrdersTab({ orders = [] }) {
 
                             <div className="flex items-center gap-1.5 text-xs text-text-muted font-medium">
                               <span className="font-black text-text-base">
-                                ₹{Math.round(displayPrice).toLocaleString("en-IN")}
+                                ₹{fmt(displayPrice)}
                               </span>
                               <span>• Qty: {itemQty}</span>
                             </div>

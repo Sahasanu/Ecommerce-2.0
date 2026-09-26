@@ -92,7 +92,7 @@ export const configureService = {
      * @param {function} onProgress - Optional (0-100) progress callback
      */
     async addBanner(file, meta = {}, onProgress) {
-        const imageUrl = await uploadService.uploadProductImage(file, onProgress);
+        const imageUrl = await uploadService.uploadBannerImage(file, onProgress);
 
         const bannerDoc = await addDoc(BANNERS_COL(), {
             imageUrl,
@@ -122,7 +122,7 @@ export const configureService = {
         await deleteDoc(doc(BANNERS_COL(), bannerId));
         if (imageUrl) {
             try {
-                await uploadService.deleteProductImage(imageUrl);
+                await uploadService.deleteFile(imageUrl);
             } catch (e) {
                 console.warn("Could not delete banner image from storage:", e);
             }

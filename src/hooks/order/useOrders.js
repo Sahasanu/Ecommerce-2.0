@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { orderService } from '../../services/order/orderService.js';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { queryKeys } from '../../utils/queryKeys.js';
 
 /**
  * useOrders Custom Hook powered by TanStack Query

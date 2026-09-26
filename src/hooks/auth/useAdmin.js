@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
 import { uploadService } from '../../services/upload/uploadService.js';
-import { mediaService } from '../../services/media/mediaService.js';
 import { generateVariantCombinations } from '../../utils/variantUtils.js';
 import { useDraftManager } from '../common/useDraftManager.js';
 import { useAuth as useAuthCtx } from '../../context/AuthContext.jsx';
@@ -104,7 +103,7 @@ export default function useAdmin() {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [variantUploadingIndex, setVariantUploadingIndex] = useState(null);
+  const [variantUploadingIndex, _setVariantUploadingIndex] = useState(null);
 
   const initialFormState = {
     id: '',
@@ -667,6 +666,7 @@ export default function useAdmin() {
     handleVariantImageUpload,
     handleVariantImageDelete,
     variantUploadingIndex,
+    isEditing,
     handleCancel
   };
 }

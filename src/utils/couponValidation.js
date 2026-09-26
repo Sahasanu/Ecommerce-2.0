@@ -7,6 +7,11 @@ export function validateAndCalculateCoupon(coupon, subtotal, cartItems = []) {
     return { valid: false, message: "Invalid coupon code" };
   }
 
+  const numSubtotal = Number(subtotal) || 0;
+  if (numSubtotal <= 0) {
+    return { valid: false, message: "Cart order value must be greater than zero to apply a coupon" };
+  }
+
   if (coupon.isActive === false) {
     return { valid: false, message: "This coupon is currently inactive" };
   }

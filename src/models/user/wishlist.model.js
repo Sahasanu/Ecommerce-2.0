@@ -1,4 +1,4 @@
-const wishlistItem = {
+export const wishlistItem = {
   productId: "",
   addedAt: null,
 };

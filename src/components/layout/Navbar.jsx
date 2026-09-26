@@ -4,12 +4,11 @@ import { useSelector } from 'react-redux'
 import { useTheme } from '../../context/ThemeContext'
 import useAuth from '../../hooks/auth/useAuth'
 import { useFilter } from '../../context/FilterContext'
-import companyLogo from '../../assets/companyLogo.png'
-import OrderNowModal from '../modal/OrderNowModal'
 import SearchBar from '../Common/SearchBar'
 import WarningModal from '../modal/WarningModal'
+import c from "../../assets/c.png"
 import { useSiteConfig } from '../../context/SiteConfigContext'
-import { FaBoxes } from 'react-icons/fa'
+
 
 function getInitials(name, email) {
   const target = (name && name.trim()) || email || "";
@@ -100,7 +99,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img
-              src={config.companyLogo || companyLogo}
+              src={config.companyLogo || c}
               className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
               alt={config.companyName || "CompanyName"}
             />
@@ -121,11 +120,10 @@ export default function Navbar() {
                 <Link
                   key={idx}
                   to={navlink.path}
-                  className={`text-sm transition relative py-1 ${
-                    active
+                  className={`text-sm transition relative py-1 ${active
                       ? "font-semibold text-primary"
                       : "font-semibold text-gray-700 hover:text-primary"
-                  }`}
+                    }`}
                 >
                   {navlink.title}
                   {active && (
@@ -138,11 +136,10 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 to="/dashboard"
-                className={`text-sm transition relative py-1 ${
-                  isLinkActive('/dashboard')
+                className={`text-sm transition relative py-1 ${isLinkActive('/dashboard')
                     ? "font-black text-primary"
                     : "font-semibold text-gray-700 hover:text-primary"
-                }`}
+                  }`}
               >
                 Admin
                 {isLinkActive('/dashboard') && (
@@ -243,9 +240,8 @@ export default function Navbar() {
             {mobiliLinks.map((item, index) => {
               const active = item.path ? isLinkActive(item.path) : false;
               const innerContent = (
-                <div className={`flex flex-col items-center justify-center relative transition-colors ${
-                  active ? "text-primary font-bold" : "text-gray-600 hover:text-primary"
-                }`}>
+                <div className={`flex flex-col items-center justify-center relative transition-colors ${active ? "text-primary font-bold" : "text-gray-600 hover:text-primary"
+                  }`}>
                   <span className="material-symbols-outlined">{item.icon}</span>
                   {item.isCart && cartLength > 0 && (
                     <span className="absolute -top-1 -right-3 bg-primary text-white text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-bold">
