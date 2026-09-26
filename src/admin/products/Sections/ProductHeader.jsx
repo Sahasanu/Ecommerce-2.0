@@ -1,7 +1,7 @@
 import React from "react";
 import { FaBoxOpen, FaSave } from "react-icons/fa";
 import StatusBadge from "../../Components/common/StatusBadge.jsx";
-import ToggleButton from "../../../components/common/ToggleButton.jsx";
+import ToggleButton from "../../../components/Common/ToggleButton.jsx";
 
 function ProductHeader({
     title = "Add Product",

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTheme } from '../../context/ThemeContext';
 import OrderSummary from './sections/OrderSummery';
 import CrossSellSection from './sections/CrossSellSection';
-import CartItem from './sections/cartitem';
+import CartItem from './sections/cartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFromCart, updateCartQuantity, addToCart } from '../../redux/cartSlice';
 import { toast } from 'react-toastify';

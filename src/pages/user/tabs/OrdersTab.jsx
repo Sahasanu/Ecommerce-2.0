@@ -5,7 +5,7 @@ import {
   FaExclamationCircle, FaTimesCircle, FaTruck, FaClock, FaImage,
   FaChevronRight, FaCalendarAlt
 } from "react-icons/fa";
-import Pagination from "../../../components/common/Pagination";
+import Pagination from "../../../components/Common/Pagination";
 import { InvoiceDownloadButton } from "../../../invoice/index";
 import { useNavigate } from "react-router-dom";
 

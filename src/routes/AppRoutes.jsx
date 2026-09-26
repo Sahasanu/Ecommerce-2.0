@@ -36,7 +36,7 @@ const AddProduct = lazy(() => import("../admin/products/AddProduct"));
 const UpdateProduct = lazy(() => import("../admin/products/UpdateProduct"));
 const Coupons = lazy(() => import("../admin/coupons/Coupons"));
 const CouponFormPage = lazy(() => import("../admin/coupons/CouponForm/CouponForm"));
-const Review = lazy(() => import('../admin/Review/Review'));
+const Review = lazy(() => import('../admin/review/Review'));
 const Configure = lazy(() => import('../admin/configure/Configure'));
 const AdminOrderDetail = lazy(() => import('../admin/orders/AdminOrderDetail'));
 const OrderInvoice = lazy(() => import('../admin/orders/OrderInvoice'));

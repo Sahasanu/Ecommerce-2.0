@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import WarningModal from '../../components/modal/WarningModal';
 import TableSkeleton from '../../components/loader/SkeletonLoader/TableSkeleton';
-import Pagination from '../../components/common/Pagination';
-import CursorPagination from '../../components/common/CursorPagination';
+import Pagination from '../../components/Common/Pagination';
+import CursorPagination from '../../components/Common/CursorPagination';
 import DataTable from '../Components/common/DataTable';
 import ProductMobileCard from './tableComponents/ProductMobileCard';
 import getProductTableColumns  from './tableComponents/ProductColumns';

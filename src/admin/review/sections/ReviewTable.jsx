@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaStar, FaRegStar, FaTrash } from "react-icons/fa";
 import TableSkeleton from "../../../components/loader/SkeletonLoader/TableSkeleton";
-import Pagination from "../../../components/common/Pagination";
+import Pagination from "../../../components/Common/Pagination";
 
 function StarRating({ rating = 0 }) {
     return (
