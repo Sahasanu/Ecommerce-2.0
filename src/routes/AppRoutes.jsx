@@ -13,7 +13,7 @@ const Allproducts = lazy(() => import('../pages/allproducts/Allproducts'));
 const Cart = lazy(() => import("../pages/cart/Cart"));
 const ProductDetails = lazy(() => import("../pages/ProductDetails/ProductDetails"));
 const CheckoutPage = lazy(() => import('../pages/checkout/CheckoutPage'));
-const CustomerOrderDetail = lazy(() => import("../pages/order/orderDetails/CustomerOrderDetail"));
+const CustomerOrderDetail = lazy(() => import("../pages/Order/orderDetails/CustomerOrderDetail"));
 const User = lazy(() => import('../pages/user/User'));
 const NoPage = lazy(() => import("../pages/nopage/NoPage"));
 
