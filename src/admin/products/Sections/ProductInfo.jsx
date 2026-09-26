@@ -7,7 +7,7 @@ export { ProductBasicInfo, ProductModeSection, ProductPricingSection, ProductCon
 
 export function ProductInfo({ products, setProducts, handleTagsChange }) {
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 ">
             <ProductBasicInfo
                 products={products}
                 setProducts={setProducts}
