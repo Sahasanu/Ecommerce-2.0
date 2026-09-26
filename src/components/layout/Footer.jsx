@@ -69,7 +69,7 @@ function Footer() {
 
     return (
         <footer className="bg-bg-surface border-t border-border-base transition-colors duration-300">
-            <div className="px-10 py-6">
+            <div className="px-4 sm:px-6 lg:px-10 pt-6 pb-28 lg:py-6">
                 <div className="mt-4 flex flex-col lg:flex-row items-center justify-between gap-6 text-[13px] text-text-muted">
 
                     {/* Brand and Address */}

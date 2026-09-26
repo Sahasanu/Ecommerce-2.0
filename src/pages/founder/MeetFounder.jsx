@@ -6,7 +6,7 @@ export default function MeetFounder() {
   const { config } = useSiteConfig();
   const companyName = config.companyName || "Bengal Tiles";
   const founderName = config.founderName || "SK Abdul Ohid";
-  const imglink = "https://firebasestorage.googleapis.com/v0/b/bengal-tiles---website.firebasestorage.app/o/company%2Fbengal_tiles_owner.jpeg?alt=media&token=e32a4fcb-d1de-4ffd-b722-4c9659b86f38";
+  const imglink = "https://firebasestorage.googleapis.com/v0/b/bengal-tiles---website.firebasestorage.app/o/company%2Fbengal_tiles_owner_1.jpeg?alt=media&token=e9760f80-9e5c-4462-8d95-78181928e15d";
   const founderPhoto = config.founderPhoto || imglink || founderDefaultImg;
   useEffect(() => {
     window.scrollTo(0, 0);

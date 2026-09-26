@@ -4,6 +4,7 @@ import HeroSection from './Sections/HeroSection'
 import ProductsGrid from './Sections/ProductsGrid'
 import FeatureGrid from './Sections/FeatureGrid'
 import ReviewSection from '../../components/testimonial/ReviewSection'
+import FounderSection from './Sections/FounderSection'
 
 
 const reviews = [
@@ -40,6 +41,7 @@ function Home() {
     <div className='space-y-4  sm:space-y-5  lg:space-y-16 pb-8'>
       <HeroSection />
       <ProductsGrid />
+      <FounderSection />
       {/* <FeatureGrid />
       <ReviewSection reviews={reviews} /> */}
     </div>
