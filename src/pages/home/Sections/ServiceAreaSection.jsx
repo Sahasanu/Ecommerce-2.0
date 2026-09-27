@@ -110,7 +110,7 @@ export default function ServiceAreaSection() {
           {SERVICE_AREAS.map((item, idx) => (
             <div
               key={idx}
-              className="relative overflow-hidden rounded-3xl bg-bg-surface border border-border-base shadow-xs hover:shadow-lg transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between"
+              className="relative overflow-hidden rounded-3xl bg-bg-surface border border-border-base shadow-xs hover:shadow-lg transition-all duration-300 p-3 sm:p-4 lg:p-8 flex flex-col justify-between"
             >
               {/* Top district title & badge */}
               <div>
@@ -135,7 +135,7 @@ export default function ServiceAreaSection() {
                 </div>
 
                 {/* Locations Grid / Chips */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                   {item.locations.map((loc, lIdx) => {
                     const isHub = loc.includes("(Showroom)");
                     return (
@@ -163,7 +163,7 @@ export default function ServiceAreaSection() {
         </div>
 
         {/* Quick Delivery Callout Bar */}
-        <div className="mt-6 sm:mt-8 p-4 sm:p-5 rounded-2xl bg-bg-surface border border-border-base/80 flex flex-col md:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-2xs">
+        <div className="mt-6 sm:mt-8 p-4 md:p-5 rounded-2xl bg-bg-surface border border-border-base/80 flex flex-col md:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-2xs">
           <div className="flex items-center gap-3">
             <span className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-xl">help</span>
