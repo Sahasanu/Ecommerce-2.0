@@ -1,43 +1,43 @@
-         /*  Theme Color Variables (Golden & Black, Mostly White) */
+/* Theme Color Variables (Light Golden Theme & Black Text with Dark Golden Buttons) */
 
 :root {
   /* =========================
-     Brand Colors
+     Brand Colors & Dark Golden Buttons
   ========================= */
-  --color-primary: #c59b27;                /* Elegant Golden primary */
-  --color-primary-hover: #b0881e;          /* Rich deep gold hover */
-  --color-primary-light: #fdf8ea;          /* Warm champagne/gold tint background */
+  --color-primary: #966e18;                /* Refined Dark Amber-Gold for buttons */
+  --color-primary-hover: #7d5910;          /* Deep antique dark gold on hover */
+  --color-primary-light: #f8f3e5;          /* Delicate champagne gold tint */
   
   --color-secondary: #18181b;              /* Obsidian black secondary */
   --color-secondary-hover: #27272a;        /* Deep charcoal hover */
   
-  --color-accent: #d4af37;                 /* Metallic gold accent */
-  --color-accent-text: #18181b;            /* Black text for gold highlights */
+  --color-accent: #966e18;                 /* Refined gold accent */
+  --color-accent-text: #ffffff;            /* Crisp white text for gold accents */
 
   /* =========================
-     Background Colors (Mostly White)
+     Background Colors (Luxury Champagne Gold & Crisp White)
   ========================= */
-  --color-bg-base: #ffffff;                /* Pure crisp white main page background */
-  --color-bg-surface: #fafaf9;             /* Soft clean surface card background */
+  --color-bg-base: #efe8d8;                /* Elegant luminous champagne-gold page background */
+  --color-bg-surface: #ffffff;             /* Crisp clean white surface for cards & image frames */
   
   /* =========================
-     Text Colors
+     Text Colors (Black Text)
   ========================= */
-  --color-text-base: #111827;              /* Deep black primary text */
-  --color-text-compli: #ffffff;            /* Complementary white text */
-  --color-text-muted: #52525b;             /* Neutral muted secondary text */
+  --color-text-base: #111827;              /* Crisp deep black primary text */
+  --color-text-compli: #ffffff;            /* High contrast white text on buttons */
+  --color-text-muted: #524d45;             /* Warm charcoal for readable secondary text */
   
   /* =========================
      Border Colors
   ========================= */
-  --color-border-base: #e5e7eb;            /* Subtle light border/divider */
+  --color-border-base: #e8dfce;            /* Soft warm champagne-gold border */
 
   /* =========================
      Status Colors
   ========================= */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-error: #dc2626;
 }
 
 /* Dark Mode Palette Overrides */

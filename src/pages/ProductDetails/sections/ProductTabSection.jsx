@@ -10,23 +10,23 @@ export default function ProductTabSection({ productId, description, specificatio
   const [activeTab, setActiveTab] = useState('Details');
 
   return (
-    <div className="mt-16 border-t border-gray-200">
+    <div className="mt-12 bg-white border border-border-base rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xs">
       {/* Tab Bar */}
-      <div className="flex gap-6 border-b border-gray-200">
+      <div className="flex gap-6 border-b border-border-base">
         {TABS.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`relative pb-3 pt-4 text-sm font-semibold transition-colors ${
+            className={`relative pb-3 text-sm font-bold transition-colors cursor-pointer ${
               activeTab === tab
-                ? 'text-gray-900'
-                : 'text-gray-400 hover:text-gray-600'
+                ? 'text-primary'
+                : 'text-text-muted hover:text-text-base'
             }`}
           >
             {tab}
             {/* Active underline */}
             {activeTab === tab && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900 rounded-full" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-primary rounded-full" />
             )}
           </button>
         ))}

@@ -6,18 +6,27 @@
  */
 
 export async function compressImage(file, options = {}) {
-  const {
-    maxDimension = 1920,
-    quality = 0.82,
-    mimeType = "image/jpeg"
-  } = options;
-
   if (!file || !file.type || !file.type.startsWith("image/")) {
     return file; // Return original if not an image
   }
 
-  // Avoid compressing SVGs or very small images (< 150KB)
-  if (file.type === "image/svg+xml" || file.size < 150 * 1024) {
+  // Avoid compressing SVGs
+  if (file.type === "image/svg+xml") {
+    return file;
+  }
+
+  // Detect formats with alpha transparency (PNG, WebP, GIF)
+  const isAlphaFormat = file.type === "image/png" || file.type === "image/webp" || file.type === "image/gif";
+
+  const {
+    maxDimension = 1920,
+    quality = 0.85,
+    // Preserve transparent formats (PNG/WebP) so background removal is maintained!
+    mimeType = options.mimeType || (isAlphaFormat ? (file.type === "image/gif" ? "image/png" : file.type) : "image/jpeg")
+  } = options;
+
+  // Avoid compressing very small images (< 150KB)
+  if (file.size < 150 * 1024) {
     return file;
   }
 
@@ -60,7 +69,14 @@ export async function compressImage(file, options = {}) {
               return;
             }
 
-            const compressedFileName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+            const extMap = {
+              "image/png": ".png",
+              "image/webp": ".webp",
+              "image/gif": ".png",
+              "image/jpeg": ".jpg"
+            };
+            const ext = extMap[mimeType] || ".jpg";
+            const compressedFileName = file.name.replace(/\.[^/.]+$/, "") + ext;
             const compressedFile = new File([blob], compressedFileName, {
               type: mimeType,
               lastModified: Date.now()

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FaCartPlus } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { productService } from '../../services/product/productService';
+import { normalizeCategoryName } from '../../utils/categoryUtils';
 import useAdmin from '../../hooks/auth/useAdmin';
 import useProductsQuery from '../../hooks/product/useProductsQuery';
 import useDebounce from '../../hooks/common/useDebounce';
@@ -205,8 +206,8 @@ function Products({ mode, formatDate: propFormatDate }) {
 
 
     const categoryOptions = Array.from(
-        new Set([...storeCategories, ...products.map(p => p.category).filter(Boolean)])
-    ).sort();
+        new Set([...storeCategories, ...products.map(p => p.category)].map(normalizeCategoryName).filter(Boolean))
+    ).sort((a, b) => a.localeCompare(b));
 
     const filtersConfig = [
         {

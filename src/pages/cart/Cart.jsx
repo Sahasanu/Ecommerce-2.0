@@ -144,19 +144,24 @@ function Cart() {
   }
 
   return (
-    <div className="bg-bg-base text-text-base  flex flex-col transition-colors duration-300">  
-      <main className="flex-grow  md:px-6 max-w-8xl w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Shopping Cart Stack */}
-          <div className="lg:col-span-8 space-y-8">
-            <h1 className="md:text-3xl text-xl font-extrabold text-text-base mb-2 sm:mb-8 font-h1">
-              Your Cart ({totalItemsCount} {totalItemsCount === 1 ? 'item' : 'items'})
-            </h1>
+    <div className="bg-bg-base text-text-base flex flex-col transition-colors duration-300">  
+      <div className="flex-grow md:px-6 max-w-8xl w-full mx-auto">
+        {cart.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pb-32 lg:pb-12">
             
-            <div className="space-y-4">
-              {cart.length > 0 ? (
-                cart.map((item, index) => (
+            {/* Shopping Cart Stack */}
+            <div className="lg:col-span-8 space-y-6">
+              <div className="flex items-center justify-between pb-2 border-b border-border-base/50">
+                <h1 className="md:text-2xl text-xl font-extrabold text-text-base font-h1">
+                  Your Cart
+                </h1>
+                <span className="text-xs sm:text-sm font-semibold text-text-muted bg-bg-surface px-3 py-1 rounded-full border border-border-base/60">
+                  {totalItemsCount} {totalItemsCount === 1 ? 'item' : 'items'}
+                </span>
+              </div>
+              
+              <div className="space-y-4">
+                {cart.map((item, index) => (
                   <CartItem 
                     key={`${item.id}-${index}`} 
                     item={item} 
@@ -164,45 +169,58 @@ function Cart() {
                     onUpdateQuantity={handleUpdateQuantity} 
                     onRemove={handleRemoveItem} 
                   />
-                ))
-              ) : (
-                <div className="text-center py-16 px-6 bg-bg-surface text-text-muted text-sm font-semibold rounded-[24px] border border-dashed border-border-base/70 flex flex-col items-center justify-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined text-3xl">shopping_bag</span>
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="text-base font-extrabold text-text-base">Your shopping cart is empty</h3>
-                    <p className="text-xs text-text-muted">Looks like you haven't added anything to your cart yet.</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => navigate('/allproducts')}
-                    className="mt-2 px-6 py-2.5 rounded-xl bg-primary text-compli text-xs font-bold shadow-md hover:opacity-90 transition-all cursor-pointer flex items-center gap-2 active:scale-95"
-                  >
-                    <span className="material-symbols-outlined text-base">storefront</span>
-                    Explore Products
-                  </button>
-                </div>
-              )}
+                ))}
+              </div>
+
+              <CrossSellSection 
+                items={SUGGESTED_ITEMS} 
+                onAddToCart={handleAddToCart} 
+                title="Frequently Bought Together"
+              />
             </div>
 
-            <CrossSellSection 
-              items={SUGGESTED_ITEMS} 
-              onAddToCart={handleAddToCart} 
+            {/* Pricing Calculations Summary Sidebar */}
+            <OrderSummary 
+              subtotal={subtotal} 
+              shippingFee="Free" 
+              taxRate={0.05} 
+              cartItems={cart}
+              onCheckout={handleInitiateCheckout}
             />
+            
           </div>
+        ) : (
+          <div className="max-w-2xl mx-auto w-full py-8 sm:py-12 space-y-10">
+            <div className="text-center py-16 px-6 bg-bg-surface text-text-muted rounded-3xl border border-dashed border-border-base shadow-sm flex flex-col items-center justify-center gap-5">
+              <div className="w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-inner">
+                <span className="material-symbols-outlined text-4xl">shopping_cart</span>
+              </div>
+              <div className="space-y-2 max-w-sm">
+                <h2 className="text-xl sm:text-2xl font-black text-text-base tracking-tight">Your shopping cart is empty</h2>
+                <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
+                  Looks like you haven't added anything to your cart yet. Explore our collection to find premium tiles and sanitaryware.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => navigate('/allproducts')}
+                className="mt-2 px-8 py-3 rounded-xl bg-primary text-compli text-sm font-bold shadow-md hover:shadow-lg hover:opacity-95 transition-all cursor-pointer flex items-center gap-2 active:scale-95"
+              >
+                <span className="material-symbols-outlined text-lg">storefront</span>
+                Explore Products
+              </button>
+            </div>
 
-          {/* Pricing Calculations Summary Sidebar */}
-          <OrderSummary 
-            subtotal={subtotal} 
-            shippingFee="Free" 
-            taxRate={0.05} 
-            cartItems={cart}
-            onCheckout={handleInitiateCheckout}
-          />
-          
-        </div>
-      </main>
+            {SUGGESTED_ITEMS.length > 0 && (
+              <CrossSellSection 
+                items={SUGGESTED_ITEMS} 
+                onAddToCart={handleAddToCart} 
+                title="Recommended Products"
+              />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

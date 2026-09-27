@@ -122,37 +122,32 @@ export const orderService = {
   },
 
   /**
-   * Fetches orders from Firestore.
-   * If the user is an admin, fetches all orders.
-   * Otherwise, fetches orders matching the user's uid (checking both userId and userid fields).
+   * Fetches personal customer orders from Firestore for the client panel.
+   * Scoped strictly to the authenticated user's ID and Email across schema variations.
    */
-  async getOrders(userId, email, role = null) {
+  async getOrders(userId, email) {
     if (!userId && !email) return [];
     
     const ordersMap = new Map();
-    const isAdminRole = role === 'ADMIN' || role === 'SUPERADMIN';
+    const queries = [];
 
-    if (isAdminRole) {
-      const snap = await getDocs(collection(fireDB, "orders"));
-      snap.forEach((doc) => ordersMap.set(doc.id, { docId: doc.id, id: doc.id, ...doc.data() }));
-    } else {
-      const queries = [];
-      if (userId) {
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("userId", "==", userId))));
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("userid", "==", userId))));
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("customerId", "==", userId))));
-      }
-      if (email) {
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("userEmail", "==", email))));
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("email", "==", email))));
-        queries.push(getDocs(query(collection(fireDB, "orders"), where("customerEmail", "==", email))));
-      }
-      
-      const snaps = await Promise.all(queries);
-      snaps.forEach((snap) => {
-        snap.forEach((doc) => ordersMap.set(doc.id, { docId: doc.id, id: doc.id, ...doc.data() }));
-      });
+    if (userId) {
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("userId", "==", userId))));
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("userid", "==", userId))));
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("customerId", "==", userId))));
     }
+    if (email) {
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("userEmail", "==", email))));
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("email", "==", email))));
+      queries.push(getDocs(query(collection(fireDB, "orders"), where("customerEmail", "==", email))));
+    }
+    
+    const snaps = await Promise.allSettled(queries);
+    snaps.forEach((result) => {
+      if (result.status === "fulfilled" && result.value) {
+        result.value.forEach((doc) => ordersMap.set(doc.id, { docId: doc.id, id: doc.id, ...doc.data() }));
+      }
+    });
     
     const ordersArray = Array.from(ordersMap.values());
     

@@ -8,7 +8,7 @@ import ProductVariants from './ProductPurchase/ProductVariants';
  */
 export default function ProductInfo({
   product,
-  rating = 4.8,
+  rating = null,
   reviewCount = 0,
   selectedVariant = null,
   priceInfo = null,
@@ -67,24 +67,40 @@ export default function ProductInfo({
           )}
 
           {/* Product Title */}
-          <h1 className="text-3xl font-semibold text-text-base">{product.title}</h1>
+          <h1 className="text-2xl font-bold text-text-base">{product.title}</h1>
         </div>
 
-        {/* Rating Row */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center gap-1 px-2 bg-[#007432] rounded-md py-1">
-            <span
-              className="material-symbols-outlined text-white icon-sm"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              star
-            </span>
-            <span className="font-bold text-white text-sm">{rating}</span>
+        {/* Dynamic Rating Row */}
+        {reviewCount > 0 && rating ? (
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center justify-center gap-1 px-2.5 py-0.5 bg-emerald-700 text-white rounded-md text-xs font-bold shadow-2xs">
+              <span
+                className="material-symbols-outlined text-white text-[14px]"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                star
+              </span>
+              <span className="font-bold text-white text-xs">{rating}</span>
+            </div>
+            <p className="text-xs text-text-muted font-semibold">
+              {reviewCount} {reviewCount === 1 ? 'Review' : 'Reviews'}
+            </p>
           </div>
-          <p className="text-sm text-text-muted font-medium">
-            {reviewCount} {reviewCount === 1 ? 'Review' : 'Reviews'}
-          </p>
-        </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <span
+                  key={i}
+                  className="material-symbols-outlined text-[16px] text-gray-300 opacity-60"
+                >
+                  star
+                </span>
+              ))}
+            </div>
+            <span className="text-xs text-text-muted font-semibold">No reviews yet</span>
+          </div>
+        )}
 
         {/* Price Row */}
         <div className="flex items-baseline gap-4 pt-1">

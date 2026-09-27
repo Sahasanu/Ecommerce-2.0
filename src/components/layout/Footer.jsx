@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useSiteConfig } from '../../context/SiteConfigContext';
+import mapPreviewImg from '../../assets/map_preview.png';
 
 const FOOT_LINKS = [
     { title: "Terms & Conditions", path: "/termsconditions" },
@@ -31,6 +32,11 @@ function Footer() {
         address?.state,
         address?.pincode,
     ].filter(Boolean).join(", ");
+
+    const mapUrl = address?.mapUrl || 
+        (fullAddress 
+            ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`
+            : "https://maps.google.com/?q=Bengal+Tiles+Panskura+West+Bengal");
 
     // Build dynamic legal links — only include documents that are actually uploaded/configured & active
     const fixedMap = [
@@ -73,7 +79,7 @@ function Footer() {
                 <div className="mt-4 flex flex-col lg:flex-row items-center justify-between gap-6 text-[13px] text-text-muted">
 
                     {/* Brand and Address */}
-                    <div className="space-y-2 text-center lg:text-left">
+                    <div className="space-y-2 text-center max-w-[260px] sm:max-w-[280px] lg:text-left">
                         <Link to="/" className="inline-block">
                             <h2 className="text-2xl font-black tracking-tight text-primary">
                                 {companyName || "Company Name"}
@@ -93,29 +99,51 @@ function Footer() {
                             © {new Date().getFullYear()} {companyName || "Company Name"}. All rights reserved.
                         </p>
 
-                        {(fullAddress || address?.mapUrl) && (
-                            <div className="flex gap-1.5 items-center justify-center lg:justify-start pt-1">
-                                <span className="material-symbols-outlined text-sm text-primary shrink-0">location_on</span>
-                                {fullAddress && <span className="font-medium text-xs text-text-muted leading-relaxed">{fullAddress}</span>}
-                                {address?.mapUrl && (
+                        {(fullAddress || mapUrl) && (
+                            <div className="flex gap-1.5 items-start justify-center lg:justify-start pt-1">
+                                <span className="material-symbols-outlined text-sm text-primary shrink-0 mt-0.5">location_on</span>
+                                {mapUrl ? (
                                     <a
-                                        href={address.mapUrl}
+                                        href={mapUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-primary hover:text-primary-hover transition cursor-pointer inline-flex items-center"
-                                        title="Open Location in Maps"
+                                        className="font-medium text-xs text-text-muted hover:text-primary leading-relaxed inline group transition-colors cursor-pointer text-left"
+                                        title="Open Location in Google Maps"
                                     >
-                                        <span className="material-symbols-outlined text-sm">open_in_new</span>
+                                        <span>{fullAddress}</span>
+                                        <span className="inline-flex items-center ml-1 text-primary group-hover:translate-x-0.5 transition-transform align-middle">
+                                            <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+                                        </span>
                                     </a>
+                                ) : (
+                                    <span className="font-medium text-xs text-text-muted leading-relaxed text-left">{fullAddress}</span>
                                 )}
                             </div>
                         )}
                     </div>
 
+                    {/* Showroom Map Location Card */}
+                    <div className="shrink-0 flex justify-center">
+                        <a
+                            href={mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group block w-52 sm:w-60 md:w-64 rounded-xl overflow-hidden border border-border-base hover:border-primary/50 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer"
+                            title="Open Bengal Tiles on Google Maps"
+                        >
+                            <img
+                                src={mapPreviewImg}
+                                alt="Showroom Map Location"
+                                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                            />
+                        </a>
+                    </div>
+
                     {/* Social Links and Contacts */}
-                    <div className="flex flex-col items-center gap-3">
+                    <div className="flex flex-col items-center gap-2.5 max-w-[260px] sm:max-w-[280px] text-center">
                         {activeSocials.length > 0 && (
-                            <div className="flex gap-3">
+                            <div className="flex gap-2.5">
                                 {activeSocials.map((social) => {
                                     let href = (social.url || "").trim();
                                     if (social.platform === "whatsapp") {
@@ -133,51 +161,55 @@ function Footer() {
                                             href={href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-8 h-8 rounded-full border border-border-base flex items-center justify-center text-text-muted hover:text-white hover:bg-primary hover:border-primary transition-all duration-300 shadow-2xs"
+                                            className="w-7 h-7 rounded-full border border-border-base flex items-center justify-center text-text-muted hover:text-white hover:bg-primary hover:border-primary transition-all duration-300 shadow-2xs"
                                             title={social.platform}
                                         >
-                                            <i className={`fa-brands ${social.icon} text-xs`} />
+                                            <i className={`fa-brands ${social.icon} text-[11px]`} />
                                         </a>
                                     );
                                 })}
                             </div>
                         )}
 
-                        <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold text-text-muted">
-                            {(phones || []).map((p, i) => {
-                                const cleanNum = String(p.number || "").replace(/[^0-9]/g, "");
-                                return p.isWhatsapp ? (
-                                    <a
-                                        key={i}
-                                        href={`https://wa.me/${cleanNum}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex gap-1.5 items-center hover:text-emerald-600 transition cursor-pointer"
-                                        title={`Chat on WhatsApp (${p.label || 'Support'})`}
-                                    >
-                                        <span className="material-symbols-outlined text-sm text-emerald-600">chat</span>
-                                        <p className="font-medium text-xs text-text-muted hover:text-emerald-600">{p.number}</p>
-                                    </a>
-                                ) : (
-                                    <a
-                                        key={i}
-                                        href={`tel:${p.number}`}
-                                        className="flex gap-1.5 items-center hover:text-primary transition cursor-pointer"
-                                        title={`Call ${p.label || 'Support'}`}
-                                    >
-                                        <span className="material-symbols-outlined text-sm text-primary">call</span>
-                                        <p className="font-medium text-xs text-text-muted hover:text-primary">{p.number}</p>
-                                    </a>
-                                );
-                            })}
+                        {/* Contacts Grid: 2 Columns */}
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs font-semibold text-text-muted">
+                            {/* Phone Numbers */}
+                            {(phones || [])
+                                .filter((p, index, self) => {
+                                    const num = typeof p === 'string' ? p : p?.number;
+                                    if (!num) return false;
+                                    const clean = num.replace(/\D/g, '');
+                                    return self.findIndex(s => (typeof s === 'string' ? s : s?.number)?.replace(/\D/g, '') === clean) === index;
+                                })
+                                .map((p, i) => {
+                                    const num = typeof p === 'string' ? p : p.number;
+                                    const label = typeof p === 'object' ? p.label : null;
+                                    const cleanDigits = num.replace(/[^0-9+]/g, '');
+                                    return (
+                                        <a
+                                            key={`phone-${i}`}
+                                            href={`tel:${cleanDigits}`}
+                                            className="flex gap-1.5 items-center hover:text-primary transition cursor-pointer whitespace-nowrap"
+                                            title={`Call ${label || 'Us'}`}
+                                        >
+                                            <span className="material-symbols-outlined text-sm text-primary shrink-0">call</span>
+                                            <span className="font-medium text-xs text-text-muted hover:text-primary">
+                                                {label ? <span className="font-semibold text-text-base mr-1">{label}:</span> : null}
+                                                {num}
+                                            </span>
+                                        </a>
+                                    );
+                                })}
+
+                            {/* Email Address */}
                             {(emails || []).map((e, i) => (
                                 <a
-                                    key={i}
+                                    key={`email-${i}`}
                                     href={`mailto:${e.email}`}
-                                    className="flex gap-1.5 items-center hover:text-primary transition cursor-pointer"
+                                    className="flex gap-1.5 items-center hover:text-primary transition cursor-pointer whitespace-nowrap"
                                     title={`Email ${e.label || 'Support'}`}
                                 >
-                                    <span className="material-symbols-outlined text-sm text-primary">mail</span>
+                                    <span className="material-symbols-outlined text-sm text-primary shrink-0">mail</span>
                                     <p className="font-medium text-xs text-text-muted hover:text-primary">{e.email}</p>
                                 </a>
                             ))}

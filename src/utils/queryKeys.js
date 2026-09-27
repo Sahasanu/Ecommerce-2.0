@@ -23,6 +23,7 @@ export const queryKeys = {
     detail: (id) => ['orders', 'detail', id],
     counts: ['orders', 'counts'],
     recent: ['orders', 'recent'],
+    user: (uid, email) => ['orders', 'user', uid, email],
   },
   users: {
     all: ['users'],

@@ -7,7 +7,7 @@ export function ThemeProvider({ children }) {
 
   const toggleMode = () => {
     setMode('light');
-    document.body.style.backgroundColor = 'white';
+    document.body.style.backgroundColor = 'var(--color-bg-base)';
   };
 
   return (

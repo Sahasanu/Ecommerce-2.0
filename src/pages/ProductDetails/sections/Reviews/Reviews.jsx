@@ -144,17 +144,8 @@ function ReviewsTab({ productId, reviews = [] }) {
     const [pageSize, setPageSize] = useState(5);
     const SORT_OPTIONS = ['Newest', 'Oldest', 'Highest', 'Lowest'];
 
-    const FALLBACK = [
-        {
-            userName: 'Happy Customer',
-            rating: 5,
-            review: 'Great product! Exactly as described and fast delivery.',
-            createdAt: { seconds: Date.now() / 1000 }
-        },
-    ];
-
     // Combine prop reviews + any optimistically added ones
-    const allReviews = [...(reviews.length > 0 ? reviews : FALLBACK), ...localReviews];
+    const allReviews = [...(reviews || []), ...localReviews];
 
     // Normalize
     const list = allReviews.map(r => ({
@@ -235,7 +226,13 @@ function ReviewsTab({ productId, reviews = [] }) {
                 {/* Left: Review list & Pagination */}
                 <div className="md:col-span-2 space-y-4">
                     {paginatedReviews.length === 0 ? (
-                        <p className="text-text-muted italic text-sm">No reviews yet. Be the first to review!</p>
+                        <div className="py-10 px-6 text-center border border-dashed border-border-base rounded-2xl bg-bg-surface/50">
+                            <span className="material-symbols-outlined text-3xl text-text-muted/40 mb-1.5 block">
+                                rate_review
+                            </span>
+                            <p className="text-sm font-bold text-text-base">No reviews yet</p>
+                            <p className="text-xs text-text-muted mt-1">Be the first to review this product!</p>
+                        </div>
                     ) : (
                         paginatedReviews.map((review, index) => (
                             <ReviewItem key={startIndex + index} review={review} index={startIndex + index} />

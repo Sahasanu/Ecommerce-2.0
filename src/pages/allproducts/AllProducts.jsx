@@ -11,6 +11,7 @@ import { addToCart } from '../../redux/cartSlice'
 import { toast } from 'react-toastify'
 import { queryKeys } from '../../utils/queryKeys';
 import { computeTotalStock } from '../../utils/productUtils';
+import { normalizeCategoryName } from '../../utils/categoryUtils';
 import AllProductsBanner from './sections/AllProductsBanner';
 import AllProductsSidebar from './sections/AllProductsSidebar';
 import AllProductsGrid from './sections/AllProductsGrid';
@@ -96,8 +97,8 @@ function Allproducts() {
 
     // Dynamically derive categories & price boundaries from database
     const dynamicCategories = Array.from(
-        new Set([...storeCategories, ...allProducts.map(p => p.category).filter(Boolean)])
-    ).sort();
+        new Set([...storeCategories, ...allProducts.map(p => p.category)].map(normalizeCategoryName).filter(Boolean))
+    ).sort((a, b) => a.localeCompare(b));
 
     const numericPrices = allProducts
         .map(p => Number(p.price || p.minPrice))

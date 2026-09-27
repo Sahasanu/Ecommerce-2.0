@@ -1,6 +1,51 @@
+import React, { useState, useEffect } from "react";
+import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfig";
 import ReviewCard from "./ReviewCard";
 
-export default function ReviewSection({ reviews }) {
+export default function ReviewSection({ reviews: fallbackReviews = [] }) {
+    const [liveReviews, setLiveReviews] = useState([]);
+
+    useEffect(() => {
+        let isMounted = true;
+        const fetchLiveReviews = async () => {
+            try {
+                const q = query(
+                    collection(fireDB, "ratings"),
+                    orderBy("createdAt", "desc"),
+                    limit(15)
+                );
+                const snap = await getDocs(q);
+                const fetched = [];
+                const colors = ["bg-indigo-600", "bg-pink-600", "bg-teal-600", "bg-amber-600", "bg-purple-600", "bg-emerald-600"];
+                let idx = 0;
+                snap.forEach((doc) => {
+                    const d = doc.data();
+                    if (d.review && typeof d.review === "string" && d.review.trim().length > 0) {
+                        fetched.push({
+                            id: doc.id,
+                            name: d.userName || "Verified Customer",
+                            role: "Verified Buyer",
+                            text: d.review.trim(),
+                            bgColor: colors[idx % colors.length]
+                        });
+                        idx++;
+                    }
+                });
+                if (isMounted && fetched.length > 0) {
+                    setLiveReviews(fetched);
+                }
+            } catch (err) {
+                console.warn("Using fallback reviews:", err);
+            }
+        };
+        fetchLiveReviews();
+        return () => { isMounted = false; };
+    }, []);
+
+    const reviews = liveReviews.length >= 3 
+        ? liveReviews 
+        : (liveReviews.length > 0 ? [...liveReviews, ...fallbackReviews] : fallbackReviews);
     return (
         <section id="reviews" className=" scroll-mt-36">
             <style>
@@ -46,7 +91,6 @@ export default function ReviewSection({ reviews }) {
                             <ReviewCard
                                 name={review.name}
                                 role={review.role}
-                                image={review.img}
                                 review={review.text}
                                 bgColor={review.bgColor}
                             />
@@ -61,7 +105,6 @@ export default function ReviewSection({ reviews }) {
                             <ReviewCard
                                 name={review.name}
                                 role={review.role}
-                                image={review.img}
                                 review={review.text}
                                 bgColor={review.bgColor}
                             />

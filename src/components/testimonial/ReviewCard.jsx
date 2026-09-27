@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
  * Displays client testimonial reviews.
  * Leverages theme variables to automatically support light/dark transitions.
  */
-export default function ReviewCard({ name, role, image, review, bgColor }) {
+export default function ReviewCard({ name, role, review, bgColor }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -15,10 +15,8 @@ export default function ReviewCard({ name, role, image, review, bgColor }) {
                 <div>
                     <div className="mb-5 flex items-start justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="h-12 w-12 overflow-hidden rounded-full shrink-0 bg-primary">
-                                <div className="h-full w-full flex items-center justify-center text-xl font-extrabold text-white">
-                                    {name?.charAt(0).toUpperCase()}
-                                </div>
+                            <div className={`h-12 w-12 rounded-full shrink-0 flex items-center justify-center text-lg font-black text-white shadow-2xs select-none ${bgColor || "bg-primary"}`}>
+                                {name?.charAt(0).toUpperCase()}
                             </div>
                             <div>
                                 <h4 className="font-bold text-text-base line-clamp-1">{name}</h4>
@@ -73,18 +71,8 @@ export default function ReviewCard({ name, role, image, review, bgColor }) {
                             </button>
 
                             <div className="mb-6 flex items-center gap-4 pr-8">
-                                <div className={`h-14 w-14 overflow-hidden rounded-full shrink-0 ${bgColor || "bg-primary"}`}>
-                                    {image ? (
-                                        <img
-                                            src={image}
-                                            alt={name}
-                                            className="h-full w-full object-cover"
-                                        />
-                                    ) : (
-                                        <div className="h-full w-full flex items-center justify-center text-2xl font-bold text-white">
-                                            {name?.charAt(0)}
-                                        </div>
-                                    )}
+                                <div className={`h-14 w-14 rounded-full shrink-0 flex items-center justify-center text-2xl font-black text-white shadow-2xs select-none ${bgColor || "bg-primary"}`}>
+                                    {name?.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
                                     <h4 className="text-lg font-bold text-text-base">{name}</h4>

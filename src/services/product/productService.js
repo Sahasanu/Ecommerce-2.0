@@ -8,10 +8,13 @@ import {
   query, 
   onSnapshot,
   getDocs,
-  where
+  where,
+  arrayUnion,
+  arrayRemove
 } from 'firebase/firestore';
 
 import { computeMinPrice, computeTotalStock } from '../../utils/productUtils.js';
+import { DEFAULT_CATEGORIES, normalizeCategoryName } from '../../utils/categoryUtils.js';
 
 export const productService = {
   /**
@@ -175,18 +178,78 @@ export const productService = {
   },
 
   /**
-   * Dynamically retrieves all distinct categories currently existing in the product catalog.
+   * Dynamically retrieves all distinct categories from:
+   * 1. System DEFAULT_CATEGORIES
+   * 2. Centralized configure/categories doc in Firestore
+   * 3. Existing products in the database
+   * Normalizes case and whitespace to eliminate duplicate variations.
    */
   async getCategories() {
-    const snap = await getDocs(collection(fireDB, "products"));
-    const categoriesSet = new Set();
-    snap.forEach((d) => {
-      const cat = d.data()?.category;
-      if (cat && typeof cat === 'string' && cat.trim()) {
-        categoriesSet.add(cat.trim());
+    const categoryMap = new Map();
+
+    const addCat = (c) => {
+      const norm = normalizeCategoryName(c);
+      if (norm) {
+        categoryMap.set(norm.toLowerCase(), norm);
       }
-    });
-    return Array.from(categoriesSet).sort();
+    };
+
+    // 1. Base default categories
+    DEFAULT_CATEGORIES.forEach(addCat);
+
+    // 2. Fetch custom categories saved in configure/categories document
+    try {
+      const catDoc = await getDoc(doc(fireDB, "configure", "categories"));
+      if (catDoc.exists() && Array.isArray(catDoc.data()?.list)) {
+        catDoc.data().list.forEach(addCat);
+      }
+    } catch (err) {
+      console.warn("Could not read configure/categories:", err);
+    }
+
+    // 3. Scan existing products to ensure backward compatibility
+    try {
+      const snap = await getDocs(collection(fireDB, "products"));
+      snap.forEach((d) => {
+        addCat(d.data()?.category);
+      });
+    } catch (err) {
+      console.warn("Could not fetch categories from products collection:", err);
+    }
+
+    return Array.from(categoryMap.values()).sort((a, b) => a.localeCompare(b));
+  },
+
+  /**
+   * Persists a category to the centralized configure/categories doc in Firestore.
+   */
+  async saveCategory(name) {
+    const normalized = normalizeCategoryName(name);
+    if (!normalized) return;
+    try {
+      const catRef = doc(fireDB, "configure", "categories");
+      await setDoc(catRef, {
+        list: arrayUnion(normalized)
+      }, { merge: true });
+    } catch (err) {
+      console.warn("Could not persist category to configure/categories:", err);
+    }
+  },
+
+  /**
+   * Removes a category from configure/categories doc in Firestore.
+   */
+  async removeCategory(name) {
+    const normalized = normalizeCategoryName(name);
+    if (!normalized) return;
+    try {
+      const catRef = doc(fireDB, "configure", "categories");
+      await setDoc(catRef, {
+        list: arrayRemove(normalized)
+      }, { merge: true });
+    } catch (err) {
+      console.warn("Could not remove category from configure/categories:", err);
+    }
   },
 
   /**

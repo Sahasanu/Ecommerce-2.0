@@ -124,6 +124,11 @@ export default function OrderSummary({ subtotal = 0, shippingFee = "Free", cartI
     }
   };
 
+  // If cart has no items, do not render summary sidebar or mobile floating drawer
+  if (!cartItems || cartItems.length === 0) {
+    return null;
+  }
+
   return (
     <>
       {/* 1. Desktop Sticky Sidebar View */}
@@ -151,7 +156,7 @@ export default function OrderSummary({ subtotal = 0, shippingFee = "Free", cartI
       {/* 2. Mobile Floating Drawer Backdrop */}
       {isExpanded && (
         <div
-          className="fixed inset-0 bg-black/50 z-35 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-[35] lg:hidden backdrop-blur-xs transition-opacity"
           onClick={() => setIsExpanded(false)}
         />
       )}

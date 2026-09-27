@@ -2,6 +2,7 @@ import React from 'react'
 import { useFilter } from '../../context/FilterContext'
 import { useTheme } from '../../context/ThemeContext'
 import useProducts from '../../hooks/product/useProducts'
+import { normalizeCategoryName } from '../../utils/categoryUtils'
 
 function Filter() {
     const { mode, searchkey, setSearchkey, filterType, setFilterType,
@@ -9,7 +10,7 @@ function Filter() {
     const { products } = useProducts();
 
     const uniquePrices = [...new Set(products.map((item) => item.price))];
-    const uniqueCategory = [...new Set(products.map((item) => item.category))];
+    const uniqueCategory = [...new Set(products.map((item) => normalizeCategoryName(item.category)).filter(Boolean))].sort((a, b) => a.localeCompare(b));
 
 
     return (

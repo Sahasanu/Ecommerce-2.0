@@ -12,7 +12,7 @@ export default function FounderSection() {
 
   return (
     <section className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-8 py-3 sm:py-6">
-      <div className="relative overflow-hidden rounded-3xl bg-bg-surface/90 border border-border-base/70 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 sm:p-10 lg:p-12 transition-all duration-300 hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)]">
+      <div className="relative overflow-hidden rounded-3xl bg-bg-surface border border-border-base shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 p-6 sm:p-10 lg:p-12 transition-all duration-300">
         
         {/* Soft Ambient Background Glow */}
         <div className="absolute -top-24 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />

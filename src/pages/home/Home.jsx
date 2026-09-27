@@ -5,32 +5,39 @@ import ProductsGrid from './Sections/ProductsGrid'
 import FeatureGrid from './Sections/FeatureGrid'
 import ReviewSection from '../../components/testimonial/ReviewSection'
 import FounderSection from './Sections/FounderSection'
+import BengalTilesSection from './Sections/BengalTilesSection'
+import BrandPartnerSection from './Sections/BrandPartnerSection'
+import ServiceAreaSection from './Sections/ServiceAreaSection'
 
 
 const reviews = [
   {
     id: 1,
     name: "Nitin Kumar",
-    role: "Art Enthusiast",
-    img: "https://firebasestorage.googleapis.com/v0/b/e-commerce-d6aae.appspot.com/o/Reviews%2Freview1.jpeg?alt=media&token=3d88aabe-c582-4058-92e2-ee2b86ffa8a6",
-    text: "I ordered a custom handmade portrait drawing from this website, and I was blown away by the artistry and attention to detail. The portrait perfectly captured the essence of the subject, and the quality exceeded my expectations. I highly recommend these talented artists!",
+    role: "Interior Designer",
+    text: "Bengal Tiles has an outstanding collection of vitrified tiles and Italian marble. The showroom experience was remarkable, and their guidance helped us select the perfect slabs for our client's villa.",
     bgColor: "bg-indigo-600"
   },
   {
     id: 2,
     name: "Riya Singh",
-    role: "Freelancer",
-    img: "https://firebasestorage.googleapis.com/v0/b/e-commerce-d6aae.appspot.com/o/Reviews%2Freview%202.jpg?alt=media&token=36b984d2-a643-45b3-baf4-26e568132e6c",
-    text: "I wanted to surprise my spouse with a special gift, and this website delivered beyond my imagination. The handmade portrait drawing conveyed the love and sentiment in every stroke. It's a heartfelt creation that brought tears of joy. Thank you for making the occasion truly memorable!",
+    role: "Homeowner",
+    text: "We renovated our home flooring with marble and designer wall tiles from Bengal Tiles. The quality is top-notch, pricing was very competitive, and delivery was right on time. Truly the best showroom in West Bengal!",
     bgColor: "bg-pink-600"
   },
   {
     id: 3,
     name: "Payel Mandal",
-    role: "Professor",
-    img: "https://firebasestorage.googleapis.com/v0/b/e-commerce-d6aae.appspot.com/o/Reviews%2Freview%203.jpg?alt=media&token=f9cb6261-b9d1-4944-bf08-394f8161b598",
-    text: "From start to finish, the experience with this website was exceptional. The customer service was prompt and friendly, and the final portrait exceeded all expectations. The attention to detail, color accuracy, and overall quality make this platform stand out. I'm a delighted customer and will be ordering again!",
+    role: "Architect",
+    text: "From consultation to site delivery, the service was seamless. Wide variety of brand partner tiles like Kajaria and Somany with premium finishes that brought our architectural project to life.",
     bgColor: "bg-teal-600"
+  },
+  {
+    id: 4,
+    name: "Subhashis Das",
+    role: "Civil Contractor",
+    text: "As a builder, finding reliable supply with consistent lot shades is crucial. Bengal Tiles has been our most dependable partner for large granite and vitrified tile orders across West Bengal.",
+    bgColor: "bg-amber-600"
   }
 ];
 
@@ -38,12 +45,16 @@ function Home() {
 
   return (
 
-    <div className='space-y-4  sm:space-y-5  lg:space-y-16 pb-8'>
-      <HeroSection />
-      <ProductsGrid />
-      <FounderSection />
-      {/* <FeatureGrid />
-      <ReviewSection reviews={reviews} /> */}
+    <div>
+      <div className='space-y-4  sm:space-y-5  lg:space-y-16 pb-8'>
+      <BengalTilesSection />
+        <HeroSection />
+        <BrandPartnerSection />
+        <ProductsGrid />
+        <ReviewSection reviews={reviews} />
+        <ServiceAreaSection />
+        <FounderSection />
+      </div>
     </div>
   )
 }

@@ -46,7 +46,7 @@ export default function ProductPurchase({
   return (
     <div className="space-y-6 w-full">
       <div className="space-y-4">
-        
+
         {/* Quantity and Actions row */}
         <div className="flex  gap-4 items-end">
           {/* Quantity Selector Section */}
@@ -67,11 +67,10 @@ export default function ProductPurchase({
           <button
             onClick={handleAddToCart}
             disabled={isButtonDisabled}
-            className={`flex-grow py-2 px-4 rounded-full font-extrabold text-xs flex items-center justify-center gap-2 hover:shadow-md transition-all active:scale-[0.98] ${
-              isButtonDisabled 
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none' 
+            className={`flex-grow py-2 px-4 rounded-full font-extrabold text-xs flex items-center justify-center gap-2 hover:shadow-md transition-all active:scale-[0.98] ${isButtonDisabled
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none'
                 : 'bg-bg-surface border border-border-base text-text-base hover:bg-bg-surface/80'
-            }`}
+              }`}
           >
             <span className="material-symbols-outlined text-lg">shopping_bag</span>
             ADD TO CART
@@ -93,11 +92,10 @@ export default function ProductPurchase({
         <button
           onClick={handleBuyNow}
           disabled={isButtonDisabled}
-          className={`w-full h-12 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md shadow-primary/10 ${
-            isButtonDisabled 
-              ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none' 
+          className={`w-full h-12 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md shadow-primary/10 ${isButtonDisabled
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none'
               : 'bg-primary hover:bg-primary-hover text-compli'
-          }`}
+            }`}
         >
           BUY NOW
         </button>

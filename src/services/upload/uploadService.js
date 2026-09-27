@@ -14,7 +14,9 @@ export const uploadService = {
     const file = await compressImage(rawFile);
     const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const storageRef = ref(storage, `${folder}/${Date.now()}_${sanitizedName}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const uploadTask = uploadBytesResumable(storageRef, file, {
+      contentType: file.type || rawFile.type,
+    });
 
     return new Promise((resolve, reject) => {
       uploadTask.on(
@@ -56,8 +58,43 @@ export const uploadService = {
 
   /**
    * Company identity upload (logo, favicon) -> saves into `company/` folder
+   * Preserves transparency for PNG/SVG/WebP background-removed brand logos!
    */
   async uploadCompanyAsset(rawFile, onProgress) {
+    // If it's a vector or transparent brand asset, preserve its exact format & alpha channel
+    if (rawFile.type === 'image/svg+xml' || rawFile.type === 'image/png' || rawFile.type === 'image/webp') {
+      const file = rawFile.size > 2 * 1024 * 1024
+        ? await compressImage(rawFile, { maxDimension: 1024, mimeType: rawFile.type })
+        : rawFile;
+
+      const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const storageRef = ref(storage, `company/${Date.now()}_${sanitizedName}`);
+      const uploadTask = uploadBytesResumable(storageRef, file, {
+        contentType: file.type || rawFile.type || 'image/png',
+      });
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            if (snapshot.totalBytes > 0 && onProgress) {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              onProgress(Math.round(progress));
+            }
+          },
+          reject,
+          async () => {
+            try {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              resolve(downloadURL);
+            } catch (err) {
+              reject(err);
+            }
+          }
+        );
+      });
+    }
+
     return this.uploadFile(rawFile, 'company', onProgress);
   },
 

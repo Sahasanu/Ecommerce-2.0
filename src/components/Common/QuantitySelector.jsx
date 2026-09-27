@@ -5,11 +5,11 @@ import React from 'react';
  * Reusable quantity counter component with increment/decrement control actions.
  * Perfect for cart line-items and product purchase flows.
  */
-export default function QuantitySelector({ 
-  quantity, 
-  onChange, 
-  min = 1, 
-  max = Infinity, 
+export default function QuantitySelector({
+  quantity,
+  onChange,
+  min = 1,
+  max = Infinity,
   disabled = false,
   className
 }) {
@@ -25,7 +25,7 @@ export default function QuantitySelector({
 
   return (
     <div className={`flex items-center bg-bg-base border border-border-base/40 rounded-full ${className} `}>
-      <button 
+      <button
         type="button"
         disabled={disabled || quantity <= min}
         onClick={handleDecrease}
@@ -34,12 +34,12 @@ export default function QuantitySelector({
       >
         <span className="material-symbols-outlined text-[16px]">remove</span>
       </button>
-      
+
       <span className="px-3 text-xs font-semibold text-text-base w-7 text-center select-none">
         {quantity}
       </span>
-      
-      <button 
+
+      <button
         type="button"
         disabled={disabled || quantity >= max}
         onClick={handleIncrease}

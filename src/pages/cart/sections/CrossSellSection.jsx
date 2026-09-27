@@ -5,12 +5,12 @@ import RoundedButton from '../../../components/Common/RoundedButton';
  * CrossSellSection
  * Displays recommended items that can be quickly added to the shopping cart.
  */
-export default function CrossSellSection({ items = [], onAddToCart }) {
+export default function CrossSellSection({ items = [], onAddToCart, title = "Frequently Bought Together" }) {
   if (items.length === 0) return null;
 
   return (
     <div className="mt-12">
-      <h2 className="text-lg font-bold text-text-base mb-6">Frequently Bought Together</h2>
+      <h2 className="text-lg font-bold text-text-base mb-6">{title}</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {items.map((item) => (

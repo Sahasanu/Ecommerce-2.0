@@ -59,7 +59,10 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
             setPendingFile(null);
             toast.success(`${label} uploaded and saved successfully`);
         } catch (err) {
-            toast.error("Upload failed");
+            const errorMsg = err?.code === 'storage/unauthorized'
+                ? "Permission denied: Please ensure you are logged in to upload assets."
+                : (err?.message || "Upload failed");
+            toast.error(errorMsg);
             console.error(err);
         } finally {
             setUploading(false);
@@ -73,16 +76,16 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
 
     return (
         <div className="space-y-4 bg-bg-surface p-4 rounded-2xl border border-border-base/60">
-            {/* Preview panel */}
-            <div className={`relative h-40 rounded-2xl border-2 border-dashed overflow-hidden bg-white flex items-center justify-center transition-colors ${
-                displayUrl ? "border-primary/30" : "border-border-base"
+            {/* Preview panel with transparency checkerboard */}
+            <div className={`relative h-40 rounded-2xl border-2 border-dashed overflow-hidden bg-bg-base flex items-center justify-center transition-colors bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:12px_12px] ${
+                displayUrl ? "border-primary/40" : "border-border-base"
             }`}>
                 {displayUrl ? (
                     <>
                         <img
                             src={displayUrl}
                             alt={label}
-                            className="max-h-full max-w-full object-contain p-4"
+                            className="max-h-full max-w-full object-contain p-4 drop-shadow-xs"
                         />
                         {localPreview && (
                             <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider shadow-xs">
@@ -146,7 +149,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
                     </span>
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/png, image/webp, image/svg+xml, image/jpeg, image/x-icon, image/*"
                         className="hidden"
                         onChange={handleFileSelect}
                         disabled={uploading}
@@ -209,7 +212,7 @@ export default function CompanyTab({ draft, updateDraft }) {
                     <LogoUpload
                         label="Logo"
                         currentUrl={draft.companyLogo}
-                        hint="Shown in Navbar and Admin sidebar. Recommended: 200×200px PNG."
+                        hint="Shown in Navbar and Admin sidebar. Supports transparent background PNG, WebP, SVG."
                         onUpload={handleLogoUpload}
                     />
                 </Field>
@@ -217,7 +220,7 @@ export default function CompanyTab({ draft, updateDraft }) {
                     <LogoUpload
                         label="Favicon"
                         currentUrl={draft.faviconUrl}
-                        hint="Shown in browser tab. Recommended: 32×32px or 64×64px ICO/PNG."
+                        hint="Shown in browser tab. Recommended: 32×32px ICO/PNG with transparency."
                         onUpload={handleFaviconUpload}
                     />
                 </Field>

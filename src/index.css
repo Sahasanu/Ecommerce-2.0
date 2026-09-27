@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-base);
+  min-height: 100vh;
+}
+
 /* Premium Sleek Custom Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 6px;
@@ -104,4 +110,19 @@
 
 .border-border-base {
   border-color: var(--color-border-base) !important;
+}
+
+/* Brand Partner Marquee Keyframe */
+@keyframes brandMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-brand-marquee {
+  animation: brandMarquee 30s linear infinite;
+  will-change: transform;
 }
