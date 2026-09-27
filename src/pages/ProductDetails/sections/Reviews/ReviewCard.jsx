@@ -1,85 +1,145 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-// ── Individual Review Card ────────────────────────────────────────
-function ReviewItem({ review, index }) {
-  
+// ── Individual Review Card (Clean 2-Column Grid Layout) ─────────────
+export default function ReviewItem({ review }) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  // Generate avatar initials + deterministic bg colour
-  const COLORS = [
-    'bg-violet-100 text-violet-700',
-    'bg-blue-100 text-blue-700',
-    'bg-emerald-100 text-emerald-700',
-    'bg-amber-100 text-amber-700',
-    'bg-rose-100 text-rose-700',
-  ];
-  const displayName = review.userName || 'Anonymous';
-  const displayReview = review.review || '';
-  const displayRating = review.rating || 0;
-  const colorClass = COLORS[index % COLORS.length];
+  const displayName = review.userName || review.name || 'Anonymous';
+  const displayReview = review.review || review.comment || '';
+  const displayRating = Number(review.rating ?? review.stars ?? 5);
+  const headline = review.title || review.headline || '';
+  const reviewImages = Array.isArray(review.images) ? review.images : [];
+
   const initials = displayName
-    ? displayName.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2)
+    ? displayName
+        .split(' ')
+        .filter(Boolean)
+        .map((w) => w[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2)
     : 'U';
+
+  const isLong = displayReview.length > 90 || displayReview.includes('\n');
 
   let dateStr = 'Recently';
   if (review.createdAt) {
     try {
       if (typeof review.createdAt.toDate === 'function') {
-        dateStr = review.createdAt.toDate().toLocaleDateString('en-US', {
-          month: 'short',
+        dateStr = review.createdAt.toDate().toLocaleDateString('en-GB', {
           day: 'numeric',
-          year: 'numeric'
+          month: 'short',
+          year: 'numeric',
         });
       } else if (review.createdAt.seconds) {
-        dateStr = new Date(review.createdAt.seconds * 1000).toLocaleDateString('en-US', {
-          month: 'short',
+        dateStr = new Date(review.createdAt.seconds * 1000).toLocaleDateString('en-GB', {
           day: 'numeric',
-          year: 'numeric'
+          month: 'short',
+          year: 'numeric',
         });
       } else if (review.createdAt instanceof Date) {
-        dateStr = review.createdAt.toLocaleDateString('en-US', {
-          month: 'short',
+        dateStr = review.createdAt.toLocaleDateString('en-GB', {
           day: 'numeric',
-          year: 'numeric'
+          month: 'short',
+          year: 'numeric',
         });
+      } else if (typeof review.createdAt === 'string') {
+        dateStr = review.createdAt;
       }
     } catch (e) {
-      console.error("Error formatting review date:", e);
+      console.error('Error formatting review date:', e);
     }
   }
 
   return (
-    <div className="flex gap-4 py-5 border-b border-gray-100 last:border-0">
-      {/* Avatar */}
-      <div className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 ${colorClass}`}>
-        {initials}
-      </div>
+    <div className="bg-white border border-border-base/70 rounded-2xl p-3 sm:p-5 md:p-6 shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between gap-3">
+      <div className="space-y-3">
+        {/* Top Header Row */}
+        <div className="flex items-center gap-3">
+          {/* Avatar Box */}
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f8f5f0] border border-[#e8dfd8] text-[#5c4033] font-serif font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-2xs">
+            {initials}
+          </div>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        {/* Name + Date */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-semibold text-gray-900 text-sm">{displayName}</span>
-          <span className="text-gray-400 text-xs">{dateStr}</span>
+          {/* User Details */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-bold text-xs sm:text-sm text-text-base truncate">
+                {displayName}
+              </span>
+              <span className="text-[11px] sm:text-xs text-text-muted shrink-0">
+                {dateStr}
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Stars */}
-        <div className="flex gap-0.5 mt-1">
-          {Array(5).fill(null).map((_, i) => (
-            <span
-              key={i}
-              className={`text-base ${i < displayRating ? 'text-amber-400' : 'text-gray-200'}`}
-              style={{ fontVariationSettings: i < displayRating ? "'FILL' 1" : "'FILL' 0" }}
-            >
-              ★
+        {/* Rating Stars + Headline Row */}
+        <div className="flex items-center gap-2 flex-wrap pt-0.5">
+          <div className="flex items-center gap-0.5 text-amber-500 text-sm">
+            {Array(5)
+              .fill(null)
+              .map((_, i) => (
+                <span
+                  key={i}
+                  className={`text-sm ${
+                    i < displayRating ? 'text-amber-500' : 'text-gray-200'
+                  }`}
+                >
+                  ★
+                </span>
+              ))}
+          </div>
+          {headline && (
+            <span className="text-xs sm:text-sm font-bold text-text-base italic">
+              "{headline}"
             </span>
-          ))}
+          )}
         </div>
 
-        {/* Comment */}
-        <p className="mt-2 text-sm text-gray-700 leading-relaxed font-medium">{displayReview}</p>
+        {/* Review Comment Text */}
+        {displayReview && (
+          <div>
+            <p
+              className={`text-xs sm:text-sm text-text-muted leading-relaxed whitespace-pre-line transition-all ${
+                !isExpanded && isLong ? 'line-clamp-3 sm:line-clamp-4' : ''
+              }`}
+            >
+              {displayReview}
+            </p>
+            {isLong && (
+              <button
+                type="button"
+                onClick={() => setIsExpanded((prev) => !prev)}
+                className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-hover transition-colors cursor-pointer focus:outline-none"
+              >
+                <span>{isExpanded ? 'Show less' : 'More...'}</span>
+                {isExpanded ? (
+                  <FaChevronUp className="w-2.5 h-2.5 text-[10px]" />
+                ) : (
+                  <FaChevronDown className="w-2.5 h-2.5 text-[10px]" />
+                )}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Review Images Gallery */}
+        {reviewImages.length > 0 && (
+          <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar">
+            {reviewImages.map((img, imgIdx) => (
+              <img
+                key={imgIdx}
+                src={img}
+                alt={`Review attachment ${imgIdx + 1}`}
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-border-base/70 shadow-2xs hover:scale-105 transition-transform"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-export default ReviewItem;

@@ -56,7 +56,7 @@ export default function ProductInfo({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <div className="space-y-2">
         {/* Brand / Category */}
         <div className="space-y-1">
@@ -67,7 +67,7 @@ export default function ProductInfo({
           )}
 
           {/* Product Title */}
-          <h1 className="text-2xl font-bold text-text-base">{product.title}</h1>
+          <h1 className="md:text-2xl font-bold text-text-base">{product.title}</h1>
         </div>
 
         {/* Dynamic Rating Row */}

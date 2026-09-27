@@ -1,40 +1,48 @@
 import React from 'react';
 
-// Brand partner logo assets
-import brand1 from '../../../assets/brands/brand_1.png';
-import brand2 from '../../../assets/brands/brand_2.png';
-import brand3 from '../../../assets/brands/brand_3.png';
-import brand4 from '../../../assets/brands/brand_4.png';
-import brand5 from '../../../assets/brands/brand_5.png';
-import brand6 from '../../../assets/brands/brand_6.png';
-import brand7 from '../../../assets/brands/brand_7.png';
-import brand8 from '../../../assets/brands/brand_8.png';
-import brand9 from '../../../assets/brands/brand_9.png';
-import brand10 from '../../../assets/brands/brand_10.png';
-import brand11 from '../../../assets/brands/brand_11.png';
-import brand12 from '../../../assets/brands/brand_12.png';
-import brand13 from '../../../assets/brands/brand_13.png';
-import brand14 from '../../../assets/brands/brand_14.png';
-import brand15 from '../../../assets/brands/brand_15.png';
-import brand16 from '../../../assets/brands/brand_16.png';
+// Brand partner logo assets (new uploads)
+import brand1 from '../../../assets/brands/brand (1).jpg';
+import brand2 from '../../../assets/brands/brand (2).jpg';
+import brand3 from '../../../assets/brands/brand (3).jpg';
+import brand4 from '../../../assets/brands/brand (4).jpg';
+import brand5 from '../../../assets/brands/brand (5).jpg';
+import brand6 from '../../../assets/brands/brand (6).jpg';
+import brand7 from '../../../assets/brands/brand (7).jpg';
+import brand8 from '../../../assets/brands/brand (8).jpg';
+import brand9 from '../../../assets/brands/brand (9).jpg';
+import brand10 from '../../../assets/brands/brand (10).jpg';
+import brand11 from '../../../assets/brands/brand (11).jpg';
+import brand12 from '../../../assets/brands/brand (12).jpg';
+import brand13 from '../../../assets/brands/brand (13).jpg';
+import brand14 from '../../../assets/brands/brand (14).jpg';
+import brand15 from '../../../assets/brands/brand (15).jpg';
+import brand16 from '../../../assets/brands/brand (16).jpg';
+import brand17 from '../../../assets/brands/brand (17).jpg';
+import brand18 from '../../../assets/brands/brand (18).jpg';
+import brand19 from '../../../assets/brands/brand (19).jpg';
+import brand20 from '../../../assets/brands/brand (20).jpg';
 
 const BRANDS = [
-  { id: 1, name: 'Kajaria', img: brand1 },
-  { id: 2, name: 'Johnson Tiles', img: brand2 },
-  { id: 3, name: 'Italica', img: brand3 },
-  { id: 4, name: 'Hindware', img: brand4 },
-  { id: 5, name: 'Emcer', img: brand5 },
-  { id: 6, name: 'AGL', img: brand6 },
-  { id: 7, name: 'Admin Vitrified', img: brand7 },
-  { id: 8, name: 'LV International', img: brand8 },
-  { id: 9, name: 'Hollis Vitrified', img: brand9 },
-  { id: 10, name: 'Rey Cera', img: brand10 },
+  { id: 1, name: 'Brand Partner 1', img: brand1 },
+  { id: 2, name: 'Brand Partner 2', img: brand2 },
+  { id: 3, name: 'Brand Partner 3', img: brand3 },
+  { id: 4, name: 'Brand Partner 4', img: brand4 },
+  { id: 5, name: 'Brand Partner 5', img: brand5 },
+  { id: 6, name: 'Brand Partner 6', img: brand6 },
+  { id: 7, name: 'Brand Partner 7', img: brand7 },
+  { id: 8, name: 'Brand Partner 8', img: brand8 },
+  { id: 9, name: 'Brand Partner 9', img: brand9 },
+  { id: 10, name: 'Brand Partner 10', img: brand10 },
   { id: 11, name: 'Brand Partner 11', img: brand11 },
   { id: 12, name: 'Brand Partner 12', img: brand12 },
   { id: 13, name: 'Brand Partner 13', img: brand13 },
   { id: 14, name: 'Brand Partner 14', img: brand14 },
   { id: 15, name: 'Brand Partner 15', img: brand15 },
   { id: 16, name: 'Brand Partner 16', img: brand16 },
+  { id: 17, name: 'Brand Partner 17', img: brand17 },
+  { id: 18, name: 'Brand Partner 18', img: brand18 },
+  { id: 19, name: 'Brand Partner 19', img: brand19 },
+  { id: 20, name: 'Brand Partner 20', img: brand20 },
 ];
 
 /**

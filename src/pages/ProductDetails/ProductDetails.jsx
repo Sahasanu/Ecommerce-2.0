@@ -58,12 +58,12 @@ export default function ProductDetails() {
   const activeImages = Array.from(new Set([...variantImages, ...commonImages]));
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-12 sm:space-y-16">
+    <main className="max-w-7xl mx-auto px-0 md:px-4 lg:px-8 py-3 sm:py-6 space-y-5 md:space-y-8">
       {/* ── Two-column hero section ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8 items-start">
 
         {/* Left: Sticky Gallery */}
-        <div className="lg:col-span-7 lg:sticky lg:top-28 flex flex-col gap-4">
+        <div className="lg:col-span-7 lg:sticky lg:top-28 flex flex-col gap-3">
           <ProductGallery
             images={activeImages}
             imageUrl={product.imageUrl}
@@ -74,7 +74,7 @@ export default function ProductDetails() {
         </div>
 
         {/* Right: Info, Purchase, Highlights Card */}
-        <div className="lg:col-span-5 space-y-6 bg-white border border-border-base rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xs">
+        <div className="lg:col-span-5 space-y-4 md:space-y-5 bg-white border border-border-base rounded-2xl md:rounded-3xl p-3 sm:p-5 md:p-6 shadow-xs">
           <ProductInfo
             product={product}
             rating={averageRating}

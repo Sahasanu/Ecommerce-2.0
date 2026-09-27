@@ -53,7 +53,7 @@ export default function ProductGallery({
       {/* Main Display Image — clean white gallery frame */}
       <div
         className="relative flex-1 bg-white border border-border-base rounded-2xl sm:rounded-3xl overflow-hidden flex items-center justify-center shadow-xs"
-        style={{ height: 'clamp(280px, 45vw, 520px)', minHeight: '280px' }}
+        style={{ height: 'clamp(280px, 38vw, 440px)', minHeight: '280px' }}
       >
         <img
           src={displaySrc}
