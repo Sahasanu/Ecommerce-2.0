@@ -3,7 +3,7 @@ import { FaShoppingBag } from "react-icons/fa";
 
 function OrderHeader({ totalOrders = 0 }) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-base/70">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border-subtle">
       <div className="flex items-center gap-3.5">
         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center text-xl shadow-xs shrink-0">
           <FaShoppingBag />

@@ -1,7 +1,6 @@
 import React from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
-import OrderNowModal from '../modal/OrderNowModal'
 import { useAuth } from '../../context/AuthContext'
 import Login from '../../pages/Auth/Login'
 import Signup from '../../pages/Auth/Signup'

@@ -34,10 +34,10 @@ function CouponScope({
     };
 
     return (
-        <div className="bg-bg-base border border-border-base rounded-xl text-xs shadow-xs">
+        <div className="bg-card border border-border-subtle rounded-xl text-xs shadow-xs">
 
             {/* Header */}
-            <div className="border-b border-border-base px-3 py-2">
+            <div className="border-b border-border-subtle px-3 py-2">
                 <h3 className="font-bold text-text-base">
                     Coupon Scope
                 </h3>
@@ -51,7 +51,7 @@ function CouponScope({
 
                 {/* Applies To */}
                 <div>
-                    <label className="block font-semibold mb-2">
+                    <label className="block font-semibold mb-2 text-text-base">
                         Applies To
                     </label>
 
@@ -65,8 +65,8 @@ function CouponScope({
                                 key={item.value}
                                 className={`border rounded-lg p-2.5 cursor-pointer transition flex items-center justify-between ${
                                     coupon.appliesTo === item.value
-                                        ? "border-primary bg-primary/5 text-primary font-bold"
-                                        : "border-border-base bg-bg-surface"
+                                        ? "border-primary bg-primary/10 text-primary font-bold"
+                                        : "border-border-subtle bg-bg-base text-text-muted hover:border-primary/40 hover:text-text-base"
                                 }`}
                             >
                                 <input
@@ -82,13 +82,12 @@ function CouponScope({
                 </div>
 
                 {/* Applicable Products Selection list */}
-                {/* Applicable Products Selection list */}
                 {coupon.appliesTo === "PRODUCT" && (
                     <div>
-                        <label className="block font-semibold mb-1.5">
+                        <label className="block font-semibold mb-1.5 text-text-base">
                             Applicable Products
                         </label>
-                        <div className="max-h-48 overflow-y-auto border border-border-base rounded-lg bg-bg-surface">
+                        <div className="max-h-48 overflow-y-auto border border-border-subtle rounded-lg bg-bg-base">
                             {products.length === 0 && (
                                 <div className="p-3 text-[10px] text-text-muted text-center font-medium">
                                     No Products Found
@@ -101,9 +100,9 @@ function CouponScope({
                                 return (
                                     <label
                                         key={pId}
-                                        className="flex items-center justify-between px-3 py-1.5 border-b border-border-base last:border-0 hover:bg-bg-base cursor-pointer"
+                                        className="flex items-center justify-between px-3 py-1.5 border-b border-border-subtle last:border-0 hover:bg-card-hover cursor-pointer"
                                     >
-                                        <span className="text-[11px] truncate mr-2 font-medium">
+                                        <span className="text-[11px] truncate mr-2 font-medium text-text-base">
                                             {product.title}
                                         </span>
                                         <input
@@ -122,10 +121,10 @@ function CouponScope({
                 {/* Applicable Categories Selection list */}
                 {coupon.appliesTo === "CATEGORY" && (
                     <div>
-                        <label className="block font-semibold mb-1.5">
+                        <label className="block font-semibold mb-1.5 text-text-base">
                             Applicable Categories
                         </label>
-                        <div className="max-h-48 overflow-y-auto border border-border-base rounded-lg bg-bg-surface">
+                        <div className="max-h-48 overflow-y-auto border border-border-subtle rounded-lg bg-bg-base">
                             {categories.length === 0 && (
                                 <div className="p-3 text-[10px] text-text-muted text-center font-medium">
                                     No Categories Found
@@ -139,9 +138,9 @@ function CouponScope({
                                 return (
                                     <label
                                         key={cId}
-                                        className="flex items-center justify-between px-3 py-1.5 border-b border-border-base last:border-0 hover:bg-bg-base cursor-pointer"
+                                        className="flex items-center justify-between px-3 py-1.5 border-b border-border-subtle last:border-0 hover:bg-card-hover cursor-pointer"
                                     >
-                                        <span className="text-[11px] truncate mr-2 font-medium">
+                                        <span className="text-[11px] truncate mr-2 font-medium text-text-base">
                                             {cName}
                                         </span>
                                         <input

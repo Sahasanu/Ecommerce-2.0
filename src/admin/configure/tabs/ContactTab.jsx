@@ -7,12 +7,12 @@ const Input = ({ value, onChange, placeholder, type = "text" }) => (
         value={value || ""}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full h-11 rounded-xl border border-border-base bg-white px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
+        className="w-full h-11 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle px-4 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
     />
 );
 
 const SectionHeader = ({ title, desc }) => (
-    <div className="pb-3 border-b border-border-base mb-4">
+    <div className="pb-3 border-b border-border-subtle mb-4">
         <h3 className="text-sm font-extrabold text-text-base">{title}</h3>
         {desc && <p className="text-xs text-text-muted mt-1 font-medium">{desc}</p>}
     </div>
@@ -73,14 +73,14 @@ export default function ContactTab({ draft, updateDraft }) {
                         
                         <div className="space-y-4">
                             {phones.map((p, i) => (
-                                <div key={i} className="bg-bg-surface border border-border-base/60 rounded-2xl p-4 sm:p-5 flex flex-col gap-4 shadow-xs">
+                                <div key={i} className="bg-bg-surface border border-border-subtle rounded-2xl p-4 sm:p-5 flex flex-col gap-4 shadow-xs">
                                     {/* Card Header with Label & Delete */}
-                                    <div className="flex items-center justify-between border-b border-border-base/60 pb-3">
+                                    <div className="flex items-center justify-between border-b border-border-subtle pb-3">
                                         <span className="text-xs font-extrabold text-text-muted uppercase tracking-wider">Phone #{i + 1}</span>
                                         <button
                                             type="button"
                                             onClick={() => removePhone(i)}
-                                            className="h-8 w-8 rounded-lg bg-white border border-border-base hover:bg-rose-50 text-rose-600 flex items-center justify-center cursor-pointer transition-colors shadow-xs"
+                                            className="h-8 w-8 rounded-lg bg-card border border-border-subtle hover:bg-rose-500/20 text-rose-400 flex items-center justify-center cursor-pointer transition-colors shadow-xs"
                                             title="Remove Phone"
                                         >
                                             <FaTrash size={12} />
@@ -91,7 +91,7 @@ export default function ContactTab({ draft, updateDraft }) {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-1">
                                             <label className="block text-[10px] font-bold text-text-muted uppercase tracking-wider pl-0.5">Label</label>
-                                            <Input value={p.label} onChange={(e) => updatePhone(i, "label", e.target.value)} placeholder="e.g. Sales, Support" />
+                                             <Input value={p.label} onChange={(e) => updatePhone(i, "label", e.target.value)} placeholder="e.g. Sales, Support" />
                                         </div>
                                         <div className="space-y-1">
                                             <label className="block text-[10px] font-bold text-text-muted uppercase tracking-wider pl-0.5">Phone Number</label>
@@ -100,7 +100,7 @@ export default function ContactTab({ draft, updateDraft }) {
                                     </div>
 
                                     {/* WhatsApp Option */}
-                                    <div className="flex items-center justify-between pt-2 border-t border-border-base/40">
+                                    <div className="flex items-center justify-between pt-2 border-t border-border-subtle/50">
                                         <label className="flex items-center gap-2 cursor-pointer select-none">
                                             <input
                                                 type="checkbox"
@@ -118,7 +118,7 @@ export default function ContactTab({ draft, updateDraft }) {
                         <button
                             type="button"
                             onClick={addPhone}
-                            className="w-full h-11 border-2 border-dashed border-border-base hover:border-primary/50 bg-white rounded-xl text-xs sm:text-sm text-text-muted hover:text-primary transition font-bold flex items-center justify-center gap-2 cursor-pointer"
+                            className="w-full h-11 border-2 border-dashed border-border-subtle hover:border-primary/50 bg-bg-base rounded-xl text-xs sm:text-sm text-text-muted hover:text-primary transition font-bold flex items-center justify-center gap-2 cursor-pointer"
                         >
                             <FaPlus className="text-xs" /> Add Phone Number
                         </button>
@@ -130,14 +130,14 @@ export default function ContactTab({ draft, updateDraft }) {
                         
                         <div className="space-y-4">
                             {emails.map((e, i) => (
-                                <div key={i} className="bg-bg-surface border border-border-base/60 rounded-2xl p-4 sm:p-5 flex flex-col gap-4 shadow-xs">
+                                <div key={i} className="bg-bg-surface border border-border-subtle rounded-2xl p-4 sm:p-5 flex flex-col gap-4 shadow-xs">
                                     {/* Card Header with Label & Delete */}
-                                    <div className="flex items-center justify-between border-b border-border-base/60 pb-3">
+                                    <div className="flex items-center justify-between border-b border-border-subtle pb-3">
                                         <span className="text-xs font-extrabold text-text-muted uppercase tracking-wider">Email #{i + 1}</span>
                                         <button
                                             type="button"
                                             onClick={() => removeEmail(i)}
-                                            className="h-8 w-8 rounded-lg bg-white border border-border-base hover:bg-rose-50 text-rose-600 flex items-center justify-center cursor-pointer transition-colors shadow-xs"
+                                            className="h-8 w-8 rounded-lg bg-card border border-border-subtle hover:bg-rose-500/20 text-rose-400 flex items-center justify-center cursor-pointer transition-colors shadow-xs"
                                             title="Remove Email"
                                         >
                                             <FaTrash size={12} />
@@ -162,7 +162,7 @@ export default function ContactTab({ draft, updateDraft }) {
                         <button
                             type="button"
                             onClick={addEmail}
-                            className="w-full h-11 border-2 border-dashed border-border-base hover:border-primary/50 bg-white rounded-xl text-xs sm:text-sm text-text-muted hover:text-primary transition font-bold flex items-center justify-center gap-2 cursor-pointer"
+                            className="w-full h-11 border-2 border-dashed border-border-subtle hover:border-primary/50 bg-bg-base rounded-xl text-xs sm:text-sm text-text-muted hover:text-primary transition font-bold flex items-center justify-center gap-2 cursor-pointer"
                         >
                             <FaPlus className="text-xs" /> Add Email Address
                         </button>

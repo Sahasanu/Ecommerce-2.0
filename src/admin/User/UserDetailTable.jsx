@@ -263,7 +263,7 @@ function UserDetailTable({
             className: 'w-60',
             cellClassName: 'font-mono text-text-muted select-all',
             render: (item) => (
-                <span className="bg-gray-50 dark:bg-bg-base px-2.5 py-1 rounded-xl border border-border-base text-xs font-semibold">
+                <span className="bg-bg-base px-2.5 py-1 rounded-xl border border-border-subtle text-xs font-semibold">
                     {item.uid || 'N/A'}
                 </span>
             ),
@@ -297,7 +297,7 @@ function UserDetailTable({
                             <button
                                 type="button"
                                 onClick={() => handleDeleteClick(item)}
-                                className="p-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition-all cursor-pointer"
+                                className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer"
                                 title={(item.role || 'USER').toUpperCase() === 'ADMIN' ? "Remove Admin Profile" : "Delete Account"}
                             >
                                 <FaTrash size={13} />
@@ -313,7 +313,7 @@ function UserDetailTable({
         const { name, uid, email, time, role } = item;
 
         return (
-            <div key={index} className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4">
+            <div key={index} className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4">
                 <div className="flex justify-between items-center text-xs">
                     <span className="text-text-muted font-bold">User #{startIndex + index + 1}</span>
                     <div className="flex items-center gap-2">
@@ -329,7 +329,7 @@ function UserDetailTable({
                             <button
                                 type="button"
                                 onClick={() => handleDeleteClick(item)}
-                                className="p-1 text-rose-600 hover:bg-rose-50 rounded-md transition cursor-pointer"
+                                className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-md transition cursor-pointer"
                                 title="Delete Account"
                             >
                                 <FaTrash size={12} />
@@ -345,12 +345,12 @@ function UserDetailTable({
 
                 <div className="flex flex-col gap-1">
                     <span className="text-[11px] font-bold text-text-muted uppercase tracking-wider">User UID</span>
-                    <span className="bg-bg-base px-3 py-1.5 rounded-xl border border-border-base font-mono select-all w-fit break-all text-xs font-semibold">
+                    <span className="bg-bg-base px-3 py-1.5 rounded-xl border border-border-subtle font-mono select-all w-fit break-all text-xs font-semibold">
                         {uid || "N/A"}
                     </span>
                 </div>
 
-                <div className="text-[11px] text-text-muted border-t border-border-base pt-2 flex justify-between items-center">
+                <div className="text-[11px] text-text-muted border-t border-border-subtle pt-2 flex justify-between items-center">
                     <span>Registered: <strong className="font-semibold text-text-base">{formatDate(time)}</strong></span>
                 </div>
             </div>
@@ -407,12 +407,12 @@ function UserDetailTable({
 
             {/* Add New Admin Modal */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-                    <div className="bg-bg-surface w-full max-w-md rounded-2xl border border-border-base shadow-xl p-6 space-y-5 relative animate-in fade-in zoom-in duration-200">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+                    <div className="bg-card w-full max-w-md rounded-2xl border border-border-subtle shadow-xl p-6 space-y-5 relative animate-in fade-in zoom-in duration-200">
                         {/* Modal Header */}
-                        <div className="flex items-center justify-between border-b border-border-base/60 pb-3">
+                        <div className="flex items-center justify-between border-b border-border-subtle pb-3">
                             <div className="flex items-center gap-2">
-                                <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center">
+                                <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
                                     <FaShieldAlt size={16} />
                                 </div>
                                 <div>
@@ -422,7 +422,7 @@ function UserDetailTable({
                             </div>
                             <button
                                 onClick={() => setIsAddModalOpen(false)}
-                                className="p-2 rounded-xl text-text-muted hover:bg-bg-base transition cursor-pointer"
+                                className="p-2 rounded-xl text-text-muted hover:text-text-base hover:bg-card-hover transition cursor-pointer"
                             >
                                 <FaTimes size={14} />
                             </button>
@@ -438,7 +438,7 @@ function UserDetailTable({
                                     placeholder="e.g. Admin User"
                                     value={adminForm.name}
                                     onChange={(e) => setAdminForm(prev => ({ ...prev, name: e.target.value }))}
-                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
+                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
                                 />
                             </div>
 
@@ -450,7 +450,7 @@ function UserDetailTable({
                                     placeholder="e.g. admin@needmate.com"
                                     value={adminForm.email}
                                     onChange={(e) => setAdminForm(prev => ({ ...prev, email: e.target.value }))}
-                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
+                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
                                 />
                             </div>
 
@@ -464,7 +464,7 @@ function UserDetailTable({
                                         placeholder="Enter secure password (min 6 characters)"
                                         value={adminForm.password}
                                         onChange={(e) => setAdminForm(prev => ({ ...prev, password: e.target.value }))}
-                                        className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
+                                        className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
                                     />
                                     <button
                                         type="button"
@@ -475,7 +475,7 @@ function UserDetailTable({
                                     </button>
                                 </div>
                                 <p className="text-[10px] text-text-muted mt-0.5">
-                                    🔑 Credentials to log in at <code className="bg-bg-base px-1 py-0.5 rounded font-mono">/login</code>
+                                    🔑 Credentials to log in at <code className="bg-bg-base px-1 py-0.5 rounded font-mono border border-border-subtle">/login</code>
                                 </p>
                             </div>
 
@@ -486,7 +486,7 @@ function UserDetailTable({
                                     placeholder="e.g. +91 9876543210"
                                     value={adminForm.phone}
                                     onChange={(e) => setAdminForm(prev => ({ ...prev, phone: e.target.value }))}
-                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
+                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-semibold"
                                 />
                             </div>
 
@@ -495,10 +495,10 @@ function UserDetailTable({
                                 <select
                                     value={adminForm.role}
                                     onChange={(e) => setAdminForm(prev => ({ ...prev, role: e.target.value }))}
-                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-extrabold cursor-pointer"
+                                    className="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-extrabold cursor-pointer"
                                 >
-                                    <option value="ADMIN">ADMIN (Full Panel & Management Access)</option>
-                                    <option value="USER">USER (Standard Customer Account)</option>
+                                    <option value="ADMIN" className="bg-card text-text-base">ADMIN (Full Panel & Management Access)</option>
+                                    <option value="USER" className="bg-card text-text-base">USER (Standard Customer Account)</option>
                                 </select>
                             </div>
 
@@ -506,7 +506,7 @@ function UserDetailTable({
                                 <button
                                     type="button"
                                     onClick={() => setIsAddModalOpen(false)}
-                                    className="px-4 py-2.5 rounded-xl border border-border-base font-bold text-text-base hover:bg-bg-base transition cursor-pointer"
+                                    className="px-4 py-2.5 rounded-xl border border-border-subtle font-bold text-text-base hover:bg-card-hover transition cursor-pointer"
                                 >
                                     Cancel
                                 </button>

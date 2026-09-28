@@ -19,19 +19,19 @@ export default function Sidebar({
     return (
         <aside
             className={`
-                hidden md:flex flex-col fixed inset-y-0 left-0 z-40 bg-bg-surface border-r border-border-base transition-all duration-300 print:hidden
+                hidden md:flex flex-col fixed inset-y-0 left-0 z-40 bg-bg-surface border-r border-border-subtle transition-all duration-300 print:hidden
                 ${sidebarCollapsed ? 'w-20' : 'w-[260px]'}
             `}
         >
             {/* Top Header: Logo & Expand/Collapse Button */}
-            <div className={`border-b border-border-base flex items-center h-16 shrink-0 transition-all ${
+            <div className={`border-b border-border-subtle flex items-center h-16 shrink-0 transition-all ${
                 sidebarCollapsed ? 'justify-center px-3' : 'justify-between px-5'
             }`}>
                 {!sidebarCollapsed ? (
                     <>
                         <div 
                             onClick={() => navigate('/')} 
-                            className="flex items-center gap-3 cursor-pointer overflow-hidden min-w-0"
+                            className="flex items-center gap-3 cursor-pointer overflow-hidden min-w-0 group"
                             title="View Store"
                         >
                             {config.companyLogo ? (
@@ -39,7 +39,7 @@ export default function Sidebar({
                             ) : (
                                 <span className="material-symbols-outlined text-primary text-[28px] shrink-0">settings_suggest</span>
                             )}
-                            <span className="font-bold text-[16px] text-text-base uppercase tracking-tight truncate">
+                            <span className="font-bold text-[16px] text-text-base uppercase tracking-tight truncate group-hover:text-primary transition-colors">
                                 {config.companyName || "Admin Panel"}
                             </span>
                         </div>
@@ -47,7 +47,7 @@ export default function Sidebar({
                         <button
                             type="button"
                             onClick={() => setSidebarCollapsed(true)}
-                            className="p-1.5 text-text-muted hover:text-text-base hover:bg-bg-base rounded-xl transition-colors cursor-pointer shrink-0"
+                            className="p-1.5 text-text-muted hover:text-primary hover:bg-card-hover rounded-xl transition-colors cursor-pointer shrink-0"
                             title="Collapse sidebar"
                         >
                             <span className="material-symbols-outlined text-[20px]">menu_open</span>
@@ -57,7 +57,7 @@ export default function Sidebar({
                     <button
                         type="button"
                         onClick={() => setSidebarCollapsed(false)}
-                        className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-text-base hover:bg-bg-base rounded-xl transition-colors cursor-pointer"
+                        className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-primary hover:bg-card-hover rounded-xl transition-colors cursor-pointer"
                         title="Expand sidebar"
                     >
                         <span className="material-symbols-outlined text-[22px]">menu</span>
@@ -76,13 +76,13 @@ export default function Sidebar({
                             title={sidebarCollapsed ? item.label : undefined}
                             className={`w-full flex items-center ${
                                 sidebarCollapsed ? 'justify-center px-2 py-3' : 'gap-3 px-4 py-3'
-                            } rounded-xl transition-colors cursor-pointer text-sm font-semibold ${
+                            } rounded-xl transition-all duration-200 cursor-pointer text-sm font-semibold ${
                                 isActive 
-                                    ? 'bg-primary text-compli' 
-                                    : 'text-text-muted hover:bg-gray-50  hover:text-text-base'
+                                    ? 'bg-primary text-compli font-bold shadow-md shadow-primary/20' 
+                                    : 'text-text-muted hover:bg-card-hover hover:text-primary'
                             }`}
                         >
-                            <span className={isActive ? 'text-compli shrink-0' : 'text-text-muted shrink-0'}>
+                            <span className={isActive ? 'text-compli shrink-0' : 'text-text-muted group-hover:text-primary shrink-0 transition-colors'}>
                                 {item.icon}
                             </span>
                             {!sidebarCollapsed && (
@@ -96,7 +96,7 @@ export default function Sidebar({
             </nav>
 
             {/* Sidebar Footer */}
-            <div className="p-3 border-t border-border-base space-y-1 shrink-0">
+            <div className="p-3 border-t border-border-subtle space-y-1 shrink-0">
                 {/* Change Password for Admin */}
                 <button
                     type="button"
@@ -104,7 +104,7 @@ export default function Sidebar({
                     title={sidebarCollapsed ? "Change Password" : undefined}
                     className={`w-full flex items-center ${
                         sidebarCollapsed ? 'justify-center px-2 py-2.5' : 'gap-3 px-4 py-2.5'
-                    } rounded-xl text-sm font-semibold text-text-muted hover:bg-gray-100  hover:text-text-base transition-colors cursor-pointer`}
+                    } rounded-xl text-sm font-semibold text-text-muted hover:bg-card-hover hover:text-primary transition-colors cursor-pointer`}
                 >
                     <span className="material-symbols-outlined text-[20px] text-amber-500 shrink-0">lock_reset</span>
                     {!sidebarCollapsed && (
@@ -118,7 +118,7 @@ export default function Sidebar({
                     title={sidebarCollapsed ? "View Store" : undefined}
                     className={`flex items-center ${
                         sidebarCollapsed ? 'justify-center px-2 py-2.5' : 'gap-3 px-4 py-2.5'
-                    } rounded-xl text-sm font-semibold text-text-muted hover:bg-gray-50  hover:text-text-base transition-colors`}
+                    } rounded-xl text-sm font-semibold text-text-muted hover:bg-card-hover hover:text-primary transition-colors`}
                 >
                     <span className="material-symbols-outlined text-[20px] shrink-0">storefront</span>
                     {!sidebarCollapsed && (
@@ -133,7 +133,7 @@ export default function Sidebar({
                     title={sidebarCollapsed ? "Logout" : undefined}
                     className={`w-full flex items-center ${
                         sidebarCollapsed ? 'justify-center px-2 py-2.5' : 'gap-3 px-4 py-2.5'
-                    } rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-500/10 transition-all font-extrabold cursor-pointer`}
+                    } rounded-xl text-sm font-semibold text-rose-500 hover:bg-rose-500/10 transition-all font-extrabold cursor-pointer`}
                 >
                     <span className="material-symbols-outlined text-[20px] shrink-0">logout</span>
                     {!sidebarCollapsed && (

@@ -102,7 +102,7 @@ function ToggleButton({
         relative inline-flex items-center shrink-0 cursor-pointer rounded-full border transition-colors duration-300 ease-in-out
         focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2
         ${currentSize.track}
-        ${checked ? activeColorClass : 'bg-bg-base border-border-base hover:bg-border-base/40'}
+        ${checked ? activeColorClass : 'bg-card border-border-subtle hover:bg-card-hover'}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
     `.trim();
 

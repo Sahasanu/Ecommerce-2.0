@@ -27,19 +27,19 @@ function StarPicker({ value, onChange }) {
                         className="text-3xl transition-transform hover:scale-110 active:scale-95 leading-none"
                         aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`}
                     >
-                        <span className={star <= active ? 'text-amber-400' : 'text-gray-200'}>
+                        <span className={star <= active ? 'text-amber-400' : 'text-text-subtle/30'}>
                             ★
                         </span>
                     </button>
                 ))}
                 {active > 0 && (
-                    <span className="ml-2 text-xs font-semibold text-amber-600">
+                    <span className="ml-2 text-xs font-semibold text-amber-400">
                         {LABELS[active]}
                     </span>
                 )}
             </div>
             {value === 0 && (
-                <p className="text-[11px] text-gray-400">Click a star to rate</p>
+                <p className="text-[11px] text-text-subtle">Click a star to rate</p>
             )}
         </div>
     );
@@ -94,19 +94,19 @@ function WriteReviewForm({ productId, onSubmitted }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="border border-gray-200 rounded-2xl p-5 bg-white space-y-4"
+            className="border border-border-subtle rounded-2xl p-5 bg-card space-y-4 shadow-xs"
         >
-            <h4 className="text-sm font-bold text-gray-900">Write a Review</h4>
+            <h4 className="text-sm font-bold text-text-base">Write a Review</h4>
 
             {/* Star picker */}
             <div>
-                <p className="text-xs text-gray-500 mb-2 font-medium">Your Rating</p>
+                <p className="text-xs text-text-muted mb-2 font-medium">Your Rating</p>
                 <StarPicker value={rating} onChange={setRating} />
             </div>
 
             {/* Text area */}
             <div>
-                <p className="text-xs text-gray-500 mb-1.5 font-medium">Your Review</p>
+                <p className="text-xs text-text-muted mb-1.5 font-medium">Your Review</p>
                 <textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -114,9 +114,9 @@ function WriteReviewForm({ productId, onSubmitted }) {
                     maxLength={1000}
                     placeholder="Share your experience — what did you like, what could be better?"
                     disabled={submitting}
-                    className="w-full px-3.5 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm text-gray-800 resize-none placeholder:text-gray-300 transition-all disabled:opacity-50"
+                    className="w-full px-3.5 py-3 rounded-xl border border-border-subtle bg-bg-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm text-text-base resize-none placeholder:text-text-subtle transition-all disabled:opacity-50"
                 />
-                <p className="text-right text-[10px] text-gray-300 mt-1">{text.length}/1000</p>
+                <p className="text-right text-[10px] text-text-subtle mt-1">{text.length}/1000</p>
             </div>
 
             {/* Submit */}
@@ -124,12 +124,12 @@ function WriteReviewForm({ productId, onSubmitted }) {
                 <button
                     type="submit"
                     disabled={submitting || rating === 0}
-                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-primary text-compli text-xs font-bold shadow-sm transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-primary text-compli text-xs font-bold shadow-sm transition-all hover:opacity-90 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                     {submitting ? 'Submitting…' : 'Submit Review'}
                 </button>
             ) : (
-                <p className="text-xs text-gray-400 italic">
+                <p className="text-xs text-text-muted italic">
                     <a href="/login" className="text-primary font-semibold hover:underline">Log in</a> to leave a review.
                 </p>
             )}
@@ -197,17 +197,17 @@ function    ReviewsTab({ productId, reviews = [] }) {
         <div className="space-y-4 md:space-y-5">
             {/* Top Aggregate Score Overview Banner */}
             {totalReviews > 0 && (
-                <div className="bg-bg-surface border border-border-base/70 rounded-2xl p-4 sm:p-5 shadow-2xs">
+                <div className="bg-card border border-border-subtle rounded-2xl p-4 sm:p-5 shadow-2xs">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 items-center">
                         {/* Big Score & Stars */}
-                        <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-border-base/50 pb-4 md:pb-0 md:pr-6">
+                        <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b md:border-b-0 md:border-r border-border-subtle pb-4 md:pb-0 md:pr-6">
                             <div className="flex items-baseline gap-2 mb-1">
                                 <span className="text-4xl sm:text-5xl font-black text-text-base tracking-tight">{avgStars.toFixed(1)}</span>
                                 <span className="text-text-muted text-xs sm:text-sm font-semibold">out of 5</span>
                             </div>
                             <div className="flex gap-1 mb-1.5">
                                 {Array(5).fill(null).map((_, i) => (
-                                    <span key={i} className={`text-xl ${i < Math.round(avgStars) ? 'text-amber-400' : 'text-gray-200'}`}>★</span>
+                                    <span key={i} className={`text-xl ${i < Math.round(avgStars) ? 'text-amber-400' : 'text-text-subtle/30'}`}>★</span>
                                 ))}
                             </div>
                             <p className="text-xs text-text-muted font-medium">
@@ -216,14 +216,14 @@ function    ReviewsTab({ productId, reviews = [] }) {
                         </div>
 
                         {/* Star Distribution Progress Bars */}
-                        <div className="md:col-span-5 space-y-1.5 border-b md:border-b-0 md:border-r border-border-base/50 pb-4 md:pb-0 md:pr-6">
+                        <div className="md:col-span-5 space-y-1.5 border-b md:border-b-0 md:border-r border-border-subtle pb-4 md:pb-0 md:pr-6">
                             {[5, 4, 3, 2, 1].map((star) => {
                                 const pct = totalReviews > 0 ? Math.round((distMap[star] / totalReviews) * 100) : 0;
                                 return (
                                     <div key={star} className="flex items-center gap-2 text-xs">
                                         <span className="w-3 text-text-muted font-bold text-[11px]">{star}</span>
                                         <span className="text-amber-400 text-xs">★</span>
-                                        <div className="flex-1 h-2 bg-bg-base rounded-full overflow-hidden border border-border-base/30">
+                                        <div className="flex-1 h-2 bg-bg-surface rounded-full overflow-hidden border border-border-subtle">
                                             <div
                                                 className="h-full bg-amber-400 rounded-full transition-all duration-700"
                                                 style={{ width: `${pct}%` }}
@@ -244,7 +244,7 @@ function    ReviewsTab({ productId, reviews = [] }) {
                                 onClick={() => setIsWriting(prev => !prev)}
                                 className={`mt-1 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold shadow-xs transition-all cursor-pointer ${
                                     isWriting
-                                        ? 'bg-bg-base border border-border-base text-text-base hover:bg-bg-base/80'
+                                        ? 'bg-card border border-border-subtle text-text-base hover:bg-card-hover'
                                         : 'bg-primary text-compli hover:opacity-90 active:scale-95'
                                 }`}
                             >
@@ -271,7 +271,7 @@ function    ReviewsTab({ productId, reviews = [] }) {
             )}
 
             {/* Header Filter & Sort Row */}
-            <div className="flex items-center justify-between flex-wrap gap-3 pb-2 border-b border-border-base/40">
+            <div className="flex items-center justify-between flex-wrap gap-3 pb-2 border-b border-border-subtle">
                 <p className="text-xs sm:text-sm font-semibold text-text-muted">
                     {totalReviews === 0
                         ? 'No reviews yet'
@@ -297,7 +297,7 @@ function    ReviewsTab({ productId, reviews = [] }) {
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="appearance-none border border-border-base/70 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-text-base bg-bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+                                className="appearance-none border border-border-subtle rounded-xl px-2.5 py-1.5 text-xs font-semibold text-text-base bg-bg-base focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
                             >
                                 {SORT_OPTIONS.map((opt) => (
                                     <option key={opt} value={opt}>{opt}</option>
@@ -310,8 +310,8 @@ function    ReviewsTab({ productId, reviews = [] }) {
 
             {/* 2-Column Review Cards Grid */}
             {paginatedReviews.length === 0 ? (
-                <div className="py-12 px-6 text-center border border-dashed border-border-base rounded-2xl bg-bg-surface/50">
-                    <span className="material-symbols-outlined text-4xl text-text-muted/40 mb-2 block">
+                <div className="py-12 px-6 text-center border border-dashed border-border-subtle rounded-2xl bg-card">
+                    <span className="material-symbols-outlined text-4xl text-text-subtle/40 mb-2 block">
                         rate_review
                     </span>
                     <p className="text-sm font-bold text-text-base">No reviews yet</p>
@@ -342,7 +342,7 @@ function    ReviewsTab({ productId, reviews = [] }) {
 
             {/* Pagination */}
             {sorted.length > pageSize && (
-                <div className="pt-4 border-t border-border-base/40">
+                <div className="pt-4 border-t border-border-subtle">
                     <Pagination
                         currentPage={currentPage}
                         totalItems={sorted.length}

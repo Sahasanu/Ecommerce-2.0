@@ -25,7 +25,7 @@ export default function OrderDeliveryDetailsCard({ order }) {
   const isWork = addressType === "WORK" || addressType === "OFFICE";
 
   return (
-    <div className="bg-bg-surface border border-border-base/70 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+    <div className="bg-card border border-border-subtle rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
       <h3 className="text-sm sm:text-base font-bold text-text-base">
         Delivery details
       </h3>
@@ -33,7 +33,7 @@ export default function OrderDeliveryDetailsCard({ order }) {
       <div className="space-y-3.5 text-xs text-text-base">
         {/* Address Row with Building/Home Icon */}
         <div className="flex items-start gap-3">
-          <div className="w-6 h-6 rounded-lg bg-bg-base text-text-muted flex items-center justify-center shrink-0 mt-0.5 border border-border-base/40">
+          <div className="w-6 h-6 rounded-lg bg-bg-base text-text-muted flex items-center justify-center shrink-0 mt-0.5 border border-border-subtle">
             {isWork ? <FaBuilding size={11} /> : <FaHome size={11} />}
           </div>
           <div className="min-w-0 flex-1 leading-relaxed">
@@ -47,8 +47,8 @@ export default function OrderDeliveryDetailsCard({ order }) {
         </div>
 
         {/* Recipient & Phone Row with User Icon */}
-        <div className="flex items-center gap-3 pt-1 border-t border-border-base/40">
-          <div className="w-6 h-6 rounded-lg bg-bg-base text-text-muted flex items-center justify-center shrink-0 border border-border-base/40">
+        <div className="flex items-center gap-3 pt-1 border-t border-border-subtle">
+          <div className="w-6 h-6 rounded-lg bg-bg-base text-text-muted flex items-center justify-center shrink-0 border border-border-subtle">
             <FaUser size={11} />
           </div>
           <div className="min-w-0 flex-1 flex items-center gap-2 flex-wrap">

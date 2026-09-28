@@ -24,7 +24,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
   return (
     <div className="space-y-4 text-xs">
       {/* Header Row */}
-      <div className="flex items-center justify-between pb-2 border-b border-border-base/50">
+      <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
         <div>
           <h3 className="text-base font-bold text-text-base">Profile Information</h3>
           <p className="text-[11px] text-text-muted mt-0.5">Manage your personal Details</p>
@@ -34,7 +34,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
           <button
             type="button"
             onClick={handleStartEdit}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs transition active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs transition active:scale-95 cursor-pointer border border-primary/20"
           >
             <FaEdit size={12} />
             <span>Edit Profile</span>
@@ -46,8 +46,8 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
       {!isEditing ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Full Name */}
-          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
-            <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
+          <div className="p-3 rounded-xl bg-bg-surface border border-border-subtle space-y-1">
+            <div className="flex items-center gap-1.5 text-text-subtle text-[10px] font-bold uppercase tracking-wider">
               <FaUser size={11} className="text-primary" />
               <span>Full Name</span>
             </div>
@@ -57,9 +57,9 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
           </div>
 
           {/* Email Address */}
-          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
+          <div className="p-3 rounded-xl bg-bg-surface border border-border-subtle space-y-1">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-text-subtle text-[10px] font-bold uppercase tracking-wider">
                 <FaEnvelope size={11} className="text-primary" />
                 <span>Email Address</span>
               </div>
@@ -73,8 +73,8 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
           </div>
 
           {/* Phone Number */}
-          <div className="p-3 rounded-xl bg-bg-base/40 border border-border-base/50 space-y-1">
-            <div className="flex items-center gap-1.5 text-text-muted text-[10px] font-bold uppercase tracking-wider">
+          <div className="p-3 rounded-xl bg-bg-surface border border-border-subtle space-y-1">
+            <div className="flex items-center gap-1.5 text-text-subtle text-[10px] font-bold uppercase tracking-wider">
               <FaPhone size={11} className="text-primary" />
               <span>Phone Number</span>
             </div>
@@ -99,7 +99,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
                   value={profile.name || ""}
                   onChange={(e) => setProfile({ ...profile, name: e.target.value })}
                   placeholder="Enter your full name"
-                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-base/70 bg-bg-surface text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-subtle bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 />
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
                 <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
                   Email Address
                 </label>
-                <span className="text-[9px] font-bold uppercase tracking-wider bg-bg-base border border-border-base text-text-muted px-1.5 py-0.5 rounded">
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-bg-base border border-border-subtle text-text-subtle px-1.5 py-0.5 rounded">
                   Primary
                 </span>
               </div>
@@ -121,7 +121,7 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
                   value={profile.email || ""}
                   disabled
                   placeholder="yourname@example.com"
-                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-base/50 bg-bg-base/60 text-text-muted text-sm font-semibold cursor-not-allowed opacity-75 focus:outline-none"
+                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-subtle bg-bg-base text-text-subtle text-sm font-semibold cursor-not-allowed opacity-75 focus:outline-none"
                 />
               </div>
             </div>
@@ -138,19 +138,19 @@ export default function ProfileTab({ profile, setProfile, handleSaveProfile, sav
                   value={profile.phone || ""}
                   onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
                   placeholder="+91 98765 43210"
-                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-base/70 bg-bg-surface text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full pl-10 pr-3 py-2 rounded-xl border border-border-subtle bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 />
               </div>
             </div>
           </div>
 
           {/* Edit Actions Bar */}
-          <div className="pt-3 border-t border-border-base/50 flex items-center justify-end gap-2.5">
+          <div className="pt-3 border-t border-border-subtle flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={handleCancelEdit}
               disabled={saving}
-              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl border border-border-base text-text-base font-bold text-xs hover:bg-bg-base transition cursor-pointer text-center"
+              className="flex-1 sm:flex-initial px-4 py-2 rounded-xl border border-border-subtle text-text-base font-bold text-xs hover:bg-card-hover transition cursor-pointer text-center"
             >
               Cancel
             </button>

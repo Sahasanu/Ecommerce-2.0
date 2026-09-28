@@ -46,11 +46,11 @@ function ProductVariants({
   };
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs text-xs overflow-hidden">
+    <div className="bg-card border border-border-subtle rounded-2xl shadow-xs text-xs overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-base bg-bg-base/30">
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-subtle bg-bg-base/40">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
+          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold">
             <FaLayerGroup size={14} />
           </div>
           <div>
@@ -66,7 +66,7 @@ function ProductVariants({
         <button
           type="button"
           onClick={addVariantType}
-          className="flex items-center gap-1.5 bg-primary text-compli px-3 py-1.5 rounded-xl font-extrabold hover:bg-primary-hover transition text-xs shadow-xs cursor-pointer active:scale-95"
+          className="flex items-center gap-1.5 bg-primary text-compli px-3 py-1.5 rounded-xl font-bold hover:bg-primary-hover transition text-xs shadow-xs cursor-pointer active:scale-95"
         >
           <FaPlus size={10} />
           Add Option Attribute
@@ -80,8 +80,8 @@ function ProductVariants({
         {/* Variant Types List */}
         <div className="space-y-3">
           {(!products.variantTypes || products.variantTypes.length === 0) && (
-            <div className="border-2 border-dashed border-border-base rounded-2xl py-8 text-center bg-bg-base/20">
-              <div className="w-10 h-10 rounded-full bg-border-base/40 text-text-muted flex items-center justify-center mx-auto mb-2">
+            <div className="border-2 border-dashed border-border-subtle rounded-2xl py-8 text-center bg-bg-base/20">
+              <div className="w-10 h-10 rounded-full bg-border-subtle/40 text-text-muted flex items-center justify-center mx-auto mb-2">
                 <FaLayerGroup size={16} />
               </div>
               <h3 className="font-bold text-text-base text-xs">

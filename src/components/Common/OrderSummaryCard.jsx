@@ -68,9 +68,9 @@ export default function OrderSummaryCard({
 
   return (
     <div className={`space-y-6 ${className}`}>
-      <div className="bg-bg-surface rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-border-base overflow-hidden">
+      <div className="bg-card rounded-2xl shadow-sm border border-border-subtle overflow-hidden">
         {/* Header */}
-        <div className="p-6 border-b border-border-base flex items-center justify-between">
+        <div className="p-6 border-b border-border-subtle flex items-center justify-between">
           <h2 className="font-bold text-xl text-text-base">Order Summary</h2>
           {cartCount !== undefined && (
             <span className="text-xs font-bold text-text-muted">
@@ -92,21 +92,21 @@ export default function OrderSummaryCard({
             {productDiscount > 0 && (
               <div className="flex justify-between items-center text-sm text-text-muted">
                 <span>Product Discount</span>
-                <span className="text-green-600  font-bold">- ₹{fmt(productDiscount)}</span>
+                <span className="text-emerald-400 font-bold">- ₹{fmt(productDiscount)}</span>
               </div>
             )}
 
             {couponDiscount > 0 && (
               <div className="flex justify-between items-center text-sm text-text-muted">
                 <span>Coupon Discount ({appliedCoupon?.code})</span>
-                <span className="text-green-600  font-bold">- ₹{fmt(couponDiscount)}</span>
+                <span className="text-emerald-400 font-bold">- ₹{fmt(couponDiscount)}</span>
               </div>
             )}
 
             <div className="flex justify-between items-center text-sm text-text-muted">
               <span>Shipping Charge</span>
               {isShippingFree ? (
-                <span className="text-green-600  font-bold tracking-widest text-xs uppercase">
+                <span className="text-emerald-400 font-bold tracking-widest text-xs uppercase">
                   FREE
                 </span>
               ) : (
@@ -119,7 +119,7 @@ export default function OrderSummaryCard({
             {showPaymentOptions && paymentMethod === "COD" && codHandlingFee > 0 && (
               <div className="flex justify-between items-center text-sm text-text-muted">
                 <span>COD Handling Fee</span>
-                <span className="text-amber-600 font-bold">₹{fmt(codHandlingFee)}</span>
+                <span className="text-amber-400 font-bold">₹{fmt(codHandlingFee)}</span>
               </div>
             )}
 
@@ -127,26 +127,26 @@ export default function OrderSummaryCard({
             {onChangeCoupon && (
               <div className="flex flex-col gap-3">
                 {appliedCoupon ? (
-                  <div className="flex items-center justify-between p-3.5 bg-emerald-50  border border-emerald-500/40 rounded-xl text-xs shadow-2xs">
+                  <div className="flex items-center justify-between p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs shadow-2xs">
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-black text-emerald-900  text-sm tracking-wider uppercase">
+                        <span className="font-black text-emerald-400 text-sm tracking-wider uppercase">
                           {appliedCoupon.code}
                         </span>
-                        <span className="px-2 py-0.5 bg-emerald-600 text-white rounded-md text-[9px] font-black uppercase tracking-wider shadow-2xs">
+                        <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-md text-[9px] font-black uppercase tracking-wider shadow-2xs">
                           Active
                         </span>
                       </div>
                       {couponDiscount > 0 && (
-                        <p className="text-xs font-bold text-emerald-800 ">
-                          Coupon Applied: <strong className="font-black text-emerald-950 ">-₹{fmt(couponDiscount)}</strong>
+                        <p className="text-xs font-bold text-emerald-400">
+                          Coupon Applied: <strong className="font-black text-emerald-300">-₹{fmt(couponDiscount)}</strong>
                         </p>
                       )}
                     </div>
                     <button
                       type="button"
                       onClick={onRemoveCoupon}
-                      className="px-3 py-1.5 rounded-lg bg-white  border border-rose-300  text-rose-600 hover:text-rose-700 font-extrabold text-xs transition-all cursor-pointer shadow-2xs shrink-0 hover:bg-rose-50"
+                      className="px-3 py-1.5 rounded-lg bg-card border border-rose-500/30 text-rose-400 hover:text-rose-300 font-extrabold text-xs transition-all cursor-pointer shadow-2xs shrink-0 hover:bg-rose-500/10"
                     >
                       Remove
                     </button>
@@ -161,9 +161,9 @@ export default function OrderSummaryCard({
                           onChange={(e) => onChangeCoupon(e.target.value.toUpperCase())}
                           placeholder="Enter Promo Code"
                           onKeyDown={(e) => e.key === "Enter" && onApplyCoupon && onApplyCoupon()}
-                          className="w-full h-10 px-3 rounded-lg border border-border-base bg-bg-base focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all text-xs font-bold uppercase tracking-widest text-text-base placeholder:normal-case placeholder:tracking-normal placeholder:font-normal"
+                          className="w-full h-10 px-3 rounded-lg border border-border-subtle bg-bg-base focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-xs font-bold uppercase tracking-widest text-text-base placeholder:text-text-subtle placeholder:normal-case placeholder:tracking-normal placeholder:font-normal"
                         />
-                        <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted opacity-40 text-[18px]">
+                        <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-subtle opacity-40 text-[18px]">
                           sell
                         </span>
                       </div>
@@ -171,20 +171,20 @@ export default function OrderSummaryCard({
                         type="button"
                         onClick={onApplyCoupon}
                         disabled={couponLoading || !couponCode.trim()}
-                        className="px-4 h-10 bg-text-base text-bg-surface rounded-lg font-bold text-xs hover:opacity-90 active:scale-95 transition-all shadow-sm disabled:opacity-50 cursor-pointer"
+                        className="px-4 h-10 bg-primary hover:bg-primary-hover text-compli rounded-lg font-bold text-xs active:scale-95 transition-all shadow-sm disabled:opacity-50 cursor-pointer"
                       >
                         {couponLoading ? "..." : "APPLY"}
                       </button>
                     </div>
 
-                    {couponError && <p className="text-xs text-red-500 font-semibold">{couponError}</p>}
+                    {couponError && <p className="text-xs text-red-400 font-semibold">{couponError}</p>}
                   </>
                 )}
               </div>
             )}
 
             {/* Grand Total */}
-            <div className="flex flex-col gap-1 pt-2 border-t border-border-base/40">
+            <div className="flex flex-col gap-1 pt-2 border-t border-border-subtle">
               <div className="flex justify-between items-end">
                 <span className="font-bold text-xl text-text-base">Grand Total</span>
                 <span className="text-2xl font-black text-primary">
@@ -196,7 +196,7 @@ export default function OrderSummaryCard({
 
           {/* Payment Method Selector (Checkout Page Only) */}
           {showPaymentOptions && (enableOnline || enableCod) && (
-            <div className="flex flex-col gap-2.5 pt-2 border-t border-border-base/50">
+            <div className="flex flex-col gap-2.5 pt-2 border-t border-border-subtle">
               {/* Heading shown only when both methods are available (user must pick) */}
               {enableOnline && enableCod && (
                 <span className="text-xs font-bold text-text-muted uppercase tracking-wider">Select Payment Method</span>
@@ -208,8 +208,8 @@ export default function OrderSummaryCard({
                   onClick={() => onSelectPaymentMethod && onSelectPaymentMethod("ONLINE")}
                   className={`p-3.5 rounded-xl border-2 cursor-pointer flex items-center justify-between transition-all ${
                     paymentMethod === "ONLINE"
-                      ? "border-primary bg-primary/5 shadow-xs"
-                      : "border-border-base bg-bg-base/60 hover:border-primary/40 hover:bg-bg-surface"
+                      ? "border-primary bg-primary/10 shadow-xs"
+                      : "border-border-subtle bg-bg-surface hover:border-primary/40 hover:bg-card-hover"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -238,8 +238,8 @@ export default function OrderSummaryCard({
                   onClick={() => onSelectPaymentMethod && onSelectPaymentMethod("COD")}
                   className={`p-3.5 rounded-xl border-2 cursor-pointer flex items-center justify-between transition-all ${
                     paymentMethod === "COD"
-                      ? "border-primary bg-primary/5 shadow-xs"
-                      : "border-border-base bg-bg-base/60 hover:border-primary/40 hover:bg-bg-surface"
+                      ? "border-primary bg-primary/10 shadow-xs"
+                      : "border-border-subtle bg-bg-surface hover:border-primary/40 hover:bg-card-hover"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -257,7 +257,7 @@ export default function OrderSummaryCard({
                     </div>
                   </div>
                   <span className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider ${
-                    codHandlingFee > 0 ? "bg-amber-500/10 text-amber-600" : "bg-emerald-500/10 text-emerald-600"
+                    codHandlingFee > 0 ? "bg-amber-500/10 text-amber-400" : "bg-emerald-500/10 text-emerald-400"
                   }`}>
                     {codHandlingFee > 0 ? `+₹${fmt(codHandlingFee)}` : "Free"}
                   </span>
@@ -268,7 +268,7 @@ export default function OrderSummaryCard({
 
           {/* Fallback if all payment methods are disabled */}
           {showPaymentOptions && !enableOnline && !enableCod && (
-            <div className="p-4 bg-rose-50 border border-rose-300/60 rounded-xl text-xs text-rose-700 font-semibold">
+            <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl text-xs text-rose-400 font-semibold">
               ⚠ No payment methods are currently enabled. Please contact the store admin.
             </div>
           )}
@@ -279,7 +279,7 @@ export default function OrderSummaryCard({
               type="button"
               onClick={onProceed}
               disabled={isBusy}
-              className="group relative w-full py-3.5 bg-green-600 hover:bg-green-700 text-white rounded-xl flex items-center justify-center gap-2 font-bold text-sm sm:text-base transition-all shadow-[0_10px_20px_rgba(21,128,61,0.15)] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+              className="group relative w-full py-3.5 bg-primary hover:bg-primary-hover text-compli rounded-xl flex items-center justify-center gap-2 font-black text-sm sm:text-base transition-all shadow-md active:scale-[0.98] disabled:opacity-60 cursor-pointer"
             >
               <span>
                 {ctaText 
@@ -301,14 +301,14 @@ export default function OrderSummaryCard({
 
           {/* Trust Badges */}
           {showTrustBadges && (
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border-base/50">
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border-subtle">
               {[
                 { icon: "verified_user", label: "Secure Checkout" },
                 { icon: "package_2", label: "Easy Returns" },
                 { icon: "local_shipping", label: "Free Delivery" }
               ].map((badge, idx) => (
-                <div key={idx} className="flex flex-col border border-border-base/60 rounded-xl items-center gap-1 py-2 text-text-muted bg-bg-base/30">
-                  <span className="material-symbols-outlined text-emerald-600 text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+                <div key={idx} className="flex flex-col border border-border-subtle rounded-xl items-center gap-1 py-2 text-text-muted bg-bg-surface">
+                  <span className="material-symbols-outlined text-primary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
                     {badge.icon}
                   </span>
                   <p className="text-[10px] sm:text-[11px] font-bold text-center leading-tight">{badge.label}</p>

@@ -20,8 +20,8 @@ export default function OrderFulfillmentSection({
     String(paymentStatus || "").toUpperCase().includes("SUCCESS");
 
   return (
-    <div className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border-base/70">
+    <div className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border-subtle/70">
         <div>
           <h2 className="text-sm font-black text-text-base flex items-center gap-2">
             <FaClock className="text-primary" /> Order Fulfillment Status
@@ -37,7 +37,7 @@ export default function OrderFulfillmentSection({
             value={currentStatus}
             onChange={(e) => onUpdateStatus(e.target.value)}
             disabled={updating || currentStatus === "CANCELLED" || currentStatus === "DELIVERED"}
-            className="px-3.5 py-1.5 text-xs font-extrabold rounded-xl border border-border-base bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-2xs disabled:opacity-60"
+            className="px-3.5 py-1.5 text-xs font-extrabold rounded-xl border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer shadow-2xs disabled:opacity-60"
           >
             {statusSteps
               .filter((step) => {
@@ -84,7 +84,7 @@ export default function OrderFulfillmentSection({
                   {/* Connecting Bar Line */}
                   {idx < statusSteps.length - 1 && (
                     <div className="absolute top-4 left-1/2 w-full h-[3px] -z-0">
-                      <div className="ml-4 h-full bg-border-base/60 rounded-full">
+                      <div className="ml-4 h-full bg-border-subtle/60 rounded-full">
                         <div
                           className={`h-full rounded-full transition-all duration-300 ${
                             isCompleted ? "w-full bg-emerald-500" : "w-0"
@@ -96,12 +96,12 @@ export default function OrderFulfillmentSection({
 
                   {/* Step Circle Icon */}
                   <div
-                    className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center text-xs font-black transition-all ${
+                    className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                       isCurrent
-                        ? "bg-primary text-white ring-4 ring-primary/20 scale-110 shadow-md"
+                        ? "bg-primary text-compli ring-4 ring-primary/20 scale-110 shadow-md"
                         : isCompleted
                         ? "bg-emerald-500 text-white shadow-xs"
-                        : "bg-border-base/60 text-text-muted"
+                        : "bg-border-subtle/60 text-text-muted"
                     }`}
                   >
                     {isCompleted ? <FaCheckCircle size={14} /> : idx + 1}

@@ -43,7 +43,7 @@ const Feedback = () => {
     <section className="min-h-[60vh] md:min-h-[70vh] flex items-center justify-center px-4 py-8 bg-bg-base transition-colors duration-300">
       {loading && <Loader />}
 
-      <div className="w-full max-w-2xl rounded-3xl border border-border-base bg-bg-surface text-text-base shadow-sm p-5 sm:p-8 md:p-10 transition-all duration-300">
+      <div className="w-full max-w-2xl rounded-3xl border border-border-subtle bg-card text-text-base shadow-sm p-5 sm:p-8 md:p-10 transition-all duration-300">
         
         {/* Heading */}
         <div className="space-y-2 mb-6 sm:mb-8">
@@ -62,7 +62,7 @@ const Feedback = () => {
             onChange={(e) => setMessage(e.target.value)}
             maxLength={500}
             placeholder="Tell us what you liked, what could be improved, or report any issue..."
-            className="w-full h-36 sm:h-48 resize-none rounded-2xl border border-border-base px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 bg-bg-base text-text-base placeholder:text-text-muted/50"
+            className="w-full h-36 sm:h-48 resize-none rounded-2xl border border-border-subtle px-4 py-3 sm:px-5 sm:py-4 text-sm sm:text-base transition-all duration-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-bg-base text-text-base placeholder:text-text-subtle"
           />
 
           <div className="flex items-center justify-between text-xs">
@@ -80,7 +80,7 @@ const Feedback = () => {
           <button
             onClick={handleSendClick}
             disabled={loading}
-            className="rounded-xl bg-primary hover:bg-primary-hover active:scale-[0.98] text-white font-extrabold px-7 py-3.5 transition-all duration-200 shadow-md shadow-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-xl bg-primary hover:bg-primary-hover active:scale-[0.98] text-compli font-black px-7 py-3.5 transition-all duration-200 shadow-md shadow-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {loading ? "Sending..." : "Send Feedback"}
           </button>

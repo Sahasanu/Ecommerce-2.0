@@ -22,7 +22,7 @@ export default function AllProductsGrid({
     <div className="lg:col-span-9 w-full space-y-6 ">
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-border-base">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-border-subtle">
 
         <p className="text-xs sm:text-sm font-semibold text-text-muted">
           Showing <span className="text-primary font-bold">{filteredAndSorted.length}</span> products
@@ -34,7 +34,7 @@ export default function AllProductsGrid({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none w-full sm:w-44 border border-border-base rounded-xl px-3 py-2 pr-10 bg-bg-surface text-text-base text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+              className="appearance-none w-full sm:w-44 border border-border-subtle rounded-xl px-3 py-2 pr-10 bg-bg-surface text-text-base text-xs sm:text-sm font-semibold focus:outline-none focus:border-primary transition cursor-pointer"
             >
               <option value="Featured">Sort: Featured</option>
               <option value="Price: Low to High">
@@ -53,9 +53,9 @@ export default function AllProductsGrid({
           {/* Mobile Filters Toggle Button */}
           <button
             onClick={onMobileFilterToggle}
-            className="lg:hidden flex items-center gap-1.5 border border-border-base rounded-xl px-3 py-2 bg-bg-surface text-text-base text-xs font-bold transition active:scale-95 cursor-pointer"
+            className="lg:hidden flex items-center gap-1.5 border border-border-subtle rounded-xl px-3 py-2 bg-card hover:bg-card-hover text-text-base text-xs font-bold transition active:scale-95 cursor-pointer"
           >
-            <span className="material-symbols-outlined text-sm font-bold">filter_alt</span>
+            <span className="material-symbols-outlined text-sm font-bold text-primary">filter_alt</span>
             <span>Filters</span>
           </button>
         </div>
@@ -68,7 +68,7 @@ export default function AllProductsGrid({
           <ProductCardSkeleton count={8} />
         </div>
       ) : filteredAndSorted.length === 0 ? (
-        <div className="py-16 sm:py-20 rounded-2xl border border-border-base bg-bg-surface text-center">
+        <div className="py-16 sm:py-20 rounded-2xl border border-border-subtle bg-card text-center">
           <span className="material-symbols-outlined text-5xl text-text-muted">
             sentiment_dissatisfied
           </span>
@@ -97,7 +97,7 @@ export default function AllProductsGrid({
                 type="button"
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
-                className="px-8 py-3 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold text-sm shadow-md transition-all active:scale-95 disabled:opacity-60 cursor-pointer flex items-center gap-2"
+                className="px-8 py-3 bg-primary hover:bg-primary-hover text-compli rounded-xl font-bold text-sm shadow-md transition-all active:scale-95 disabled:opacity-60 cursor-pointer flex items-center gap-2"
               >
                 {isFetchingNextPage ? (
                   <>

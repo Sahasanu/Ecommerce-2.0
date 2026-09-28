@@ -18,13 +18,13 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
   const isExceedingStock = !isOutOfStock && stockInfo.availableStock < item.quantity;
 
   return (
-    <div className={`group bg-bg-surface p-3.5 shadow-sm rounded-2xl flex flex-col sm:flex-row gap-5 items-center transition-all duration-300 border ${
+    <div className={`group bg-card p-3.5 shadow-sm rounded-2xl flex flex-col sm:flex-row gap-5 items-center transition-all duration-300 border ${
       isOutOfStock 
-        ? "border-rose-300 dark:border-rose-900/60 bg-rose-50/20" 
-        : "border-border-base/50 hover:shadow-md"
+        ? "border-rose-500/40 bg-rose-500/10" 
+        : "border-border-subtle hover:border-primary/40 hover:shadow-md"
     }`}>
       {/* Product Thumbnail */}
-      <div className="relative w-24 h-24 flex-shrink-0 bg-bg-base/20 rounded-xl overflow-hidden flex items-center justify-center p-2 border border-border-base/20">
+      <div className="relative w-24 h-24 flex-shrink-0 bg-bg-base rounded-xl overflow-hidden flex items-center justify-center p-2 border border-border-subtle/50">
         <Link to={`/productdetails/${item.id}`} className="w-full h-full flex items-center justify-center">
           <img 
             className={`max-h-full max-w-full object-contain ${isOutOfStock ? "grayscale-50 opacity-70" : ""}`} 
@@ -44,11 +44,11 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
         <div className="flex justify-between items-start gap-2">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] text-text-muted uppercase tracking-wider block font-bold">
+              <span className="text-[10px] text-text-subtle uppercase tracking-wider block font-bold">
                 {item.category || 'ReadyMade'}
               </span>
               {isOutOfStock && (
-                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-rose-500/10 text-rose-600 border border-rose-500/20">
+                <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">
                   Out of Stock
                 </span>
               )}
@@ -60,14 +60,14 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
             <p className="text-xs text-text-muted mt-0.5 font-medium">Variant: {displayVariant}</p>
 
             {isOutOfStock && (
-              <p className="text-xs text-rose-600 font-bold mt-1.5 flex items-center gap-1">
+              <p className="text-xs text-rose-400 font-bold mt-1.5 flex items-center gap-1">
                 <span className="material-symbols-outlined text-sm font-bold">error</span>
                 <span>Currently out of stock. Please remove to proceed.</span>
               </p>
             )}
 
             {isExceedingStock && (
-              <p className="text-xs text-amber-600 font-bold mt-1.5 flex items-center gap-1">
+              <p className="text-xs text-amber-400 font-bold mt-1.5 flex items-center gap-1">
                 <span className="material-symbols-outlined text-sm font-bold">warning</span>
                 <span>Only {stockInfo.availableStock} available in stock.</span>
               </p>
@@ -76,7 +76,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
           
           <button 
             onClick={() => onRemove(item)}
-            className="text-text-muted hover:text-rose-600 transition-all p-1.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-950/20 active:scale-95 cursor-pointer shrink-0"
+            className="text-text-muted hover:text-rose-400 transition-all p-1.5 rounded-full hover:bg-rose-500/10 active:scale-95 cursor-pointer shrink-0"
             aria-label="Remove item"
             title="Remove item"
           >
@@ -84,7 +84,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
           </button>
         </div>
 
-        <div className="flex justify-between items-end mt-4 pt-2 border-t border-border-base/30">
+        <div className="flex justify-between items-end mt-4 pt-2 border-t border-border-subtle">
           {/* Quantity selector */}
           <QuantitySelector
             quantity={item.quantity}
@@ -93,7 +93,7 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, stockInfo =
             onChange={(newQty) => onUpdateQuantity(item, newQty)}
           />
 
-          <span className={`text-base font-black ${isOutOfStock ? "text-text-muted line-through" : "text-primary"}`}>
+          <span className={`text-base font-black ${isOutOfStock ? "text-text-subtle line-through" : "text-primary"}`}>
             ₹{(Number(item.price) * item.quantity).toLocaleString('en-IN')}
           </span>
         </div>

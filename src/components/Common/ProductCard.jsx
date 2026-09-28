@@ -67,10 +67,10 @@ function ProductCard({ item = {}, index, addCart }) {
         <div
             onClick={() => navigate(`/productdetails/${item.id}`)}
             key={index}
-            className="group flex flex-col h-full cursor-pointer overflow-hidden rounded-2xl bg-bg-surface border border-border-base/40 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 p-2.5"
+            className="group flex flex-col h-full cursor-pointer overflow-hidden rounded-2xl bg-card hover:bg-card-hover border border-border-subtle hover:border-primary/40 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-2.5"
         >
             {/* Image Container */}
-            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-bg-base/30 rounded-xl flex items-center justify-center p-2">
+            <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-bg-base rounded-xl  flex items-center justify-center p-2">
                 <img
                     src={displayImage}
                     alt={title}
@@ -81,14 +81,14 @@ function ProductCard({ item = {}, index, addCart }) {
 
                 {/* Floating Category Tag */}
                 {category && (
-                    <span className="absolute top-2 left-2 bg-bg-surface/90 backdrop-blur px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-primary shadow-xs border border-border-base/10 whitespace-nowrap max-w-[65%] truncate">
+                    <span className="absolute top-2 left-2 bg-bg-surface/90 backdrop-blur-md px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-bold uppercase tracking-wide text-primary shadow-xs border border-border-subtle whitespace-nowrap max-w-[65%] truncate">
                         {category}
                     </span>
                 )}
 
                 {/* Floating Rating Badge */}
                 {hasRating && (
-                    <div className="absolute top-2 right-2 bg-bg-surface/90 backdrop-blur px-1.5 py-0.5 rounded-md text-[9px] font-bold text-amber-500 flex items-center gap-0.5 shadow-xs border border-border-base/10 shrink-0">
+                    <div className="absolute top-2 right-2 bg-bg-surface/90 backdrop-blur-md px-1.5 py-0.5 rounded-md text-[9px] font-bold text-amber-400 flex items-center gap-0.5 shadow-xs border border-border-subtle shrink-0">
                         <span
                             className="material-symbols-outlined text-[11px]"
                             style={{ fontVariationSettings: "'FILL' 1" }}
@@ -101,7 +101,7 @@ function ProductCard({ item = {}, index, addCart }) {
 
                 {/* Out of Stock Overlay Badge */}
                 {isOutOfStock && (
-                    <span className="absolute bottom-2 left-2 bg-rose-600/95 backdrop-blur text-white px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-black uppercase tracking-wider shadow-xs">
+                    <span className="absolute bottom-2 left-2 bg-rose-600/95 backdrop-blur-md text-white px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-black uppercase tracking-wider shadow-xs">
                         Out of Stock
                     </span>
                 )}
@@ -122,9 +122,9 @@ function ProductCard({ item = {}, index, addCart }) {
                 </div>
 
                 {/* Price and Cart Action (pinned to bottom) */}
-                <div className="flex items-center justify-between pt-2.5 mt-auto border-t border-border-base/30 shrink-0 gap-2">
+                <div className="flex items-center justify-between pt-2.5 mt-auto border-t border-border-subtle shrink-0 gap-2">
                     <div className="min-w-0 flex-1">
-                        <span className="block text-[8px] sm:text-[9px] uppercase tracking-wider text-text-muted font-bold">
+                        <span className="block text-[8px] sm:text-[9px] uppercase tracking-wider text-text-subtle font-bold">
                             Price
                         </span>
                         <div className="flex items-baseline gap-1.5 flex-wrap">
@@ -132,12 +132,12 @@ function ProductCard({ item = {}, index, addCart }) {
                                 ₹{sellingPrice.toLocaleString("en-IN")}
                             </span>
                             {hasDiscount && (
-                                <span className="text-[10px] sm:text-xs text-text-muted line-through font-medium opacity-65 leading-tight">
+                                <span className="text-[10px] sm:text-xs text-text-subtle line-through font-medium opacity-65 leading-tight">
                                     ₹{rawOriginalPrice.toLocaleString("en-IN")}
                                 </span>
                             )}
                             {hasDiscount && (
-                                <span className="text-[9px] sm:text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400 leading-tight">
+                                <span className="text-[9px] sm:text-[10px] font-extrabold text-emerald-400 leading-tight">
                                     {discountPercent}% off
                                 </span>
                             )}
@@ -150,12 +150,12 @@ function ProductCard({ item = {}, index, addCart }) {
                         onClick={handleAddToCartClick}
                         className={`w-8 h-8 sm:w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-xs shrink-0 ${
                             isOutOfStock
-                                ? "bg-bg-base text-text-muted/60 border border-border-base/60 cursor-not-allowed opacity-60"
-                                : "bg-primary text-compli hover:bg-primary-hover active:scale-95 cursor-pointer"
+                                ? "bg-bg-base text-text-subtle border border-border-subtle cursor-not-allowed opacity-60"
+                                : "bg-primary text-compli font-bold hover:bg-primary-hover active:scale-95 cursor-pointer"
                         }`}
                         title={isOutOfStock ? "Out of Stock" : "Add to Cart"}
                     >
-                        <span className="material-symbols-outlined text-base sm:text-lg">
+                        <span className="material-symbols-outlined text-[18px] sm:text-[20px] text-inherit">
                             {isOutOfStock ? "remove_shopping_cart" : "add_shopping_cart"}
                         </span>
                     </button>

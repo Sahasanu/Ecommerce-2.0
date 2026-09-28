@@ -285,8 +285,8 @@ export function getStatusBadge(status) {
         default:
             return {
                 label: status.replace(/_/g, " "),
-                icon: <FaClock className="text-slate-400" size={11} />,
-                className: "bg-transparent text-text-muted font-extrabold border border-border-base"
+                icon: <FaClock className="text-text-muted" size={11} />,
+                className: "bg-transparent text-text-muted font-extrabold border border-border-subtle"
             };
     }
 }

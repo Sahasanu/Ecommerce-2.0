@@ -206,13 +206,13 @@ function Coupons() {
 
             {/* ── Expired Coupon Reason Modal ───────────────────────────────────── */}
             {expiredModalCoupon && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="bg-bg-surface w-full max-w-md rounded-2xl border border-border-base shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="bg-card w-full max-w-md rounded-2xl border border-border-subtle shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
 
                         {/* Header */}
-                        <div className="flex items-start justify-between p-5 border-b border-border-base bg-rose-50/60 dark:bg-rose-950/20">
+                        <div className="flex items-start justify-between p-5 border-b border-border-subtle bg-rose-500/10">
                             <div>
-                                <h2 className="text-sm font-black text-rose-700 dark:text-rose-400 flex items-center gap-2">
+                                <h2 className="text-sm font-black text-rose-400 flex items-center gap-2">
                                     ⚠️ Coupon Cannot Be Activated
                                 </h2>
                                 <p className="text-[11px] text-text-muted mt-0.5">
@@ -221,7 +221,7 @@ function Coupons() {
                             </div>
                             <button
                                 onClick={() => setExpiredModalCoupon(null)}
-                                className="p-1.5 rounded-xl text-text-muted hover:bg-bg-base transition cursor-pointer ml-4"
+                                className="p-1.5 rounded-xl text-text-muted hover:bg-card-hover transition cursor-pointer ml-4"
                             >
                                 <FaTimes size={13} />
                             </button>
@@ -236,11 +236,11 @@ function Coupons() {
                             {expiredReasons.map((reason, i) => (
                                 <div
                                     key={i}
-                                    className="flex gap-3 p-3.5 rounded-xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200/70 dark:border-rose-800/40"
+                                    className="flex gap-3 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20"
                                 >
                                     <span className="text-xl leading-none mt-0.5">{reason.icon}</span>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-xs font-black text-rose-700 dark:text-rose-400">{reason.label}</p>
+                                        <p className="text-xs font-black text-rose-400">{reason.label}</p>
                                         <p className="text-[11px] text-text-muted mt-0.5">{reason.detail}</p>
                                         <p className="text-[11px] font-semibold text-primary mt-1.5">
                                             👉 {reason.fix}
@@ -258,7 +258,7 @@ function Coupons() {
                         <div className="px-5 pb-5 flex items-center gap-3">
                             <button
                                 onClick={() => setExpiredModalCoupon(null)}
-                                className="flex-1 h-10 rounded-xl border border-border-base font-bold text-xs text-text-base hover:bg-bg-base transition cursor-pointer"
+                                className="flex-1 h-10 rounded-xl border border-border-subtle font-bold text-xs text-text-base hover:bg-card-hover transition cursor-pointer"
                             >
                                 Cancel
                             </button>

@@ -8,6 +8,8 @@ import FounderSection from './Sections/FounderSection'
 import BengalTilesSection from './Sections/BengalTilesSection'
 import BrandPartnerSection from './Sections/BrandPartnerSection'
 import ServiceAreaSection from './Sections/ServiceAreaSection'
+import VideoGuidesSection from './Sections/VideoGuidesSection'
+import TeamSection from './Sections/TeamSection'
 
 
 const reviews = [
@@ -51,9 +53,11 @@ function Home() {
         <HeroSection />
         <BrandPartnerSection />
         <ProductsGrid />
+        <VideoGuidesSection />
         <ReviewSection reviews={reviews} />
         <ServiceAreaSection />
         <FounderSection />
+        <TeamSection />
       </div>
     </div>
   )

@@ -136,7 +136,7 @@ function Signup() {
 
     const formContent = (
         <div 
-            className={`relative z-10 w-full max-w-sm mx-auto bg-white border border-slate-200 p-6 sm:p-8 rounded-2xl shadow-xl ${isPage ? 'my-8 sm:my-16' : ''}`}
+            className={`relative z-10 w-full max-w-sm mx-auto bg-card border border-border-subtle p-6 sm:p-8 rounded-2xl shadow-2xl text-text-base ${isPage ? 'my-8 sm:my-16' : ''}`}
             onClick={(e) => e.stopPropagation()}
         >
             {/* Cross Button (Only for modal) */}
@@ -144,7 +144,7 @@ function Signup() {
                 <button
                     type="button"
                     onClick={() => setIsSignupOpen(false)}
-                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                    className="absolute top-4 right-4 text-text-muted hover:text-text-base transition-colors cursor-pointer"
                     aria-label="Close"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -155,17 +155,17 @@ function Signup() {
 
             {/* Header */}
             <div className="mb-5 mt-1 text-center">
-                <h1 className="text-slate-800 text-2xl font-bold tracking-tight">Create Account</h1>
-                <p className="text-xs text-slate-500 mt-1 font-medium">Join {companyName} today</p>
+                <h1 className="text-text-base text-2xl font-bold tracking-tight">Create Account</h1>
+                <p className="text-xs text-text-muted mt-1 font-medium">Join {companyName} today</p>
             </div>
 
             {/* Mode Switcher Tabs */}
-            <div className="flex bg-slate-100 p-1 rounded-xl mb-6 border border-slate-200">
+            <div className="flex bg-bg-base p-1 rounded-xl mb-6 border border-border-subtle">
                 <button
                     type="button"
                     onClick={() => { setAuthMode('email'); setPhoneStep(1); }}
                     className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                        authMode === 'email' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-700'
+                        authMode === 'email' ? 'bg-card text-text-base border border-border-subtle shadow-xs' : 'text-text-muted hover:text-text-base'
                     }`}
                 >
                     <FaEnvelope size={11} /> Email Signup
@@ -174,7 +174,7 @@ function Signup() {
                     type="button"
                     onClick={() => { setAuthMode('phone'); setPhoneStep(1); }}
                     className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                        authMode === 'phone' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-700'
+                        authMode === 'phone' ? 'bg-card text-text-base border border-border-subtle shadow-xs' : 'text-text-muted hover:text-text-base'
                     }`}
                 >
                     <FaPhoneAlt size={10} /> Phone OTP
@@ -186,49 +186,49 @@ function Signup() {
                 <form onSubmit={handleEmailSignup}>
                     {/* Full Name Field */}
                     <div className="mb-4">
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Full Name</label>
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Full Name</label>
                         <div className="relative">
                             <input
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-slate-400 transition-all duration-200"
+                                className="w-full bg-bg-base border border-border-subtle text-text-base placeholder:text-text-subtle pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="John Doe"
                                 required
                             />
-                            <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
+                            <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={12} />
                         </div>
                     </div>
 
                     {/* Email Address Field */}
                     <div className="mb-4">
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Email Address</label>
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Email Address</label>
                         <div className="relative">
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-slate-400 transition-all duration-200"
+                                className="w-full bg-bg-base border border-border-subtle text-text-base placeholder:text-text-subtle pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="name@example.com"
                                 required
                             />
-                            <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
+                            <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={12} />
                         </div>
                     </div>
 
                     {/* Password Field */}
                     <div className="mb-6">
-                        <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Password</label>
+                        <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Password</label>
                         <div className="relative">
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-slate-400 transition-all duration-200"
+                                className="w-full bg-bg-base border border-border-subtle text-text-base placeholder:text-text-subtle pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="••••••••"
                                 required
                             />
-                            <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
+                            <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={12} />
                         </div>
                     </div>
 
@@ -237,7 +237,7 @@ function Signup() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-2.5 bg-primary text-compli text-sm font-semibold rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                            className="w-full py-2.5 bg-primary text-compli text-sm font-bold rounded-xl hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md cursor-pointer disabled:opacity-50"
                         >
                             Create Account
                         </button>
@@ -255,25 +255,25 @@ function Signup() {
                         <form onSubmit={handleSendOtp}>
                             {/* Full Name Field */}
                             <div className="mb-4">
-                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Full Name</label>
+                                <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Full Name</label>
                                 <div className="relative">
                                     <input
                                         type="text"
                                         value={phoneName}
                                         onChange={(e) => setPhoneName(e.target.value)}
-                                        className="w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-slate-400 transition-all duration-200"
+                                        className="w-full bg-bg-base border border-border-subtle text-text-base placeholder:text-text-subtle pl-9 pr-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
                                         placeholder="John Doe"
                                         required
                                     />
-                                    <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={12} />
+                                    <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={12} />
                                 </div>
                             </div>
 
                             {/* Mobile Number Field */}
                             <div className="mb-5">
-                                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Mobile Number</label>
-                                <div className="flex rounded-xl border border-slate-200 bg-slate-50 overflow-hidden focus-within:border-slate-400 transition-all">
-                                    <span className="px-3 py-2.5 bg-slate-200/60 text-slate-600 text-xs font-bold flex items-center border-r border-slate-200">
+                                <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted mb-1.5">Mobile Number</label>
+                                <div className="flex rounded-xl border border-border-subtle bg-bg-base overflow-hidden focus-within:border-primary transition-all">
+                                    <span className="px-3 py-2.5 bg-card text-text-muted text-xs font-bold flex items-center border-r border-border-subtle">
                                         +91
                                     </span>
                                     <input
@@ -281,18 +281,18 @@ function Signup() {
                                         maxLength={10}
                                         value={phoneNumber}
                                         onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
-                                        className="w-full bg-transparent text-slate-800 placeholder:text-slate-400 px-3 py-2.5 text-sm focus:outline-none font-semibold tracking-wider"
+                                        className="w-full bg-transparent text-text-base placeholder:text-text-subtle px-3 py-2.5 text-sm focus:outline-none font-semibold tracking-wider"
                                         placeholder="9876543210"
                                         required
                                     />
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-1.5">We will send a 6-digit OTP verification code via SMS.</p>
+                                <p className="text-[10px] text-text-subtle mt-1.5">We will send a 6-digit OTP verification code via SMS.</p>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={otpSending || !phoneName.trim() || phoneNumber.length < 10}
-                                className="w-full py-2.5 bg-primary text-compli text-sm font-semibold rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-sm cursor-pointer disabled:opacity-50 mb-5"
+                                className="w-full py-2.5 bg-primary text-compli text-sm font-bold rounded-xl hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md cursor-pointer disabled:opacity-50 mb-5"
                             >
                                 {otpSending ? "Sending OTP..." : "Get OTP Verification Code"}
                             </button>
@@ -301,7 +301,7 @@ function Signup() {
                         <form onSubmit={handleVerifyOtpSignup}>
                             <div className="mb-5">
                                 <div className="flex items-center justify-between mb-1.5">
-                                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500">Enter 6-Digit OTP</label>
+                                    <label className="block text-[10px] font-bold uppercase tracking-wider text-text-muted">Enter 6-Digit OTP</label>
                                     <button
                                         type="button"
                                         onClick={() => setPhoneStep(1)}
@@ -311,10 +311,10 @@ function Signup() {
                                     </button>
                                 </div>
 
-                                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-center mb-3 space-y-0.5">
-                                    <p className="text-xs font-bold text-slate-800">{phoneName}</p>
-                                    <p className="text-[10.5px] text-slate-500">
-                                        Sent to <strong className="text-slate-900 font-mono">+91 {phoneNumber}</strong>
+                                <div className="p-2.5 bg-bg-base rounded-xl border border-border-subtle text-center mb-3 space-y-0.5">
+                                    <p className="text-xs font-bold text-text-base">{phoneName}</p>
+                                    <p className="text-[10.5px] text-text-muted">
+                                        Sent to <strong className="text-primary font-mono">+91 {phoneNumber}</strong>
                                     </p>
                                 </div>
 
@@ -324,18 +324,18 @@ function Signup() {
                                         maxLength={6}
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                                        className="w-full bg-slate-50 border border-slate-200 text-slate-800 tracking-[0.5em] text-center font-mono font-bold text-lg px-3 py-2 rounded-xl focus:outline-none focus:border-slate-400 transition-all"
+                                        className="w-full bg-bg-base border border-border-subtle text-text-base tracking-[0.5em] text-center font-mono font-bold text-lg px-3 py-2 rounded-xl focus:outline-none focus:border-primary transition-all"
                                         placeholder="••••••"
                                         required
                                         autoFocus
                                     />
-                                    <FaKey className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={13} />
+                                    <FaKey className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={13} />
                                 </div>
 
                                 {/* Resend Timer */}
                                 <div className="flex items-center justify-between mt-2.5 text-xs">
                                     {timer > 0 ? (
-                                        <span className="text-[10.5px] text-slate-400">Resend code in <strong className="text-slate-700">{timer}s</strong></span>
+                                        <span className="text-[10.5px] text-text-subtle">Resend code in <strong className="text-text-base">{timer}s</strong></span>
                                     ) : (
                                         <button
                                             type="button"
@@ -352,7 +352,7 @@ function Signup() {
                             <button
                                 type="submit"
                                 disabled={otpVerifying || otp.length < 6}
-                                className="w-full py-2.5 bg-primary text-compli text-sm font-semibold rounded-xl hover:opacity-95 active:scale-[0.98] transition-all shadow-sm cursor-pointer disabled:opacity-50 mb-5"
+                                className="w-full py-2.5 bg-primary text-compli text-sm font-bold rounded-xl hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md cursor-pointer disabled:opacity-50 mb-5"
                             >
                                 {otpVerifying ? "Verifying..." : "Verify & Register Account"}
                             </button>
@@ -362,13 +362,13 @@ function Signup() {
             )}
 
             {/* Footer Link */}
-            <p className="text-center text-xs text-slate-500">
+            <p className="text-center text-xs text-text-muted">
                 Have an account?{' '}
                 {isPage ? (
                     <button
                         type="button"
                         onClick={() => navigate('/login', { state: location.state })}
-                        className="text-slate-700 hover:text-slate-900 font-semibold underline transition-colors focus:outline-none cursor-pointer"
+                        className="text-primary font-bold hover:underline transition-colors focus:outline-none cursor-pointer"
                     >
                         Log In
                     </button>
@@ -379,7 +379,7 @@ function Signup() {
                             setIsSignupOpen(false);
                             setIsLoginOpen(true);
                         }}
-                        className="text-slate-700 hover:text-slate-900 font-semibold underline transition-colors focus:outline-none cursor-pointer"
+                        className="text-primary font-bold hover:underline transition-colors focus:outline-none cursor-pointer"
                     >
                         Log In
                     </button>
@@ -390,7 +390,7 @@ function Signup() {
 
     if (isPage) {
         return (
-            <div className="min-h-[70vh] flex items-center justify-center bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-[70vh] flex items-center justify-center bg-bg-base py-12 px-4 sm:px-6 lg:px-8">
                 {loading && <Loader />}
                 {formContent}
             </div>
@@ -399,7 +399,7 @@ function Signup() {
 
     return (
         <div 
-            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/40 backdrop-blur-md overflow-hidden"
+            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/70 backdrop-blur-md overflow-hidden"
             onClick={() => setIsSignupOpen(false)}
         >
             {loading && <Loader />}

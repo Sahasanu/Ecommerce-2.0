@@ -151,11 +151,11 @@ function Cart() {
             
             {/* Shopping Cart Stack */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="flex items-center justify-between pb-2 border-b border-border-base/50">
+              <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
                 <h1 className="md:text-2xl text-xl font-extrabold text-text-base font-h1">
                   Your Cart
                 </h1>
-                <span className="text-xs sm:text-sm font-semibold text-text-muted bg-bg-surface px-3 py-1 rounded-full border border-border-base/60">
+                <span className="text-xs sm:text-sm font-semibold text-text-muted bg-bg-surface px-3 py-1 rounded-full border border-border-subtle">
                   {totalItemsCount} {totalItemsCount === 1 ? 'item' : 'items'}
                 </span>
               </div>
@@ -191,7 +191,7 @@ function Cart() {
           </div>
         ) : (
           <div className="max-w-2xl mx-auto w-full py-8 sm:py-12 space-y-10">
-            <div className="text-center py-16 px-6 bg-bg-surface text-text-muted rounded-3xl border border-dashed border-border-base shadow-sm flex flex-col items-center justify-center gap-5">
+            <div className="text-center py-16 px-6 bg-bg-surface text-text-muted rounded-3xl border border-dashed border-border-subtle shadow-sm flex flex-col items-center justify-center gap-5">
               <div className="w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-inner">
                 <span className="material-symbols-outlined text-4xl">shopping_cart</span>
               </div>

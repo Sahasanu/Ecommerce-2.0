@@ -38,8 +38,8 @@ export default function PaymentTab({ draft, updateDraft }) {
 
             {/* Warning — no method enabled */}
             {noneEnabled && (
-                <div className="flex items-start gap-3 p-4 bg-rose-50 border border-rose-300/60 rounded-2xl text-xs text-rose-700">
-                    <FaInfoCircle className="mt-0.5 shrink-0 text-rose-500" size={14} />
+                <div className="flex items-start gap-3 p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-xs text-rose-400">
+                    <FaInfoCircle className="mt-0.5 shrink-0 text-rose-400" size={14} />
                     <span className="font-semibold">
                         At least one payment method must be enabled, otherwise customers
                         won't be able to place orders. Please enable Online Payment, Cash
@@ -55,16 +55,16 @@ export default function PaymentTab({ draft, updateDraft }) {
                 <div
                     className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all duration-200 ${
                         pm.enableOnline
-                            ? "border-primary bg-primary/5 shadow-sm"
-                            : "border-border-base bg-bg-surface"
+                            ? "border-primary bg-primary/10 shadow-sm"
+                            : "border-border-subtle bg-card"
                     }`}
                 >
                     <div className="flex items-center gap-4">
                         <div
                             className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                                 pm.enableOnline
-                                    ? "bg-primary text-white shadow-sm"
-                                    : "bg-bg-base text-text-muted border border-border-base"
+                                    ? "bg-primary text-compli font-bold shadow-sm"
+                                    : "bg-bg-base text-text-muted border border-border-subtle"
                             }`}
                         >
                             <FaCreditCard size={18} />
@@ -92,16 +92,16 @@ export default function PaymentTab({ draft, updateDraft }) {
                 <div
                     className={`flex items-center justify-between p-5 rounded-2xl border-2 transition-all duration-200 ${
                         pm.enableCod
-                            ? "border-amber-400 bg-amber-50/60 shadow-sm"
-                            : "border-border-base bg-bg-surface"
+                            ? "border-primary/80 bg-primary/10 shadow-sm"
+                            : "border-border-subtle bg-card"
                     }`}
                 >
                     <div className="flex items-center gap-4">
                         <div
                             className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
                                 pm.enableCod
-                                    ? "bg-amber-500 text-white shadow-sm"
-                                    : "bg-bg-base text-text-muted border border-border-base"
+                                    ? "bg-primary text-compli font-bold shadow-sm"
+                                    : "bg-bg-base text-text-muted border border-border-subtle"
                             }`}
                         >
                             <FaMoneyBillWave size={18} />
@@ -127,7 +127,7 @@ export default function PaymentTab({ draft, updateDraft }) {
             </div>
 
             {/* Status summary */}
-            <div className="p-4 bg-bg-surface border border-border-base/60 rounded-2xl text-xs space-y-2">
+            <div className="p-4 bg-bg-base border border-border-subtle rounded-2xl text-xs space-y-2">
                 <p className="font-bold text-text-base uppercase tracking-wider text-[10px]">
                     Current Checkout Preview
                 </p>
@@ -143,11 +143,11 @@ export default function PaymentTab({ draft, updateDraft }) {
                     </p>
                 ) : pm.enableCod ? (
                     <p className="text-text-muted">
-                        Customers will see <strong className="text-amber-600">Cash on Delivery only</strong>.
+                        Customers will see <strong className="text-primary font-bold">Cash on Delivery only</strong>.
                         Online payment is disabled.
                     </p>
                 ) : (
-                    <p className="text-rose-600 font-semibold">
+                    <p className="text-rose-400 font-semibold">
                         ⚠ No payment methods enabled — customers cannot checkout.
                     </p>
                 )}

@@ -1,68 +1,51 @@
-/* Theme Color Variables (Light Golden Theme & Black Text with Dark Golden Buttons) */
-
 :root {
   /* =========================
-     Brand Colors & Dark Golden Buttons
+     Brand
   ========================= */
-  --color-primary: #966e18;                /* Refined Dark Amber-Gold for buttons */
-  --color-primary-hover: #7d5910;          /* Deep antique dark gold on hover */
-  --color-primary-light: #f8f3e5;          /* Delicate champagne gold tint */
-  
-  --color-secondary: #18181b;              /* Obsidian black secondary */
-  --color-secondary-hover: #27272a;        /* Deep charcoal hover */
-  
-  --color-accent: #966e18;                 /* Refined gold accent */
-  --color-accent-text: #ffffff;            /* Crisp white text for gold accents */
+  --color-primary: #c9a227;
+  --color-primary-hover: #e4c766;
+  --color-primary-light: #2a220d;
+
+  --color-secondary: #181818;
+  --color-secondary-hover: #211d14;
+
+  --color-accent: #8a6a18;
+  --color-accent-text: #090909;
 
   /* =========================
-     Background Colors (Luxury Champagne Gold & Crisp White)
+     Background
   ========================= */
-  --color-bg-base: #efe8d8;                /* Elegant luminous champagne-gold page background */
-  --color-bg-surface: #ffffff;             /* Crisp clean white surface for cards & image frames */
-  
-  /* =========================
-     Text Colors (Black Text)
-  ========================= */
-  --color-text-base: #111827;              /* Crisp deep black primary text */
-  --color-text-compli: #ffffff;            /* High contrast white text on buttons */
-  --color-text-muted: #524d45;             /* Warm charcoal for readable secondary text */
-  
-  /* =========================
-     Border Colors
-  ========================= */
-  --color-border-base: #e8dfce;            /* Soft warm champagne-gold border */
+  --color-bg-base: #090909;
+  --color-bg-surface: #111111;
 
   /* =========================
-     Status Colors
+     Cards
   ========================= */
-  --color-success: #15803d;
-  --color-warning: #b45309;
-  --color-error: #dc2626;
-}
+  --color-bg-card: #181818;
+  --color-bg-card-hover: #211d14;
 
-/* Dark Mode Palette Overrides */
-.dark {
   /* =========================
-     Background Colors (Dark)
+     Text
   ========================= */
-  --color-bg-base: #09090b;                /* Deep obsidian black */
-  --color-bg-surface: #18181b;             /* Charcoal black surface */
-  
+  --color-text-base: #f1e5b8;
+  --color-text-compli: #090909;
+  --color-text-muted: #b9a66a;
+  --color-text-subtle: #8a6a18;
+  --color-text-primary: #5d4906;
+  --color-text-logo: #C9A465;
+
+
   /* =========================
-     Text Colors (Dark)
+     Borders
   ========================= */
-  --color-text-base: #f8fafc;              /* Crisp white text */
-  --color-text-muted: #a1a1aa;             /* Soft silver secondary text */
-  
+  --color-border-base: #3d3218;
+  --color-border-subtle: #29220f;
+  --color-border-gold: #c9a227;
+
   /* =========================
-     Border Colors (Dark)
+     Status
   ========================= */
-  --color-border-base: #27272a;            /* Dark divider */
-  
-  /* =========================
-     Brand Colors (Dark Override)
-  ========================= */
-  --color-primary: #e5b842;                /* Luminous gold for dark mode */
-  --color-primary-hover: #f0c75e;          /* Bright warm gold hover */
-  --color-primary-light: #2c220c;          /* Deep gold tint background/badge */
+  --color-success: #b99a35;
+  --color-warning: #d4ad3a;
+  --color-error: #b56b2a;
 }

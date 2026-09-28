@@ -20,12 +20,12 @@ export default function VariantTableRow({
   const stockNum = Number(variant.inStock || 0);
 
   return (
-    <tr className="hover:bg-bg-base/40 transition-colors">
+    <tr className="hover:bg-card-hover transition-colors">
       {/* Variant attributes */}
       <td className="px-5 py-3.5">
         <div className="flex flex-wrap gap-2">
           {Object.entries(variant.attributes || {}).map(([attrKey, attrVal]) => (
-            <div key={attrKey} className="flex items-center gap-1 bg-primary/5 border border-primary/20 rounded-lg px-2 py-1">
+            <div key={attrKey} className="flex items-center gap-1 bg-primary/10 border border-primary/20 rounded-lg px-2 py-1">
               <span className="text-[10px] font-bold text-primary shrink-0">{attrKey}:</span>
               <input
                 type="text"
@@ -34,7 +34,7 @@ export default function VariantTableRow({
                   const newAttrs = { ...(variant.attributes || {}), [attrKey]: e.target.value };
                   handleVariantChange(index, "attributes", newAttrs);
                 }}
-                className="w-16 px-1.5 py-0.5 rounded bg-bg-surface text-text-base text-[11px] font-bold border border-border-base focus:border-primary focus:outline-none"
+                className="w-16 px-1.5 py-0.5 rounded bg-card text-text-base text-[11px] font-bold border border-border-subtle focus:border-primary focus:outline-none"
               />
             </div>
           ))}
@@ -47,7 +47,7 @@ export default function VariantTableRow({
           {variant.images && variant.images.length > 0 && (
             <div className="flex flex-wrap items-center justify-center gap-1 max-w-[120px]">
               {variant.images.map((url, imgIdx) => (
-                <div key={imgIdx} className="relative group w-8 h-8 rounded-lg border border-border-base overflow-hidden bg-bg-base shadow-xs">
+                <div key={imgIdx} className="relative group w-8 h-8 rounded-lg border border-border-subtle overflow-hidden bg-bg-base shadow-xs">
                   <img src={url} alt="Variant" className="w-full h-full object-cover" />
                   <button
                     type="button"
@@ -63,7 +63,7 @@ export default function VariantTableRow({
           )}
 
           <div className="flex items-center gap-1">
-            <label className="relative flex items-center justify-center cursor-pointer px-2 py-1 rounded-lg bg-bg-base hover:bg-border-base border border-border-base transition text-[10px] font-bold gap-1 text-text-muted active:scale-95">
+            <label className="relative flex items-center justify-center cursor-pointer px-2 py-1 rounded-lg bg-card hover:bg-card-hover border border-border-subtle transition text-[10px] font-bold gap-1 text-text-muted hover:text-text-base active:scale-95">
               {variantUploadingIndex === index ? (
                 <span className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
               ) : (
@@ -100,7 +100,7 @@ export default function VariantTableRow({
             type="number"
             value={variant.price ?? ""}
             onChange={(e) => handleVariantChange(index, "price", Number(e.target.value))}
-            className="w-full pl-6 pr-2 py-1.5 rounded-xl border border-border-base bg-bg-base text-center font-bold text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+            className="w-full pl-6 pr-2 py-1.5 rounded-xl border border-border-subtle bg-bg-base text-text-base text-center font-bold text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
           />
         </div>
       </td>
@@ -114,7 +114,7 @@ export default function VariantTableRow({
             value={variant.originalPrice ?? ""}
             onChange={(e) => handleVariantChange(index, "originalPrice", Number(e.target.value))}
             placeholder="Optional"
-            className="w-full pl-6 pr-2 py-1.5 rounded-xl border border-border-base bg-bg-base text-center font-semibold text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-text-muted"
+            className="w-full pl-6 pr-2 py-1.5 rounded-xl border border-border-subtle bg-bg-base text-center font-semibold text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-text-muted placeholder:text-text-subtle"
           />
         </div>
       </td>
@@ -127,10 +127,10 @@ export default function VariantTableRow({
           onChange={(e) => handleVariantChange(index, "inStock", Number(e.target.value))}
           className={`w-20 mx-auto block rounded-xl border px-2 py-1.5 text-center font-extrabold text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none ${
             stockNum === 0
-              ? "bg-rose-50 border-rose-300 text-rose-600"
+              ? "bg-rose-500/10 border-rose-500/30 text-rose-400"
               : stockNum < 5
-              ? "bg-amber-50 border-amber-300 text-amber-600"
-              : "bg-bg-base border-border-base text-text-base"
+              ? "bg-amber-500/10 border-amber-500/30 text-amber-400"
+              : "bg-bg-base border-border-subtle text-text-base"
           }`}
         />
       </td>

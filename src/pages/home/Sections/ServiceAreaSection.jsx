@@ -45,6 +45,13 @@ const SERVICE_AREAS = [
   }
 ];
 
+const EXTENDED_AREAS = [
+  "Howrah",
+  "Burdwan",
+  "Hoogly",
+  "Bankura",
+];
+
 export default function ServiceAreaSection() {
   const { config } = useSiteConfig();
 
@@ -110,11 +117,11 @@ export default function ServiceAreaSection() {
           {SERVICE_AREAS.map((item, idx) => (
             <div
               key={idx}
-              className="relative overflow-hidden rounded-3xl bg-bg-surface border border-border-base shadow-xs hover:shadow-lg transition-all duration-300 p-3 sm:p-4 lg:p-8 flex flex-col justify-between"
+              className="relative overflow-hidden rounded-3xl bg-card border border-border-subtle shadow-xs hover:shadow-lg transition-all duration-300 p-3 sm:p-4 lg:p-8 flex flex-col justify-between"
             >
               {/* Top district title & badge */}
               <div>
-                <div className="flex items-center justify-between pb-4 mb-5 border-b border-border-base/60">
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-border-subtle">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                       <span className="material-symbols-outlined text-xl">{item.icon}</span>
@@ -129,7 +136,7 @@ export default function ServiceAreaSection() {
                     </div>
                   </div>
 
-                  <span className="px-2.5 py-1 rounded-full bg-bg-base border border-border-base text-[11px] font-bold text-text-muted shrink-0">
+                  <span className="px-2.5 py-1 rounded-full bg-bg-base border border-border-subtle text-[11px] font-bold text-text-muted shrink-0">
                     {item.locations.length} Locations
                   </span>
                 </div>
@@ -143,8 +150,8 @@ export default function ServiceAreaSection() {
                         key={lIdx}
                         className={`group rounded-xl px-3 py-2.5 text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 border ${
                           isHub
-                            ? "bg-primary/10 text-primary border-primary/30 shadow-2xs font-bold"
-                            : "bg-bg-base hover:bg-primary/5 text-text-base border-border-base/70 hover:border-primary/40 hover:-translate-y-0.5"
+                            ? "bg-primary/10 text-primary border-primary/40 shadow-2xs font-bold"
+                            : "bg-bg-base hover:bg-primary/5 text-text-base border-border-subtle hover:border-primary/40 hover:-translate-y-0.5"
                         }`}
                       >
                         <span className={`material-symbols-outlined text-sm shrink-0 transition-colors ${
@@ -162,8 +169,44 @@ export default function ServiceAreaSection() {
           ))}
         </div>
 
+        {/* ── Extended Delivery Coverage: Howrah, Burdwan, Hoogly, Bankura ── */}
+        <div className="mt-8 sm:mt-10 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border-subtle pb-3">
+            <div className="flex items-center gap-2.5">
+              <span className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-lg">local_shipping</span>
+              </span>
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-text-base tracking-tight font-heading">
+                  Also Delivering To
+                </h3>
+                <p className="text-[11px] sm:text-xs text-text-muted font-medium">
+                  Direct truckload delivery and scheduled dispatch across neighboring districts
+                </p>
+              </div>
+            </div>
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full w-fit">
+              4 Extended Districts
+            </span>
+          </div>
+
+          {/* KPI Card Style Boxes (desktop col-4, mobile col-2 / col-1) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+            {EXTENDED_AREAS.map((district, idx) => (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-2xl bg-card border border-border-subtle hover:border-primary/50 p-5 sm:p-6 shadow-xs hover:shadow-md transition-all duration-300 flex items-center justify-center text-center hover:-translate-y-0.5"
+              >
+                <h4 className="text-base sm:text-lg font-black text-text-base group-hover:text-primary transition-colors tracking-tight">
+                  {district}
+                </h4>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Quick Delivery Callout Bar */}
-        <div className="mt-6 sm:mt-8 p-4 md:p-5 rounded-2xl bg-bg-surface border border-border-base/80 flex flex-col md:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-2xs">
+        <div className="mt-6 sm:mt-8 p-4 md:p-5 rounded-2xl bg-card border border-border-subtle flex flex-col md:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-2xs">
           <div className="flex items-center gap-3">
             <span className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-xl">help</span>

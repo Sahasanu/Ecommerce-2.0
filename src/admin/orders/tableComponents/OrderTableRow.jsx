@@ -11,7 +11,7 @@ function OrderTableRow({ allorder, index, formatDate, copiedId, onCopy, onNaviga
   return (
     <tr
       onClick={() => norm.targetId && onNavigate(norm.targetId)}
-      className="hover:bg-bg-base/60 transition-all duration-150 align-middle cursor-pointer group text-xs text-text-base border-b border-border-base/60 last:border-b-0"
+      className="hover:bg-card-hover transition-all duration-150 align-middle cursor-pointer group text-xs text-text-base border-b border-border-subtle/60 last:border-b-0"
     >
       {/* Order ID */}
       <td className="px-5 py-4 font-mono font-black text-text-base">
@@ -64,7 +64,7 @@ function OrderTableRow({ allorder, index, formatDate, copiedId, onCopy, onNaviga
         <button
           type="button"
           onClick={() => norm.targetId && onNavigate(norm.targetId)}
-          className="w-8 h-8 rounded-full bg-bg-base hover:bg-primary hover:text-white border border-border-base/70 flex items-center justify-center text-text-muted transition-all duration-200 group-hover:translate-x-0.5 shadow-2xs mx-auto cursor-pointer"
+          className="w-8 h-8 rounded-full bg-card hover:bg-primary hover:text-compli border border-border-subtle flex items-center justify-center text-text-muted transition-all duration-200 group-hover:translate-x-0.5 shadow-2xs mx-auto cursor-pointer"
           title="View Order Details"
         >
           <FaArrowRight size={11} />

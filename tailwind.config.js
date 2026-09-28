@@ -26,12 +26,18 @@ export default {
 
         'bg-base': 'var(--color-bg-base)',
         'bg-surface': 'var(--color-bg-surface)',
+        'bg-card': 'var(--color-bg-card)',
+        'bg-card-hover': 'var(--color-bg-card-hover)',
         
         'text-base': 'var(--color-text-base)',
         'text-muted': 'var(--color-text-muted)',
+        'text-subtle': 'var(--color-text-subtle)',
         'text-compli': 'var(--color-text-compli)',
+        compli: 'var(--color-text-compli)',
         
         'border-base': 'var(--color-border-base)',
+        'border-subtle': 'var(--color-border-subtle)',
+        'border-gold': 'var(--color-border-gold)',
         
         success: 'var(--color-success)',
         warning: 'var(--color-warning)',

@@ -15,8 +15,8 @@ function formatVariantName(variant) {
 
 export default function OrderPurchasedItemsSection({ productsList = [] }) {
   return (
-    <div className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4">
-      <div className="flex items-center justify-between pb-3 border-b border-border-base/70">
+    <div className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4">
+      <div className="flex items-center justify-between pb-3 border-b border-border-subtle/70">
         <h2 className="text-sm font-black text-text-base flex items-center gap-2">
           <FaBoxOpen className="text-primary" /> Purchased Items
         </h2>
@@ -79,10 +79,10 @@ export default function OrderPurchasedItemsSection({ productsList = [] }) {
             return (
               <div
                 key={idx}
-                className="p-4 rounded-xl border border-border-base/70 bg-bg-base/50 hover:bg-bg-base transition-all duration-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group"
+                className="p-4 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover transition-all duration-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group"
               >
                 <div className="flex items-center gap-3.5 min-w-0 flex-1">
-                  <div className="w-16 h-16 rounded-xl object-cover border border-border-base bg-white overflow-hidden shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                  <div className="w-16 h-16 rounded-xl object-cover border border-border-subtle bg-bg-base overflow-hidden shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
                     <img
                       src={img}
                       alt={title}
@@ -98,7 +98,7 @@ export default function OrderPurchasedItemsSection({ productsList = [] }) {
                       {title}
                     </h3>
                     <div className="flex items-center gap-2 flex-wrap text-[10px] text-text-muted">
-                      <span className="bg-bg-surface px-2 py-0.5 rounded border border-border-base font-bold">
+                      <span className="bg-card px-2 py-0.5 rounded border border-border-subtle font-bold">
                         {category}
                       </span>
                       {variantName && (
@@ -111,7 +111,7 @@ export default function OrderPurchasedItemsSection({ productsList = [] }) {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-5 w-full sm:w-auto border-t sm:border-t-0 pt-2 sm:pt-0 border-border-base/40 shrink-0">
+                <div className="flex items-center justify-between sm:justify-end gap-5 w-full sm:w-auto border-t sm:border-t-0 pt-2 sm:pt-0 border-border-subtle/40 shrink-0">
                   <div className="text-right">
                     <p className="text-xs font-bold text-text-base">
                       ₹{itemPrice.toLocaleString("en-IN")} × {qty}
@@ -126,7 +126,7 @@ export default function OrderPurchasedItemsSection({ productsList = [] }) {
                     <Link
                       to={`/productdetails/${pid}`}
                       target="_blank"
-                      className="p-2 rounded-lg border border-border-base bg-bg-surface text-text-muted hover:text-primary hover:border-primary transition shadow-2xs"
+                      className="p-2 rounded-lg border border-border-subtle bg-card text-text-muted hover:text-primary hover:border-primary transition shadow-2xs"
                       title="View Product Details"
                     >
                       <FaExternalLinkAlt size={11} />

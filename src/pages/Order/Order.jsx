@@ -82,17 +82,17 @@ function Order() {
           {[1, 2, 3].map((n) => (
             <div
               key={n}
-              className="h-44 rounded-2xl bg-bg-surface border border-border-base p-6 animate-pulse space-y-4"
+              className="h-44 rounded-2xl bg-card border border-border-subtle p-6 animate-pulse space-y-4"
             >
               <div className="flex justify-between items-center">
-                <div className="h-4 w-32 bg-border-base/60 rounded" />
-                <div className="h-6 w-20 bg-border-base/60 rounded-full" />
+                <div className="h-4 w-32 bg-border-subtle/50 rounded" />
+                <div className="h-6 w-20 bg-border-subtle/50 rounded-full" />
               </div>
               <div className="flex gap-4">
-                <div className="w-16 h-16 bg-border-base/60 rounded-lg" />
+                <div className="w-16 h-16 bg-border-subtle/50 rounded-lg" />
                 <div className="flex-1 space-y-2 py-1">
-                  <div className="h-4 w-2/3 bg-border-base/60 rounded" />
-                  <div className="h-3 w-1/3 bg-border-base/60 rounded" />
+                  <div className="h-4 w-2/3 bg-border-subtle/50 rounded" />
+                  <div className="h-3 w-1/3 bg-border-subtle/50 rounded" />
                 </div>
               </div>
             </div>

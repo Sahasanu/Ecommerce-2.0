@@ -17,6 +17,8 @@ const configure = {
   companyLogo: "",   // Firebase Storage URL
   faviconUrl: "",    // Firebase Storage URL
   invoiceTemplate: "classic",
+  founderName: "SK Abdul Ohid",
+  founderPhone: "+91 95641 40786",
 
   // ─── Contact Information ───────────────────────────────────────────────────
   address: {

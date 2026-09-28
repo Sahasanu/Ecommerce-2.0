@@ -15,32 +15,32 @@ export default function UserProfileSkeleton() {
           {/* Left Sidebar Skeleton */}
           <div className="col-span-3 space-y-4">
             {/* Profile Card */}
-            <div className="bg-bg-surface rounded-2xl overflow-hidden border border-border-base/60 p-4 space-y-4">
+            <div className="bg-card rounded-2xl overflow-hidden border border-border-subtle p-4 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-border-base/40 shrink-0" />
+                <div className="w-12 h-12 rounded-full bg-card-hover shrink-0" />
                 <div className="space-y-2 flex-1">
-                  <div className="h-4 w-3/4 bg-border-base/40 rounded" />
-                  <div className="h-3 w-full bg-border-base/30 rounded" />
+                  <div className="h-4 w-3/4 bg-card-hover rounded" />
+                  <div className="h-3 w-full bg-card-hover/60 rounded" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 pt-3 border-t border-border-base/50 gap-2">
+              <div className="grid grid-cols-2 pt-3 border-t border-border-subtle gap-2">
                 <div className="flex flex-col items-center gap-1">
-                  <div className="h-5 w-8 bg-border-base/40 rounded" />
-                  <div className="h-2.5 w-12 bg-border-base/30 rounded" />
+                  <div className="h-5 w-8 bg-card-hover rounded" />
+                  <div className="h-2.5 w-12 bg-card-hover/60 rounded" />
                 </div>
                 <div className="flex flex-col items-center gap-1">
-                  <div className="h-5 w-12 bg-border-base/40 rounded" />
-                  <div className="h-2.5 w-10 bg-border-base/30 rounded" />
+                  <div className="h-5 w-12 bg-card-hover rounded" />
+                  <div className="h-2.5 w-10 bg-card-hover/60 rounded" />
                 </div>
               </div>
             </div>
 
             {/* Menu Items Card Skeleton */}
-            <div className="bg-bg-surface rounded-2xl border border-border-base/60 overflow-hidden divide-y divide-border-base/40">
+            <div className="bg-card rounded-2xl border border-border-subtle overflow-hidden divide-y divide-border-subtle">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex items-center gap-3 px-4 py-3.5">
-                  <div className="w-4 h-4 rounded bg-border-base/40 shrink-0" />
-                  <div className="h-3.5 w-32 bg-border-base/30 rounded" />
+                  <div className="w-4 h-4 rounded bg-card-hover shrink-0" />
+                  <div className="h-3.5 w-32 bg-card-hover/60 rounded" />
                 </div>
               ))}
             </div>
@@ -48,12 +48,12 @@ export default function UserProfileSkeleton() {
 
           {/* Right Content Area Skeleton */}
           <div className="col-span-9">
-            <div className="bg-bg-surface rounded-2xl border border-border-base/60 p-6 space-y-6">
-              <div className="flex items-center gap-4 pb-4 border-b border-border-base/40">
-                <div className="w-16 h-16 rounded-full bg-border-base/40 shrink-0" />
+            <div className="bg-card rounded-2xl border border-border-subtle p-6 space-y-6">
+              <div className="flex items-center gap-4 pb-4 border-b border-border-subtle">
+                <div className="w-16 h-16 rounded-full bg-card-hover shrink-0" />
                 <div className="space-y-2 flex-1">
-                  <div className="h-5 w-40 bg-border-base/40 rounded" />
-                  <div className="h-3.5 w-56 bg-border-base/30 rounded" />
+                  <div className="h-5 w-40 bg-card-hover rounded" />
+                  <div className="h-3.5 w-56 bg-card-hover/60 rounded" />
                 </div>
               </div>
 
@@ -61,15 +61,15 @@ export default function UserProfileSkeleton() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="space-y-2">
-                    <div className="h-3 w-20 bg-border-base/30 rounded" />
-                    <div className="h-10 w-full bg-border-base/20 rounded-xl" />
+                    <div className="h-3 w-20 bg-card-hover/60 rounded" />
+                    <div className="h-10 w-full bg-bg-base rounded-xl border border-border-subtle" />
                   </div>
                 ))}
               </div>
 
               {/* Save Button Skeleton */}
               <div className="flex justify-end pt-4">
-                <div className="h-10 w-32 bg-border-base/40 rounded-xl" />
+                <div className="h-10 w-32 bg-card-hover rounded-xl" />
               </div>
             </div>
           </div>
@@ -79,34 +79,34 @@ export default function UserProfileSkeleton() {
         {/* MOBILE / TABLET LAYOUT SKELETON */}
         <div className="lg:hidden space-y-3">
           {/* Profile Hero Card */}
-          <div className="bg-bg-surface rounded-2xl p-4 border border-border-base/60 space-y-3">
+          <div className="bg-card rounded-2xl p-4 border border-border-subtle space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-border-base/40 shrink-0" />
+              <div className="w-12 h-12 rounded-full bg-card-hover shrink-0" />
               <div className="space-y-1.5 flex-1">
-                <div className="h-4 w-32 bg-border-base/40 rounded" />
-                <div className="h-3 w-44 bg-border-base/30 rounded" />
+                <div className="h-4 w-32 bg-card-hover rounded" />
+                <div className="h-3 w-44 bg-card-hover/60 rounded" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <div className="h-12 bg-border-base/30 rounded-xl" />
-              <div className="h-12 bg-border-base/30 rounded-xl" />
+              <div className="h-12 bg-card-hover/60 rounded-xl" />
+              <div className="h-12 bg-card-hover/60 rounded-xl" />
             </div>
           </div>
 
           {/* Tab Pills Skeleton */}
           <div className="flex gap-2">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-8 w-24 bg-border-base/30 rounded-full shrink-0" />
+              <div key={i} className="h-8 w-24 bg-card-hover/60 rounded-full shrink-0" />
             ))}
           </div>
 
           {/* Tab Content Skeleton */}
-          <div className="bg-bg-surface rounded-2xl border border-border-base/60 p-4 space-y-4">
-            <div className="h-5 w-36 bg-border-base/40 rounded" />
+          <div className="bg-card rounded-2xl border border-border-subtle p-4 space-y-4">
+            <div className="h-5 w-36 bg-card-hover rounded" />
             <div className="space-y-3">
-              <div className="h-10 w-full bg-border-base/20 rounded-xl" />
-              <div className="h-10 w-full bg-border-base/20 rounded-xl" />
-              <div className="h-10 w-full bg-border-base/20 rounded-xl" />
+              <div className="h-10 w-full bg-bg-base rounded-xl border border-border-subtle" />
+              <div className="h-10 w-full bg-bg-base rounded-xl border border-border-subtle" />
+              <div className="h-10 w-full bg-bg-base rounded-xl border border-border-subtle" />
             </div>
           </div>
         </div>

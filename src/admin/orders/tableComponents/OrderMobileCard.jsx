@@ -9,10 +9,10 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
   return (
     <div
       onClick={() => norm.targetId && onNavigate(norm.targetId)}
-      className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4 cursor-pointer hover:border-primary/50 transition-all text-xs"
+      className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4 cursor-pointer hover:border-primary/50 transition-all text-xs"
     >
       {/* Card Top Banner */}
-      <div className="flex justify-between items-center text-xs pb-3 border-b border-border-base/60">
+      <div className="flex justify-between items-center text-xs pb-3 border-b border-border-subtle/60">
         <div className="flex items-center gap-1.5 font-mono font-black text-text-base">
           <span>#{norm.displayId.slice(0, 12)}</span>
           <button
@@ -33,7 +33,7 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
       </div>
 
       {/* Customer Info */}
-      <div className="bg-bg-base/60 p-3.5 rounded-xl space-y-1.5 text-xs">
+      <div className="bg-bg-base p-3.5 rounded-xl border border-border-subtle/50 space-y-1.5 text-xs">
         <div className="font-extrabold text-text-base flex items-center justify-between">
           <span>{norm.name}</span>
           {norm.phone && (
@@ -46,7 +46,7 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
       </div>
 
       {/* Shipping Address */}
-      <div className="text-xs text-text-muted leading-relaxed space-y-1 bg-bg-base/40 p-3 rounded-xl border border-border-base/50">
+      <div className="text-xs text-text-muted leading-relaxed space-y-1 bg-bg-base/40 p-3 rounded-xl border border-border-subtle/50">
         <div className="font-extrabold text-text-base uppercase tracking-wider text-[9.5px] flex items-center gap-1 text-primary">
           <FaMapMarkerAlt size={10} /> Shipping Address:
         </div>
@@ -62,9 +62,9 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
           <FaBoxOpen size={11} className="text-primary" /> Items ({norm.items.length}):
         </div>
         {norm.isCustom ? (
-          <div className="flex items-center gap-3 bg-bg-base/60 p-3 rounded-xl border border-border-base/50">
+          <div className="flex items-center gap-3 bg-bg-base/60 p-3 rounded-xl border border-border-subtle/50">
             <img
-              className="w-12 h-12 rounded-lg object-cover border border-border-base bg-white shrink-0"
+              className="w-12 h-12 rounded-lg object-cover border border-border-subtle bg-bg-base shrink-0"
               src={norm.image || "https://via.placeholder.com/100"}
               alt="custom"
             />
@@ -116,11 +116,11 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
               return (
                 <div
                   key={itemIdx}
-                  className="flex items-center justify-between gap-3 bg-bg-base/60 p-2.5 rounded-xl border border-border-base/50"
+                  className="flex items-center justify-between gap-3 bg-bg-base/60 p-2.5 rounded-xl border border-border-subtle/50"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <img
-                      className="w-10 h-10 rounded-lg object-cover border border-border-base bg-white shrink-0"
+                      className="w-10 h-10 rounded-lg object-cover border border-border-subtle bg-bg-base shrink-0"
                       src={itemImg}
                       alt={itemTitle}
                     />
@@ -144,7 +144,7 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
       </div>
 
       {/* Pricing & Footer */}
-      <div className="pt-3 border-t border-border-base/70 flex items-center justify-between">
+      <div className="pt-3 border-t border-border-subtle/60 flex items-center justify-between">
         <div>
           <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider block">
             Grand Total
@@ -157,7 +157,7 @@ function OrderMobileCard({ allorder, index, copiedId, onCopy, onNavigate }) {
         <button
           type="button"
           onClick={() => norm.targetId && onNavigate(norm.targetId)}
-          className="px-3.5 py-1.5 rounded-xl bg-primary text-white font-extrabold text-xs shadow-2xs hover:bg-primary-hover transition flex items-center gap-1.5 cursor-pointer"
+          className="px-3.5 py-1.5 rounded-xl bg-primary text-compli font-bold text-xs shadow-2xs hover:bg-primary-hover transition flex items-center gap-1.5 cursor-pointer"
         >
           <FaEye size={12} />
           <span>Details</span>

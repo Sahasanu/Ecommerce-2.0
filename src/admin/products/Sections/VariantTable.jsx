@@ -80,7 +80,7 @@ function VariantTable({
   }
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs text-xs overflow-hidden space-y-0">
+    <div className="bg-card border border-border-subtle rounded-2xl shadow-xs text-xs overflow-hidden space-y-0">
       {/* Header & Bulk Controls */}
       <VariantTableHeader
         variantCount={products.variants.length}
@@ -97,7 +97,7 @@ function VariantTable({
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b border-border-base bg-bg-base/60 text-text-muted text-[10px] uppercase tracking-wider font-extrabold">
+            <tr className="border-b border-border-subtle bg-bg-base text-text-muted text-[10px] uppercase tracking-wider font-extrabold">
               <th className="px-5 py-3">Variant Attributes</th>
               <th className="px-3 py-3 text-center">Images</th>
               <th className="px-3 py-3 text-center">Price (₹)</th>
@@ -107,7 +107,7 @@ function VariantTable({
               <th className="px-4 py-3 text-center">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border-base/50">
+          <tbody className="divide-y divide-border-subtle/50">
             {products.variants.map((variant, index) => (
               <VariantTableRow
                 key={index}
@@ -126,7 +126,7 @@ function VariantTable({
       </div>
 
       {/* Mobile View (Card Layout) */}
-      <div className="md:hidden divide-y divide-border-base">
+      <div className="md:hidden divide-y divide-border-subtle">
         {products.variants.map((variant, index) => (
           <VariantMobileCard
             key={index}

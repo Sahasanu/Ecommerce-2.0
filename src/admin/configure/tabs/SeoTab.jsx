@@ -4,7 +4,7 @@ const Input = ({ value, onChange, placeholder, type = "text" }) => (
         value={value || ""}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full h-11 rounded-xl border border-border-base bg-white px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
+        className="w-full h-11 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle px-4 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
     />
 );
 
@@ -41,7 +41,7 @@ export default function SeoTab({ draft, updateDraft }) {
                         onChange={(e) => set("metaDescription", e.target.value)}
                         placeholder="Short description of your store for search engines..."
                         rows={3}
-                        className="w-full p-4 rounded-xl border border-border-base bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary text-sm font-medium leading-relaxed resize-none min-h-[100px]"
+                        className="w-full p-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm font-medium leading-relaxed resize-none min-h-[100px]"
                     />
                     <p className="text-[10px] text-text-muted font-bold pl-0.5">{(seo.metaDescription || "").length}/160 chars recommended</p>
                 </div>
@@ -57,7 +57,7 @@ export default function SeoTab({ draft, updateDraft }) {
                     />
                     <p className="text-[10px] text-text-muted font-bold pl-0.5">Image shown when the site is shared on social media. Recommended: 1200×630px.</p>
                     {seo.ogImageUrl && (
-                        <div className="mt-2 rounded-xl overflow-hidden border border-border-base/60 bg-bg-surface p-2 w-fit">
+                        <div className="mt-2 rounded-xl overflow-hidden border border-border-subtle bg-bg-surface p-2 w-fit">
                             <img
                                 src={seo.ogImageUrl}
                                 alt="OG preview"

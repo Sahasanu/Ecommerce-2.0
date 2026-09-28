@@ -9,12 +9,12 @@ export default function Header({
     title
 }) {
     return (
-        <header className="sticky top-0 z-30 bg-bg-surface/85 backdrop-blur-md border-b border-border-base/60 flex items-center justify-between px-4 md:px-6 lg:px-8 h-16 shrink-0 print:hidden">
+        <header className="sticky top-0 z-30 bg-bg-surface/85 backdrop-blur-md border-b border-border-subtle flex items-center justify-between px-4 md:px-6 lg:px-8 h-16 shrink-0 print:hidden">
             <div className="flex items-center gap-4">
                 {/* Mobile Menu Toggle */}
                 <button
                     onClick={() => setDrawerOpen(true)}
-                    className="md:hidden flex items-center justify-center text-text-base cursor-pointer hover:bg-gray-100 p-1.5 rounded-lg transition-colors"
+                    className="md:hidden flex items-center justify-center text-text-base cursor-pointer hover:bg-card-hover hover:text-primary p-1.5 rounded-lg transition-colors"
                     title="Open Menu"
                 >
                     <span className="material-symbols-outlined text-[24px]">menu</span>

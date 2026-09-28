@@ -116,14 +116,14 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md p-6 bg-bg-surface border border-border-base rounded-2xl shadow-2xl space-y-5 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-md p-6 bg-card border border-border-subtle rounded-2xl shadow-2xl space-y-5 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-text-muted hover:text-text-base hover:bg-bg-base rounded-xl transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-2 text-text-muted hover:text-text-base hover:bg-card-hover rounded-xl transition-colors cursor-pointer"
           title="Close"
         >
           <FaTimes size={16} />
@@ -165,7 +165,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password"
                 required
-                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
+                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
               />
               <button
                 type="button"
@@ -191,7 +191,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
                 placeholder="At least 6 characters"
                 required
                 minLength={6}
-                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
+                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
               />
               <button
                 type="button"
@@ -217,7 +217,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
                 placeholder="Confirm your new password"
                 required
                 minLength={6}
-                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-base bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
+                className="w-full pl-3.5 pr-10 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
               />
               <button
                 type="button"
@@ -236,7 +236,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2.5 rounded-xl border border-border-base bg-bg-base hover:bg-bg-surface text-text-base font-bold text-sm transition cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover text-text-base font-bold text-sm transition cursor-pointer"
             >
               Cancel
             </button>

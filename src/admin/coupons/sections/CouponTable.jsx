@@ -151,14 +151,14 @@ function CouponTable({
         const isExpired = statusKey === "EXPIRED";
 
         return (
-            <div key={coupon.couponId || coupon.id} className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4">
+            <div key={coupon.couponId || coupon.id} className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4">
                 <div className="flex justify-between items-center gap-2">
                     <span className="font-bold text-sm text-primary bg-primary/10 px-2.5 py-1 rounded-lg border border-primary/20">
                         {coupon.code}
                     </span>
 
                     {isExpired ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 text-[10px] font-black uppercase tracking-wider">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[10px] font-black uppercase tracking-wider">
                             <FaClock size={9} />
                             EXPIRED
                         </span>
@@ -174,7 +174,7 @@ function CouponTable({
                     )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 bg-bg-base/60 p-3.5 rounded-xl text-xs">
+                <div className="grid grid-cols-2 gap-3 bg-bg-base p-3.5 rounded-xl text-xs border border-border-subtle/40">
                     <div>
                         <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider">Discount</span>
                         <span className="font-bold text-text-base text-sm mt-0.5 block">
@@ -197,14 +197,14 @@ function CouponTable({
 
                 <div className="text-xs text-text-muted flex justify-between gap-2 pl-1">
                     <div>From: <span className="font-semibold text-text-base">{coupon.validFrom ? new Date(coupon.validFrom).toLocaleDateString() : "--"}</span></div>
-                    <div className={isExpired ? "text-rose-500" : ""}>
-                        Until: <span className={`font-semibold ${isExpired ? "text-rose-600" : "text-text-base"}`}>
+                    <div className={isExpired ? "text-rose-400" : ""}>
+                        Until: <span className={`font-semibold ${isExpired ? "text-rose-400" : "text-text-base"}`}>
                             {coupon.validUntil ? new Date(coupon.validUntil).toLocaleDateString() : "--"}
                         </span>
                     </div>
                 </div>
 
-                <div className="border-t border-border-base my-2"></div>
+                <div className="border-t border-border-subtle my-2"></div>
 
                 <div className="flex items-center gap-3">
                     <button
@@ -216,7 +216,7 @@ function CouponTable({
                     </button>
                     <button
                         onClick={() => onDelete(coupon)}
-                        className="flex-1 h-10 flex items-center justify-center gap-2 text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-xl text-xs font-bold transition cursor-pointer"
+                        className="flex-1 h-10 flex items-center justify-center gap-2 text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl text-xs font-bold transition cursor-pointer"
                     >
                         <FaTrash size={12} />
                         <span>Delete</span>

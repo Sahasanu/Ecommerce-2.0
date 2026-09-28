@@ -55,7 +55,7 @@ export default function CustomLegalPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-      <div className="bg-bg-surface border border-border-base/60 rounded-3xl p-6 sm:p-10 shadow-xs">
+      <div className="bg-bg-surface border border-border-subtle rounded-3xl p-6 sm:p-10 shadow-xs">
         <FormattedLegalContent content={currentPage.content} title={currentPage.name} />
       </div>
     </div>

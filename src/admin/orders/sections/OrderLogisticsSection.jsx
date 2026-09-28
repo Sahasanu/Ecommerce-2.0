@@ -3,8 +3,8 @@ import { FaTruck, FaEdit, FaExternalLinkAlt, FaBarcode } from "react-icons/fa";
 
 export default function OrderLogisticsSection({ tracking, onOpenTrackingModal }) {
   return (
-    <div className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4 text-xs">
-      <div className="flex items-center justify-between pb-3 border-b border-border-base/70">
+    <div className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4 text-xs">
+      <div className="flex items-center justify-between pb-3 border-b border-border-subtle/70">
         <h2 className="text-sm font-black text-text-base flex items-center gap-2">
           <FaTruck className="text-primary" /> Logistics & Tracking
         </h2>
@@ -19,7 +19,7 @@ export default function OrderLogisticsSection({ tracking, onOpenTrackingModal })
 
       {tracking?.trackingId ? (
         <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-bg-base/60 border border-border-base/70">
+          <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-bg-base border border-border-subtle/70">
             <div>
               <span className="text-[10px] text-text-muted font-bold block uppercase tracking-wider">Courier Partner</span>
               <span className="font-black text-text-base text-xs mt-0.5 block">{tracking.courier || "Standard Delivery"}</span>
@@ -43,13 +43,13 @@ export default function OrderLogisticsSection({ tracking, onOpenTrackingModal })
           )}
         </div>
       ) : (
-        <div className="p-5 rounded-xl border border-dashed border-border-base text-center bg-bg-base/40 space-y-2">
+        <div className="p-5 rounded-xl border border-dashed border-border-subtle text-center bg-bg-base/40 space-y-2">
           <FaBarcode className="text-text-muted text-xl mx-auto" />
           <p className="text-xs text-text-muted font-medium">No tracking code added for this order shipment.</p>
           <button
             type="button"
             onClick={onOpenTrackingModal}
-            className="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-extrabold hover:bg-primary-hover transition cursor-pointer shadow-xs"
+            className="px-3.5 py-1.5 rounded-xl bg-primary text-compli text-xs font-bold hover:bg-primary-hover transition cursor-pointer shadow-xs"
           >
             + Add Tracking ID
           </button>

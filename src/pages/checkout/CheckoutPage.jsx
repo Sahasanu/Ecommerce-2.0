@@ -36,7 +36,7 @@ export default function CheckoutPage() {
         </p>
         <button
           onClick={() => navigate("/allproducts")}
-          className="px-8 py-3.5 bg-primary hover:bg-primary-hover text-white font-bold rounded-2xl transition-all duration-200 shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 text-sm flex items-center gap-2"
+          className="px-8 py-3.5 bg-primary hover:bg-primary-hover text-compli font-bold rounded-2xl transition-all duration-200 shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 text-sm flex items-center gap-2 cursor-pointer"
         >
           <span>Explore Catalog</span>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +54,7 @@ export default function CheckoutPage() {
         {/* Header & Stepper */}
         <div className="mb-8 space-y-6">
           {/* Top Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border-base/60 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border-subtle pb-6">
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-text-base">Checkout</h1>
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => navigate("/cart")}
-                className="text-xs sm:text-sm font-bold text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors px-3 py-2 rounded-xl hover:bg-bg-surface border border-transparent hover:border-border-base"
+                className="text-xs sm:text-sm font-bold text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors px-3 py-2 rounded-xl hover:bg-card border border-transparent hover:border-border-subtle cursor-pointer"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

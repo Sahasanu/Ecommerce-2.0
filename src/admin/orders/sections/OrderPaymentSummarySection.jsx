@@ -34,9 +34,9 @@ export default function OrderPaymentSummarySection({
   };
 
   return (
-    <div className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4 text-xs">
+    <div className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4 text-xs">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-border-base/70">
+      <div className="flex items-center justify-between pb-3 border-b border-border-subtle/70">
         <h2 className="text-sm font-black text-text-base flex items-center gap-2">
           <FaReceipt className="text-primary" /> Payment & Pricing
         </h2>
@@ -53,7 +53,7 @@ export default function OrderPaymentSummarySection({
         </div>
 
         {couponDiscount > 0 && (
-          <div className="flex justify-between text-emerald-600 font-extrabold">
+          <div className="flex justify-between text-emerald-400 font-extrabold">
             <span>Coupon Discount {couponCode && <strong className="font-mono text-[11px] font-bold">({couponCode})</strong>}</span>
             <span>- ₹{fmt(couponDiscount)}</span>
           </div>
@@ -66,13 +66,13 @@ export default function OrderPaymentSummarySection({
           </span>
         </div>
 
-        <div className="border-t border-border-base/70 pt-3 flex justify-between items-center">
+        <div className="border-t border-border-subtle/70 pt-3 flex justify-between items-center">
           <span className="text-xs font-black text-text-base">Grand Total</span>
           <span className="text-lg font-black text-primary">₹{fmt(grandTotal)}</span>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-border-base/70 space-y-2 text-xs">
+      <div className="pt-2 border-t border-border-subtle/70 space-y-2 text-xs">
         <div className="flex justify-between items-center text-text-muted">
           <span>Payment Method</span>
           <span className="font-black text-text-base">{paymentMethod}</span>
@@ -82,10 +82,10 @@ export default function OrderPaymentSummarySection({
           <span>Payment Status</span>
           <span className={`font-bold uppercase px-2 py-0.5 rounded text-[10px] ${
             isPaid
-              ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
               : isCod
-              ? "bg-amber-500/10 text-amber-600 border border-amber-500/20"
-              : "bg-purple-500/10 text-purple-600 border border-purple-500/20"
+              ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+              : "bg-purple-500/10 text-purple-400 border border-purple-500/20"
           }`}>
             {isPaid ? "Paid" : isCod ? "Pending on Delivery" : (paymentStatus || "Pending")}
           </span>
@@ -96,7 +96,7 @@ export default function OrderPaymentSummarySection({
             <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider block">
               Payment Transaction ID
             </label>
-            <div className="flex items-center justify-between p-2.5 rounded-xl bg-bg-base/60 border border-border-base/70 font-mono text-[11px]">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-bg-base border border-border-subtle/70 font-mono text-[11px]">
               <span className="truncate font-extrabold text-text-base">{paymentId}</span>
               <button
                 type="button"

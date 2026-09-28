@@ -67,23 +67,23 @@ function Pagination({
             <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-1.5 font-medium text-xs text-text-muted">
                     <span>Showing Page</span>
-                    <span className="font-extrabold text-text-base px-2.5 py-0.5 rounded-lg bg-bg-surface border border-border-base font-mono">
+                    <span className="font-extrabold text-text-base px-2.5 py-0.5 rounded-lg bg-bg-surface border border-border-subtle font-mono">
                         {activePage}
                     </span>
                     {isFetching && <FaSpinner className="animate-spin text-primary ml-1" size={12} />}
                 </div>
 
                 {onPageSizeChange && (
-                    <div className="flex items-center gap-2 pl-2 border-l border-border-base/60">
+                    <div className="flex items-center gap-2 pl-2 border-l border-border-subtle">
                         <span className="text-[11px] font-semibold text-text-muted">Show:</span>
                         <div className="relative">
                             <select
                                 value={pageSize}
                                 onChange={(e) => onPageSizeChange(Number(e.target.value))}
-                                className="appearance-none h-8 pl-2.5 pr-6 bg-bg-surface border border-border-base hover:border-primary/40 rounded-xl text-xs font-extrabold text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer shadow-2xs"
+                                className="appearance-none h-8 pl-2.5 pr-6 bg-bg-surface border border-border-subtle hover:border-primary/40 rounded-xl text-xs font-extrabold text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer shadow-2xs"
                             >
                                 {pageSizeOptions.map((opt) => (
-                                    <option key={opt} value={opt} className="bg-bg-surface text-text-base font-semibold py-1">
+                                    <option key={opt} value={opt} className="bg-card text-text-base font-semibold py-1">
                                         {opt}
                                     </option>
                                 ))}
@@ -102,7 +102,7 @@ function Pagination({
                         type="button"
                         onClick={onRefresh}
                         disabled={isFetching}
-                        className="h-8 px-3 rounded-xl border border-border-base bg-bg-surface text-text-base hover:bg-bg-base hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-semibold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
+                        className="h-8 px-3 rounded-xl border border-border-subtle bg-bg-surface text-text-base hover:bg-card-hover hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-semibold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                         title="Refresh Page"
                     >
                         <FaSyncAlt size={10} className={isFetching ? "animate-spin" : ""} />
@@ -115,7 +115,7 @@ function Pagination({
                     type="button"
                     onClick={handlePrev}
                     disabled={isPrevDisabled}
-                    className="h-8 px-3 rounded-xl border border-border-base bg-bg-surface text-text-base hover:bg-bg-base hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
+                    className="h-8 px-3 rounded-xl border border-border-subtle bg-bg-surface text-text-base hover:bg-card-hover hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                     title="Previous Page"
                 >
                     <FaChevronLeft size={9} />
@@ -127,7 +127,7 @@ function Pagination({
                     type="button"
                     onClick={handleNext}
                     disabled={isNextDisabled}
-                    className="h-8 px-3 rounded-xl border border-border-base bg-bg-surface text-text-base hover:bg-bg-base hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
+                    className="h-8 px-3 rounded-xl border border-border-subtle bg-bg-surface text-text-base hover:bg-card-hover hover:border-primary/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-bold text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                     title="Next Page"
                 >
                     <span>Next</span>

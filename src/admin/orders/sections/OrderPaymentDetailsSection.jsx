@@ -14,11 +14,11 @@ export default function OrderPaymentDetailsSection({
   const isPaid = String(paymentStatus).toUpperCase().includes("PAID") || String(paymentStatus).toUpperCase().includes("SUCCESS");
 
   return (
-    <div className="bg-bg-surface p-6 rounded-2xl border border-border-base shadow-xs space-y-4">
+    <div className="bg-card p-6 rounded-2xl border border-border-subtle shadow-xs space-y-4">
       <h2 className="text-sm font-bold text-text-base flex items-center gap-2">
         <FaCreditCard className="text-primary" /> Payment Details
       </h2>
-      <div className="h-px bg-border-base/60" />
+      <div className="h-px bg-border-subtle/60" />
 
       <div className="space-y-2.5 text-xs">
         <div className="flex justify-between items-center">
@@ -33,10 +33,10 @@ export default function OrderPaymentDetailsSection({
           <span className="text-text-muted">Status</span>
           <span className={`font-bold uppercase px-2 py-0.5 rounded text-[10px] ${
             isPaid
-              ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
               : isCod
-              ? "bg-amber-500/10 text-amber-600 border border-amber-500/20"
-              : "bg-purple-500/10 text-purple-600 border border-purple-500/20"
+              ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+              : "bg-purple-500/10 text-purple-400 border border-purple-500/20"
           }`}>
             {isPaid ? "Paid" : isCod ? "Pending on Delivery" : (paymentStatus || "Pending")}
           </span>
@@ -45,7 +45,7 @@ export default function OrderPaymentDetailsSection({
         {paymentId && paymentId !== "N/A" && (
           <div className="space-y-1 pt-1">
             <label className="text-[9.5px] font-bold text-text-muted uppercase tracking-wider block">Payment ID</label>
-            <div className="flex items-center justify-between p-2 rounded-lg bg-bg-base border border-border-base font-mono text-[10px]">
+            <div className="flex items-center justify-between p-2 rounded-lg bg-bg-base border border-border-subtle font-mono text-[10px]">
               <span className="truncate">{paymentId}</span>
               <button
                 onClick={() => copyToClipboard(paymentId, "Payment ID copied!")}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const INPUT_CLS = "w-full px-4 py-3 rounded-xl border border-border-base bg-bg-base text-text-base placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary transition text-sm";
+const INPUT_CLS = "w-full px-4 py-3 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition text-sm";
 const LABEL_CLS = "block text-xs font-semibold text-text-muted mb-1 uppercase tracking-wide";
 
 const EMPTY_FORM = { fullName: "", phone: "", houseNo: "", street: "", landmark: "", city: "", state: "", pincode: "", addressType: "HOME", isDefault: false };
@@ -49,11 +49,11 @@ export default function AddressFormModal({ isOpen, onClose, onSubmit, initialDat
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-bg-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border-base sticky top-0 bg-bg-surface z-10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
+      <div className="bg-card border border-border-subtle rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border-subtle sticky top-0 bg-card z-10">
           <h2 className="text-lg font-bold text-text-base">{initialData ? "Edit Address" : "Add New Address"}</h2>
-          <button onClick={onClose} className="text-text-muted hover:text-text-base p-1 rounded-lg hover:bg-bg-base transition">
+          <button onClick={onClose} className="text-text-muted hover:text-text-base p-1 rounded-lg hover:bg-bg-base transition cursor-pointer">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
@@ -112,7 +112,7 @@ export default function AddressFormModal({ isOpen, onClose, onSubmit, initialDat
             <div className="flex gap-3 flex-wrap">
               {["HOME", "OFFICE", "OTHER"].map((type) => (
                 <button key={type} type="button" onClick={() => setForm((p) => ({ ...p, addressType: type }))}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${form.addressType === type ? "bg-primary text-white border-primary" : "border-border-base text-text-muted hover:border-primary"}`}>
+                  className={`px-4 py-2 rounded-full text-xs font-bold border transition-all cursor-pointer ${form.addressType === type ? "bg-primary text-compli border-primary shadow-xs" : "border-border-subtle bg-bg-base text-text-muted hover:border-primary hover:text-text-base"}`}>
                   {type.charAt(0) + type.slice(1).toLowerCase()}
                 </button>
               ))}
@@ -123,16 +123,16 @@ export default function AddressFormModal({ isOpen, onClose, onSubmit, initialDat
             className="flex items-center gap-3 cursor-pointer select-none py-1"
             onClick={() => setForm((p) => ({ ...p, isDefault: !p.isDefault }))}
           >
-            <div className={`relative w-10 h-6 rounded-full transition-colors ${form.isDefault ? "bg-primary" : "bg-border-base"}`}>
-              <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${form.isDefault ? "translate-x-5" : "translate-x-1"}`} />
+            <div className={`relative w-10 h-6 rounded-full transition-colors ${form.isDefault ? "bg-primary" : "bg-border-subtle"}`}>
+              <div className={`absolute top-1 w-4 h-4 bg-compli rounded-full shadow transition-transform ${form.isDefault ? "translate-x-5" : "translate-x-1"}`} />
             </div>
             <span className="text-sm font-medium text-text-base">Set as default address</span>
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button type="button" onClick={onClose} className="flex-1 px-4 py-3 rounded-xl border border-border-base text-text-muted font-semibold hover:bg-bg-base transition">Cancel</button>
+            <button type="button" onClick={onClose} className="flex-1 px-4 py-3 rounded-xl border border-border-subtle text-text-muted font-semibold hover:bg-bg-base hover:text-text-base transition cursor-pointer">Cancel</button>
             <button type="submit" disabled={saving}
-              className="flex-1 px-4 py-3 rounded-xl bg-primary hover:bg-primary-hover text-white font-bold transition disabled:opacity-60 flex items-center justify-center gap-2">
+              className="flex-1 px-4 py-3 rounded-xl bg-primary hover:bg-primary-hover text-compli font-black transition disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer shadow-md">
               {saving && <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="3" className="opacity-25"/><path d="M4 12a8 8 0 018-8" strokeWidth="3" className="opacity-75"/></svg>}
               {saving ? "Saving..." : initialData ? "Update Address" : "Save Address"}
             </button>

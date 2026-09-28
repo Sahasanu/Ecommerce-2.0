@@ -74,7 +74,7 @@ export default function ProductDetails() {
         </div>
 
         {/* Right: Info, Purchase, Highlights Card */}
-        <div className="lg:col-span-5 space-y-4 md:space-y-5 bg-white border border-border-base rounded-2xl md:rounded-3xl p-3 sm:p-5 md:p-6 shadow-xs">
+        <div className="lg:col-span-5 space-y-4 md:space-y-5 bg-card border border-border-subtle rounded-2xl md:rounded-3xl p-3 sm:p-5 md:p-6 shadow-xs">
           <ProductInfo
             product={product}
             rating={averageRating}

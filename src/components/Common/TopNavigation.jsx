@@ -23,7 +23,7 @@ function TopNavigation({
     };
 
     return (
-        <div className="sticky top-0 z-40 bg-bg-base/80 backdrop-blur-xl border-b border-border-base">
+        <div className="sticky top-0 z-40 bg-bg-base/80 backdrop-blur-xl border-b border-border-subtle">
 
             <div className="max-w-7xl mx-auto h-20 px-8 flex items-center justify-between">
 
@@ -31,7 +31,7 @@ function TopNavigation({
 
                     <button
                         onClick={handleBack}
-                        className="w-11 h-11 rounded-xl border border-border-base bg-bg-surface hover:bg-bg-base transition flex items-center justify-center"
+                        className="w-11 h-11 rounded-xl border border-border-subtle hover:border-primary/40 bg-bg-surface hover:bg-card-hover text-text-muted hover:text-text-base transition flex items-center justify-center"
                     >
                         <FaArrowLeft />
                     </button>

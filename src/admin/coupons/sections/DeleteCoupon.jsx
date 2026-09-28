@@ -10,18 +10,18 @@ function DeleteCoupon({
     if (!open) return null;
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
 
-            <div className="w-full max-w-sm bg-bg-surface border border-border-base rounded-xl shadow-lg text-xs overflow-hidden">
+            <div className="w-full max-w-sm bg-card border border-border-subtle rounded-2xl shadow-xl text-xs overflow-hidden">
 
                 {/* Header */}
-                <div className="p-5 text-center">
+                <div className="p-6 text-center">
 
-                    <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
+                    <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/20 flex items-center justify-center mx-auto">
                         <FaExclamationTriangle size={20} />
                     </div>
 
-                    <h2 className="text-base font-bold mt-3">
+                    <h2 className="text-base font-bold text-text-base mt-3">
                         Delete Coupon?
                     </h2>
 
@@ -40,7 +40,7 @@ function DeleteCoupon({
 
                 {/* Coupon Info */}
                 {coupon && (
-                    <div className="mx-4 mb-4 rounded-lg border border-border-base bg-bg-base p-3">
+                    <div className="mx-4 mb-4 rounded-xl border border-border-subtle bg-bg-base p-3">
                         <div className="flex items-center justify-between">
                             <div>
                                 <h4 className="font-bold text-text-base">
@@ -54,10 +54,10 @@ function DeleteCoupon({
                             </div>
 
                             <span
-                                className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
+                                className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${
                                     coupon.isActive
-                                        ? "bg-green-100 text-green-700"
-                                        : "bg-gray-100 text-gray-700"
+                                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                                        : "bg-bg-surface text-text-subtle border-border-subtle"
                                 }`}
                             >
                                 {coupon.isActive
@@ -69,12 +69,12 @@ function DeleteCoupon({
                 )}
 
                 {/* Footer */}
-                <div className="border-t border-border-base p-4 flex gap-2">
+                <div className="border-t border-border-subtle p-4 flex gap-2">
                     <button
                         type="button"
                         onClick={onClose}
                         disabled={deleting}
-                        className="flex-1 py-1.5 rounded-lg border border-border-base bg-bg-base hover:bg-bg-base/70 transition font-semibold disabled:opacity-50 text-xs"
+                        className="flex-1 py-2 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover text-text-base transition font-bold disabled:opacity-50 text-xs cursor-pointer"
                     >
                         Cancel
                     </button>
@@ -83,7 +83,7 @@ function DeleteCoupon({
                         type="button"
                         onClick={onDelete}
                         disabled={deleting}
-                        className="flex-1 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition disabled:opacity-50 text-xs"
+                        className="flex-1 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition disabled:opacity-50 text-xs cursor-pointer"
                     >
                         {deleting ? "Deleting..." : "Delete"}
                     </button>

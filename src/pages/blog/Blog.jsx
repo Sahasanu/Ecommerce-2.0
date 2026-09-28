@@ -23,8 +23,8 @@ function Blog() {
     }, [])
 
     return (
-        <div>
-            {loading && <div className="text-center p-6 text-slate-400">Loading videos...</div>}
+        <div className="bg-bg-base min-h-screen">
+            {loading && <div className="text-center p-6 text-text-muted">Loading videos...</div>}
             <div className="flex flex-wrap -mx-4 p-6">
                 {blog && blog.map((data, index) => (
                     <VideoPlayer key={index} videoId={data.YTVideoId} />

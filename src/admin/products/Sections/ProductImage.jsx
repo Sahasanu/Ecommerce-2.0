@@ -32,12 +32,12 @@ function ProductImages({
     };
 
     return (
-        <div className="bg-bg-surface border border-border-base rounded-xl shadow-xs overflow-hidden text-xs">
+        <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden text-xs">
 
             {/* Section 1 Header */}
-            <div className="px-5 py-3.5 border-b border-border-base flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-base/30">
+            <div className="px-5 py-3.5 border-b border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-bg-base/30">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-primary text-compli font-black text-xs flex items-center justify-center shadow-xs shrink-0">
                         1
                     </div>
                     <div>
@@ -71,7 +71,7 @@ function ProductImages({
             <div className="p-4 flex flex-col md:flex-row gap-6">
 
                 {/* Upload Area */}
-                <div className="flex-1 relative border-2 border-dashed border-border-base hover:border-primary transition-all duration-300 rounded-xl bg-bg-base hover:bg-primary/5 flex items-center justify-center p-4">
+                <div className="flex-1 relative border-2 border-dashed border-border-subtle hover:border-primary transition-all duration-300 rounded-xl bg-bg-base hover:bg-primary/5 flex items-center justify-center p-4">
                     <input
                         type="file"
                         multiple
@@ -103,7 +103,7 @@ function ProductImages({
                                     e.stopPropagation();
                                     setIsMediaModalOpen(true);
                                 }}
-                                className="px-3 py-1 rounded bg-bg-surface border border-border-base hover:border-primary text-text-base text-[10px] font-bold flex items-center gap-1 cursor-pointer pointer-events-auto relative z-20"
+                                className="px-3 py-1 rounded bg-bg-surface border border-border-subtle hover:border-primary text-text-base text-[10px] font-bold flex items-center gap-1 cursor-pointer pointer-events-auto relative z-20"
                             >
                                 <FaImages size={10} /> Library
                             </button>
@@ -121,7 +121,7 @@ function ProductImages({
                                 <span className="font-semibold text-primary">Uploading...</span>
                                 <span className="font-bold">{uploadProgress}%</span>
                             </div>
-                            <div className="h-2 rounded-full bg-border-base overflow-hidden">
+                            <div className="h-2 rounded-full bg-border-subtle overflow-hidden">
                                 <div
                                     className="bg-primary h-full transition-all duration-300"
                                     style={{ width: `${uploadProgress}%` }}
@@ -156,7 +156,7 @@ function ProductImages({
                                         return (
                                             <div
                                                 key={index}
-                                                className="relative group rounded-lg overflow-hidden border border-border-base bg-bg-base aspect-square flex items-center justify-center"
+                                                className="relative group rounded-lg overflow-hidden border border-border-subtle bg-bg-base aspect-square flex items-center justify-center"
                                             >
                                                 <img
                                                     src={url}
@@ -171,7 +171,7 @@ function ProductImages({
                                                     ${isPrimary ? "ring-2 ring-primary" : "hover:scale-105"}`}
                                                 />
                                                 {isPrimary && (
-                                                    <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-primary text-white flex items-center justify-center text-[8px]">
+                                                    <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-primary text-compli flex items-center justify-center text-[8px]">
                                                         <FaCheck />
                                                     </div>
                                                 )}

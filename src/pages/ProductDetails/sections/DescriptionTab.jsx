@@ -75,7 +75,7 @@ export default function DescriptionTab({ description, specifications }) {
                 return (
                     <div key={sIdx} className="space-y-3">
                         {section.title && (
-                            <h3 className="text-base sm:text-lg font-bold text-text-base pb-2 border-b border-border-base/50">
+                            <h3 className="text-base sm:text-lg font-bold text-text-base pb-2 border-b border-border-subtle">
                                 {section.title}
                             </h3>
                         )}
@@ -92,7 +92,7 @@ export default function DescriptionTab({ description, specifications }) {
                             <div className="pt-1">
                                 {isTwoCols ? (
                                     /* Clean Key-Value Specification Grid (No cramped borders on mobile) */
-                                    <div className="divide-y divide-border-base/40 border-t border-b border-border-base/40">
+                                    <div className="divide-y divide-border-subtle border-t border-b border-border-subtle">
                                         {rows.map((row, rIdx) => {
                                             const cells = Array.isArray(row)
                                                 ? row
@@ -105,7 +105,7 @@ export default function DescriptionTab({ description, specifications }) {
                                             return (
                                                 <div
                                                     key={rIdx}
-                                                    className="py-3 sm:py-3.5 grid grid-cols-12 gap-3 sm:gap-6 items-baseline hover:bg-bg-base/20 transition-colors"
+                                                    className="py-3 sm:py-3.5 grid grid-cols-12 gap-3 sm:gap-6 items-baseline hover:bg-bg-surface/50 transition-colors"
                                                 >
                                                     <span className="col-span-5 sm:col-span-4 text-xs sm:text-sm font-semibold text-text-muted">
                                                         {label}
@@ -119,10 +119,10 @@ export default function DescriptionTab({ description, specifications }) {
                                     </div>
                                 ) : (
                                     /* Multi-column clean table */
-                                    <div className="overflow-x-auto border-t border-b border-border-base/40">
+                                    <div className="overflow-x-auto border-t border-b border-border-subtle">
                                         <table className="w-full text-left text-xs sm:text-sm border-collapse">
                                             <thead>
-                                                <tr className="border-b border-border-base/40">
+                                                <tr className="border-b border-border-subtle">
                                                     {cols.map((col, cIdx) => (
                                                         <th
                                                             key={cIdx}
@@ -133,7 +133,7 @@ export default function DescriptionTab({ description, specifications }) {
                                                     ))}
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-border-base/30">
+                                            <tbody className="divide-y divide-border-subtle">
                                                 {rows.map((row, rIdx) => {
                                                     const cells = Array.isArray(row)
                                                         ? row
@@ -141,7 +141,7 @@ export default function DescriptionTab({ description, specifications }) {
                                                         ? row.cells
                                                         : [];
                                                     return (
-                                                        <tr key={rIdx} className="hover:bg-bg-base/20 transition-colors">
+                                                        <tr key={rIdx} className="hover:bg-bg-surface/50 transition-colors">
                                                             {cells.map((cell, cIdx) => (
                                                                 <td
                                                                     key={cIdx}

@@ -6,7 +6,7 @@ function CouponActions({
     onSave,
 }) {
     return (
-        <div className="sticky bottom-0 bg-bg-surface border-t border-border-base text-xs">
+        <div className="sticky bottom-0 bg-bg-surface border-t border-border-subtle text-xs">
 
             <div className="px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 bg-bg-surface/95 backdrop-blur-xl">
 
@@ -23,7 +23,7 @@ function CouponActions({
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg border border-border-base bg-bg-base hover:bg-bg-base/70 transition font-semibold text-xs"
+                        className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base hover:bg-card-hover hover:border-primary/40 transition font-semibold text-xs"
                     >
                         Cancel
                     </button>
@@ -32,7 +32,7 @@ function CouponActions({
                         type="button"
                         disabled={saving}
                         onClick={onSave}
-                        className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-compli font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed text-xs shadow-sm"
+                        className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-compli font-bold transition disabled:opacity-50 disabled:cursor-not-allowed text-xs shadow-sm"
                     >
                         {saving ? "Saving..." : "Save Coupon"}
                     </button>

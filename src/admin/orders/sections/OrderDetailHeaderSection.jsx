@@ -32,7 +32,7 @@ export default function OrderDetailHeaderSection({
       <div className="flex items-center justify-between flex-wrap gap-3">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl border border-border-base bg-bg-surface text-xs font-bold text-text-muted hover:text-text-base hover:border-primary/40 transition active:scale-95 cursor-pointer shadow-2xs"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl border border-border-subtle bg-card text-xs font-bold text-text-muted hover:text-text-base hover:bg-card-hover hover:border-primary/40 transition active:scale-95 cursor-pointer shadow-2xs"
         >
           <FaArrowLeft size={11} /> Back to Orders
         </button>
@@ -40,7 +40,7 @@ export default function OrderDetailHeaderSection({
         <div className="flex items-center gap-2">
           <button
             onClick={onRefresh}
-            className="flex items-center gap-1.5 px-2 py-2 rounded-full border border-border-base bg-bg-surface text-xs font-bold text-text-muted hover:text-primary hover:border-primary/40 transition active:scale-95 cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 px-2 py-2 rounded-full border border-border-subtle bg-card text-xs font-bold text-text-muted hover:text-primary hover:bg-card-hover hover:border-primary/40 transition active:scale-95 cursor-pointer shadow-2xs"
           >
             <FaSyncAlt size={11} className={loading ? "animate-spin" : ""} />
 
@@ -48,7 +48,7 @@ export default function OrderDetailHeaderSection({
 
           <button
             onClick={onPrint}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-white text-xs font-extrabold shadow-sm hover:bg-primary-hover transition active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-compli text-xs font-bold shadow-sm hover:bg-primary-hover transition active:scale-95 cursor-pointer"
           >
             <FaPrint size={11} />
             <span>Print Invoice</span>

@@ -34,7 +34,7 @@ function HeroSection() {
     };
 
     return (
-        <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-3xl border border-border-base/10 group">
+        <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-3xl border border-border-subtle group">
 
             <Slider ref={sliderRef} {...settings}>
                 {displayBanners.map((banner, index) => (
@@ -120,8 +120,8 @@ function HeroSection() {
                     <button
                         key={i}
                         onClick={() => sliderRef.current?.slickGoTo(i)}
-                        className={`transition-all duration-300 rounded-full ${i === currentSlide
-                                ? "w-8 h-2 bg-white"
+                        className={`transition-all duration-300 rounded-full cursor-pointer ${i === currentSlide
+                                ? "w-8 h-2 bg-primary shadow-xs"
                                 : "w-2 h-2 bg-white/40 hover:bg-white/70"
                             }`}
                     />

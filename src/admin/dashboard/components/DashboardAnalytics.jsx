@@ -98,8 +98,8 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
       {/* 1. Revenue Trend Curve */}
-      <div className="bg-bg-surface border border-border-base/60 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
-        <div className="flex items-center justify-between pb-4 border-b border-border-base/60">
+      <div className="bg-card border border-border-subtle rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+        <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
               <FaChartLine size={14} />
@@ -109,7 +109,7 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
               <p className="text-[10px] text-text-muted">Total earnings trend across order transactions</p>
             </div>
           </div>
-          <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 uppercase border border-emerald-500/20">
+          <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 uppercase border border-emerald-500/20">
             ₹ Revenue Curve
           </span>
         </div>
@@ -128,13 +128,16 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
                 <YAxis tick={{ fontSize: 10, fill: '#888888' }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backgroundColor: '#18181b',
                     borderRadius: '12px',
-                    border: '1px solid #e5e7eb',
+                    border: '1px solid #6f5a20',
+                    color: '#d4af37',
                     fontSize: '12px',
                     fontWeight: 'bold',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                   }}
+                  itemStyle={{ color: '#d4af37' }}
+                  labelStyle={{ color: '#c5a64a' }}
                   formatter={(val) => [`₹${Number(val).toLocaleString('en-IN')}`, 'Revenue']}
                 />
                 <Area type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
@@ -155,8 +158,8 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
       </div>
 
       {/* 2. Catalog Category Distribution Bar Chart */}
-      <div className="bg-bg-surface border border-border-base/60 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
-        <div className="flex items-center justify-between pb-4 border-b border-border-base/60">
+      <div className="bg-card border border-border-subtle rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+        <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
               <FaTags size={14} />
@@ -166,7 +169,7 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
               <p className="text-[10px] text-text-muted">Total inventory items grouped per category</p>
             </div>
           </div>
-          <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-700 dark:text-blue-400 uppercase border border-blue-500/20">
+          <span className="text-[9px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 uppercase border border-blue-500/20">
             Category Breakdown
           </span>
         </div>
@@ -179,12 +182,16 @@ export default function DashboardAnalytics({ orders = [], products = [] }) {
                 <YAxis tick={{ fontSize: 10, fill: '#888888' }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backgroundColor: '#18181b',
                     borderRadius: '12px',
-                    border: '1px solid #e5e7eb',
+                    border: '1px solid #6f5a20',
+                    color: '#d4af37',
                     fontSize: '11px',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                   }}
+                  itemStyle={{ color: '#d4af37' }}
+                  labelStyle={{ color: '#c5a64a' }}
                   formatter={(val) => [`${val} Products`, 'Inventory']}
                 />
                 <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} />

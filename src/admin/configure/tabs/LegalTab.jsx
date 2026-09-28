@@ -171,7 +171,7 @@ export default function LegalTab({ draft, updateDraft }) {
   return (
     <div className="max-w-4xl space-y-8 text-xs">
       {/* Overview Banner */}
-      <div className="p-4 bg-bg-surface border border-border-base/60 rounded-2xl space-y-1 text-text-muted">
+      <div className="p-4 bg-bg-surface border border-border-subtle rounded-2xl space-y-1 text-text-muted">
         <h3 className="text-sm font-bold text-text-base flex items-center gap-2">
           <FaFilePdf className="text-red-500" /> Legal & Policy Documents
         </h3>
@@ -191,7 +191,7 @@ export default function LegalTab({ draft, updateDraft }) {
             const isUploading = uploadingKey === key;
 
             return (
-              <div key={key} className="bg-bg-surface border border-border-base/60 rounded-2xl p-4 space-y-3 shadow-2xs">
+              <div key={key} className="bg-bg-surface border border-border-subtle rounded-2xl p-4 space-y-3 shadow-2xs">
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-bold text-sm text-text-base">{label}</h4>
@@ -202,7 +202,7 @@ export default function LegalTab({ draft, updateDraft }) {
                     type="button"
                     onClick={() => toggleFixedActive(key)}
                     className={`px-2.5 py-1 rounded-full text-[10px] font-bold cursor-pointer transition ${
-                      isActive ? "bg-emerald-100 text-emerald-700" : "bg-gray-100 text-gray-500"
+                      isActive ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-bg-base text-text-subtle border border-border-subtle"
                     }`}
                   >
                     {isActive ? "Active" : "Inactive"}
@@ -210,7 +210,7 @@ export default function LegalTab({ draft, updateDraft }) {
                 </div>
 
                 {docUrl ? (
-                  <div className="flex items-center justify-between gap-2 p-2 bg-bg-base border border-border-base/60 rounded-xl">
+                  <div className="flex items-center justify-between gap-2 p-2 bg-bg-base border border-border-subtle rounded-xl">
                     <div className="flex items-center gap-2 truncate">
                       <FaFilePdf className="text-red-500 shrink-0" size={14} />
                       <a href={docUrl} target="_blank" rel="noopener noreferrer" className="truncate font-semibold text-primary hover:underline text-[11px]">
@@ -225,7 +225,7 @@ export default function LegalTab({ draft, updateDraft }) {
                       <button
                         type="button"
                         onClick={() => removeFixedPdf(key)}
-                        className="text-[10px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+                        className="text-[10px] font-bold text-rose-400 hover:text-rose-300 cursor-pointer"
                         title="Remove uploaded document"
                       >
                         Remove
@@ -233,7 +233,7 @@ export default function LegalTab({ draft, updateDraft }) {
                     </div>
                   </div>
                 ) : (
-                  <label className="flex items-center justify-center gap-2 p-3 border-2 border-dashed border-border-base hover:border-primary/50 bg-white rounded-xl cursor-pointer text-text-muted hover:text-primary transition">
+                  <label className="flex items-center justify-center gap-2 p-3 border-2 border-dashed border-border-subtle hover:border-primary/50 bg-bg-base rounded-xl cursor-pointer text-text-muted hover:text-primary transition">
                     <FaFileUpload size={14} />
                     <span className="font-semibold text-[11px]">{isUploading ? "Uploading Document..." : "Upload Document (PDF)"}</span>
                     <input type="file" accept="application/pdf" className="hidden" onChange={(e) => handleFileUpload(key, e.target.files[0])} disabled={isUploading} />
@@ -246,7 +246,7 @@ export default function LegalTab({ draft, updateDraft }) {
       </div>
 
       {/* Extra Custom Pages */}
-      <div className="space-y-4 pt-4 border-t border-border-base/60">
+      <div className="space-y-4 pt-4 border-t border-border-subtle">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-text-base">Extra Legal & Custom Pages</h3>
@@ -262,7 +262,7 @@ export default function LegalTab({ draft, updateDraft }) {
         </div>
 
         {customPages.length === 0 ? (
-          <div className="p-8 text-center border-2 border-dashed border-border-base/60 rounded-2xl text-text-muted">
+          <div className="p-8 text-center border-2 border-dashed border-border-subtle rounded-2xl text-text-muted">
             No extra legal pages created yet. Click "Add Custom Page" above to add one.
           </div>
         ) : (
@@ -271,7 +271,7 @@ export default function LegalTab({ draft, updateDraft }) {
               const isUploading = uploadingKey === page.id;
               const docUrl = page.docUrl || page.pdfUrl || "";
               return (
-                <div key={page.id} className="bg-bg-surface border border-border-base/60 rounded-2xl p-4 space-y-3 shadow-2xs">
+                <div key={page.id} className="bg-bg-surface border border-border-subtle rounded-2xl p-4 space-y-3 shadow-2xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">Page Name</label>
@@ -280,12 +280,12 @@ export default function LegalTab({ draft, updateDraft }) {
                         value={page.name}
                         onChange={(e) => updateCustomPage(page.id, "name", e.target.value)}
                         placeholder="e.g. Warranty Policy"
-                        className="w-full px-3 py-2 rounded-xl border border-border-base bg-white text-xs font-bold focus:outline-none focus:border-primary"
+                        className="w-full px-3 py-2 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-xs font-bold focus:outline-none focus:border-primary"
                       />
                     </div>
                     <div>
                       <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">URL Slug</label>
-                      <div className="flex items-center gap-1 bg-white border border-border-base rounded-xl px-3 py-2">
+                      <div className="flex items-center gap-1 bg-bg-base border border-border-subtle rounded-xl px-3 py-2">
                         <span className="text-text-muted font-mono text-[10px]">/legal/</span>
                         <input
                           type="text"
@@ -295,7 +295,7 @@ export default function LegalTab({ draft, updateDraft }) {
                             updateCustomPage(page.id, "slug", e.target.value);
                           }}
                           placeholder="warranty-policy"
-                          className="w-full text-xs font-mono font-bold focus:outline-none"
+                          className="w-full text-xs font-mono font-bold text-text-base focus:outline-none"
                         />
                       </div>
                     </div>
@@ -303,7 +303,7 @@ export default function LegalTab({ draft, updateDraft }) {
 
                   {/* Upload area or view link */}
                   {docUrl ? (
-                    <div className="flex items-center justify-between gap-2 p-2 bg-bg-base border border-border-base/60 rounded-xl">
+                    <div className="flex items-center justify-between gap-2 p-2 bg-bg-base border border-border-subtle rounded-xl">
                       <div className="flex items-center gap-2 truncate">
                         <FaFilePdf className="text-red-500 shrink-0" size={14} />
                         <a href={docUrl} target="_blank" rel="noopener noreferrer" className="truncate font-semibold text-primary hover:underline text-[11px]">
@@ -318,7 +318,7 @@ export default function LegalTab({ draft, updateDraft }) {
                         <button
                           type="button"
                           onClick={() => updateCustomPage(page.id, "docUrl", "")}
-                          className="text-[10px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+                          className="text-[10px] font-bold text-rose-400 hover:text-rose-300 cursor-pointer"
                         >
                           Remove
                         </button>
@@ -326,7 +326,7 @@ export default function LegalTab({ draft, updateDraft }) {
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <label className="flex items-center justify-center gap-2 p-2.5 border-2 border-dashed border-border-base hover:border-primary/50 bg-white rounded-xl cursor-pointer text-text-muted hover:text-primary transition">
+                      <label className="flex items-center justify-center gap-2 p-2.5 border-2 border-dashed border-border-subtle hover:border-primary/50 bg-bg-base rounded-xl cursor-pointer text-text-muted hover:text-primary transition">
                         <FaFileUpload size={13} />
                         <span className="font-semibold text-[11px]">{isUploading ? "Uploading..." : "Upload Document (PDF)"}</span>
                         <input type="file" accept="application/pdf" className="hidden" onChange={(e) => uploadCustomPdf(page.id, e.target.files[0])} disabled={isUploading} />
@@ -341,19 +341,19 @@ export default function LegalTab({ draft, updateDraft }) {
                           onChange={(e) => updateCustomPage(page.id, "content", e.target.value)}
                           placeholder={`# ${page.name || "Policy"}\n\nEnter policy details, terms, conditions, or information here...`}
                           rows={3}
-                          className="w-full px-3 py-2 rounded-xl border border-border-base bg-white text-xs font-mono focus:outline-none focus:border-primary"
+                          className="w-full px-3 py-2 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-xs font-mono focus:outline-none focus:border-primary"
                         />
                       </div>
                     </div>
                   )}
 
                   {/* Footer actions */}
-                  <div className="flex items-center justify-between pt-2 border-t border-border-base/40">
+                  <div className="flex items-center justify-between pt-2 border-t border-border-subtle/50">
                     <button
                       type="button"
                       onClick={() => updateCustomPage(page.id, "isActive", !page.isActive)}
                       className={`px-2.5 py-1 rounded-full text-[10px] font-bold cursor-pointer transition ${
-                        page.isActive ? "bg-emerald-100 text-emerald-700" : "bg-gray-100 text-gray-500"
+                        page.isActive ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-bg-base text-text-subtle border border-border-subtle"
                       }`}
                     >
                       {page.isActive ? "Active" : "Inactive"}
@@ -362,7 +362,7 @@ export default function LegalTab({ draft, updateDraft }) {
                     <button
                       type="button"
                       onClick={() => deleteCustomPage(page.id)}
-                      className="text-rose-600 hover:text-rose-700 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                      className="text-rose-400 hover:text-rose-300 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                     >
                       <FaTrash size={10} /> Delete Page
                     </button>

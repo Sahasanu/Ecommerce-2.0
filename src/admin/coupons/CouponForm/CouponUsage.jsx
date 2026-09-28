@@ -5,10 +5,10 @@ function CouponUsage({
     setCoupon,
 }) {
     return (
-        <div className="bg-bg-base border border-border-base rounded-xl text-xs shadow-xs">
+        <div className="bg-card border border-border-subtle rounded-xl text-xs shadow-xs">
 
             {/* Header */}
-            <div className="border-b border-border-base px-3 py-2">
+            <div className="border-b border-border-subtle px-3 py-2">
                 <h3 className="font-bold text-text-base">
                     Usage Limits
                 </h3>
@@ -24,7 +24,7 @@ function CouponUsage({
 
                     {/* Usage Limit */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Total Usage Limit
                         </label>
                         <input
@@ -37,7 +37,7 @@ function CouponUsage({
                                     usageLimit: Number(e.target.value),
                                 }))
                             }
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary text-xs"
                             placeholder="100"
                         />
                         <p className="text-[9px] text-text-muted mt-1">
@@ -47,7 +47,7 @@ function CouponUsage({
 
                     {/* Usage Per User */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Usage Per User
                         </label>
                         <input
@@ -60,7 +60,7 @@ function CouponUsage({
                                     usagePerUser: Number(e.target.value),
                                 }))
                             }
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary text-xs"
                             placeholder="1"
                         />
                         <p className="text-[9px] text-text-muted mt-1">
@@ -70,14 +70,14 @@ function CouponUsage({
 
                     {/* Current Usage */}
                     {/* <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Current Usage
                         </label>
                         <input
                             type="number"
                             value={coupon.currentUsage}
                             disabled
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-base text-text-muted cursor-not-allowed text-xs font-semibold"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-muted cursor-not-allowed text-xs font-semibold"
                         />
                         <p className="text-[9px] text-text-muted mt-1">
                             Redemption counter.
@@ -88,7 +88,7 @@ function CouponUsage({
 
                 {/* Summary Metrics */}
                 <div className="mt-4 grid grid-cols-3 gap-3">
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">
                             Total Limit
                         </p>
@@ -97,7 +97,7 @@ function CouponUsage({
                         </h3>
                     </div>
 
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">
                             Per User
                         </p>
@@ -106,7 +106,7 @@ function CouponUsage({
                         </h3>
                     </div>
 
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">
                             Current
                         </p>

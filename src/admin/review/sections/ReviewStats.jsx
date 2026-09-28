@@ -48,7 +48,7 @@ function ReviewStats({ reviews = [] }) {
                     {cards.map((card, i) => (
                         <div
                             key={i}
-                            className="bg-white border border-border-base rounded-2xl shadow-xs py-2 px-3 hover:border-gray-300 transition-colors duration-150"
+                            className="bg-card border border-border-subtle rounded-2xl shadow-xs py-2.5 px-4 hover:border-primary/40 transition-colors duration-150"
                         >
                             <div className="flex items-center justify-between">
 
@@ -81,7 +81,7 @@ function ReviewStats({ reviews = [] }) {
                 </div>
             </div>
             <div className="flex-[5]">
-                <div className="bg-white border border-border-base rounded-2xl shadow-xs py-2 px-3 h-full hover:border-gray-300 transition-colors duration-150">
+                <div className="bg-card border border-border-subtle rounded-2xl shadow-xs py-2.5 px-4 h-full hover:border-primary/40 transition-colors duration-150">
 
                     <span className="text-base font-bold text-text-base block mb-2">
                         Rating Distribution
@@ -93,15 +93,15 @@ function ReviewStats({ reviews = [] }) {
                                 key={d.star}
                                 className="flex items-center gap-3"
                             >
-                                <span className="w-4 text-sm font-semibold text-right">
+                                <span className="w-4 text-sm font-semibold text-right text-text-base">
                                     {d.star}
                                 </span>
 
-                                <FaStar className="text-amber-400 text-sm shrink-0" />
+                                <FaStar className="text-primary text-sm shrink-0" />
 
-                                <div className="flex-1 bg-gray-100 rounded-full h-2 overflow-hidden">
+                                <div className="flex-1 bg-bg-base border border-border-subtle/50 rounded-full h-2 overflow-hidden">
                                     <div
-                                        className="h-full rounded-full bg-amber-400 transition-all duration-300"
+                                        className="h-full rounded-full bg-primary transition-all duration-300"
                                         style={{ width: `${d.pct}%` }}
                                     />
                                 </div>

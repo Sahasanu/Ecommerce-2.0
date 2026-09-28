@@ -208,15 +208,15 @@ function OrderDetailTable({
                 <div
                     className={`flex items-center justify-between gap-3 px-3 py-1.5 h-11 rounded-xl border transition-all duration-300 w-full sm:w-auto shrink-0 shadow-2xs ${
                         isPendingToggleActive
-                            ? "border-amber-300/80 bg-amber-500/10 shadow-amber-500/10"
-                            : "border-border-base bg-white hover:border-border-base/80"
+                            ? "border-amber-400/50 bg-amber-500/10 shadow-amber-500/10"
+                            : "border-border-subtle bg-bg-base hover:border-primary/40"
                     }`}
                 >
                     <div className="flex items-center gap-2">
                         <span className="text-xs font-bold text-text-base tracking-tight whitespace-nowrap">
                             Pending Orders
                         </span>
-                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-black border border-amber-200">
+                        <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black border border-amber-500/30">
                             {pendingCount}
                         </span>
                     </div>
@@ -247,18 +247,18 @@ function OrderDetailTable({
                 ))}
 
                 {displayOrders.length === 0 && (
-                    <div className="bg-bg-surface p-8 text-center text-text-muted rounded-2xl border border-border-base shadow-xs text-xs font-bold">
+                    <div className="bg-card p-8 text-center text-text-muted rounded-2xl border border-border-subtle shadow-xs text-xs font-bold">
                         No orders found matching criteria.
                     </div>
                 )}
             </div>
 
             {/* Desktop Data Table */}
-            <div className="hidden md:block bg-bg-surface rounded-2xl border border-border-base shadow-xs overflow-hidden text-xs">
+            <div className="hidden md:block bg-card rounded-2xl border border-border-subtle shadow-xs overflow-hidden text-xs">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="border-b border-border-base bg-bg-base/70 text-text-muted text-[11px] font-black uppercase tracking-wider">
+                            <tr className="border-b border-border-subtle bg-bg-base text-text-muted text-[11px] font-black uppercase tracking-wider">
                                 <th className="px-5 py-3.5 w-36">Order ID</th>
                                 <th className="px-5 py-3.5 w-36">Customer</th>
                                 <th className="px-5 py-3.5 font-black">Items</th>
@@ -268,7 +268,7 @@ function OrderDetailTable({
                                 <th className="px-5 py-3.5 w-16 text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border-base/60 text-text-base">
+                        <tbody className="divide-y divide-border-subtle/60 text-text-base">
                             {displayOrders.map((allorder, index) => (
                                 <OrderTableRow
                                     key={allorder.docId || allorder.id || index}

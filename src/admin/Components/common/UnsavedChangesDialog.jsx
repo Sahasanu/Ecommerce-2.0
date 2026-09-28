@@ -28,7 +28,7 @@ export default function UnsavedChangesDialog({ onStay, onDiscard }) {
         aria-modal="true"
         aria-labelledby="unsaved-dialog-title"
         aria-describedby="unsaved-dialog-desc"
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-full max-w-md p-7 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-red-500/30 shadow-2xl text-center transition-all animate-in fade-in zoom-in-95 duration-200"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-full max-w-md p-7 sm:p-8 rounded-2xl bg-card border border-border-subtle shadow-2xl text-center transition-all animate-in fade-in zoom-in-95 duration-200"
       >
         {/* Warning Icon Badge */}
         <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-2xl">
@@ -38,7 +38,7 @@ export default function UnsavedChangesDialog({ onStay, onDiscard }) {
         {/* Title */}
         <h2
           id="unsaved-dialog-title"
-          className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2"
+          className="text-xl font-bold text-text-base mb-2"
         >
           Discard Changes?
         </h2>
@@ -46,10 +46,10 @@ export default function UnsavedChangesDialog({ onStay, onDiscard }) {
         {/* Description */}
         <p
           id="unsaved-dialog-desc"
-          className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-7"
+          className="text-sm text-text-muted leading-relaxed mb-7"
         >
           You have unsaved changes. Are you sure you want to leave?<br />
-          <span className="text-xs text-slate-400 dark:text-slate-500 mt-1 block">
+          <span className="text-xs text-text-subtle mt-1 block">
             Your draft will be discarded and cannot be recovered.
           </span>
         </p>
@@ -62,7 +62,7 @@ export default function UnsavedChangesDialog({ onStay, onDiscard }) {
             type="button"
             onClick={onStay}
             autoFocus
-            className="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 text-sm font-semibold transition-all duration-150 cursor-pointer"
+            className="flex-1 py-2.5 px-4 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover text-text-muted hover:text-text-base text-sm font-semibold transition-all duration-150 cursor-pointer"
           >
             Stay
           </button>
@@ -72,7 +72,7 @@ export default function UnsavedChangesDialog({ onStay, onDiscard }) {
             id="unsaved-dialog-discard-btn"
             type="button"
             onClick={onDiscard}
-            className="flex-1 py-2.5 px-4 rounded-xl border-0 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm font-semibold shadow-lg shadow-red-500/25 hover:shadow-red-500/40 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
+            className="flex-1 py-2.5 px-4 rounded-xl border-0 bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold shadow-lg shadow-rose-600/25 hover:shadow-rose-600/40 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
           >
             Discard &amp; Leave
           </button>

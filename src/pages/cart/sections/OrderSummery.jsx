@@ -163,25 +163,25 @@ export default function OrderSummary({ subtotal = 0, shippingFee = "Free", cartI
 
       {/* 3. Mobile Floating Summary Drawer */}
       <div
-        className={`lg:hidden fixed left-4 right-4 z-40 transition-all duration-300 bg-primary text-white rounded-2xl shadow-xl border border-primary/20 overflow-hidden ${
+        className={`lg:hidden fixed left-4 right-4 z-40 transition-all duration-300 bg-primary text-compli rounded-2xl shadow-xl border border-primary/40 overflow-hidden ${
           isExpanded ? "bottom-[76px] max-h-[85vh] overflow-y-auto" : "bottom-[76px] h-16"
         }`}
       >
         {/* Toggle Bar */}
         <div
           onClick={() => setIsExpanded(!isExpanded)}
-          className="h-16 px-5 flex items-center justify-between cursor-pointer select-none border-b border-white/10 bg-primary"
+          className="h-16 px-5 flex items-center justify-between cursor-pointer select-none border-b border-black/10 bg-primary"
         >
           <div className="flex flex-col">
-            <span className="text-[10px] text-white/70 font-semibold uppercase tracking-wider">
+            <span className="text-[10px] text-compli/75 font-bold uppercase tracking-wider">
               {cartItems.length} {cartItems.length === 1 ? 'Item' : 'Items'}
             </span>
-            <span className="text-base sm:text-lg font-black leading-tight">₹{fmt(grandTotal)}</span>
+            <span className="text-base sm:text-lg font-black leading-tight text-compli">₹{fmt(grandTotal)}</span>
           </div>
 
-          <div className="flex items-center gap-1 bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition text-[11px] font-bold">
+          <div className="flex items-center gap-1 bg-black/10 px-3 py-1.5 rounded-full hover:bg-black/20 transition text-[11px] font-bold text-compli">
             <span>{isExpanded ? "Hide Details" : "View Summary"}</span>
-            <span className="material-symbols-outlined text-base">
+            <span className="material-symbols-outlined text-[18px]">
               {isExpanded ? "expand_more" : "expand_less"}
             </span>
           </div>
@@ -189,7 +189,7 @@ export default function OrderSummary({ subtotal = 0, shippingFee = "Free", cartI
 
         {/* Collapsible Full Order Summary Card */}
         {isExpanded && (
-          <div className="p-2 sm:p-4 bg-bg-surface text-text-base max-h-[65vh] overflow-y-auto border-t border-border-base/30">
+          <div className="p-2 sm:p-4 bg-bg-surface text-text-base max-h-[65vh] overflow-y-auto border-t border-border-subtle">
             <OrderSummaryCard
               subtotal={subtotal}
               couponDiscount={discountAmount}

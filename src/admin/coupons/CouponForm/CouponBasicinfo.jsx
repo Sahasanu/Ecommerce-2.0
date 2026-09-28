@@ -19,10 +19,10 @@ function CouponBasicInfo({
     };
 
     return (
-        <div className="bg-bg-base border border-border-base rounded-xl text-xs shadow-xs">
+        <div className="bg-card border border-border-subtle rounded-xl text-xs shadow-xs">
 
             {/* Header */}
-            <div className="border-b border-border-base px-3 py-2">
+            <div className="border-b border-border-subtle px-3 py-2">
                 <h3 className="font-bold text-text-base">
                     Basic Information
                 </h3>
@@ -36,7 +36,7 @@ function CouponBasicInfo({
 
                 {/* Coupon Code */}
                 <div>
-                    <label className="block font-semibold mb-1">
+                    <label className="block font-semibold mb-1 text-text-base">
                         Coupon Code
                     </label>
 
@@ -51,13 +51,13 @@ function CouponBasicInfo({
                                 }))
                             }
                             placeholder="SAVE20"
-                            className="flex-1 px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary uppercase text-xs"
+                            className="flex-1 px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary uppercase text-xs"
                         />
 
                         <button
                             type="button"
                             onClick={generateCouponCode}
-                            className="px-3 rounded-lg bg-primary text-compli hover:bg-primary-hover flex items-center gap-1.5 font-semibold text-xs transition shadow-sm"
+                            className="px-3 rounded-lg bg-primary text-compli hover:bg-primary-hover flex items-center gap-1.5 font-bold text-xs transition shadow-sm cursor-pointer"
                         >
                             <FaRandom className="text-[10px]" />
                             Generate
@@ -69,7 +69,7 @@ function CouponBasicInfo({
 
                     {/* Discount Type */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Discount Type
                         </label>
                         <select
@@ -80,16 +80,16 @@ function CouponBasicInfo({
                                     type: e.target.value,
                                 }))
                             }
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs cursor-pointer"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-1 focus:ring-primary text-xs cursor-pointer"
                         >
-                            <option value="PERCENTAGE">Percentage</option>
-                            <option value="FIXED">Fixed Amount</option>
+                            <option value="PERCENTAGE" className="bg-card text-text-base">Percentage</option>
+                            <option value="FIXED" className="bg-card text-text-base">Fixed Amount</option>
                         </select>
                     </div>
 
                     {/* Discount Value */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Discount Value
                         </label>
                         <div className="relative">
@@ -105,7 +105,7 @@ function CouponBasicInfo({
                                         discountValue: Number(e.target.value),
                                     }))
                                 }
-                                className="w-full pl-7 pr-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs"
+                                className="w-full pl-7 pr-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-1 focus:ring-primary text-xs"
                             />
                         </div>
                     </div>

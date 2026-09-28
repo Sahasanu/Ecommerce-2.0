@@ -74,7 +74,7 @@ function Footer() {
     ];
 
     return (
-        <footer className="bg-bg-surface border-t border-border-base transition-colors duration-300">
+        <footer className="bg-bg-surface border-t border-border-subtle transition-colors duration-300">
             <div className="px-4 sm:px-6 lg:px-10 pt-6 pb-28 lg:py-6">
                 <div className="mt-4 flex flex-col lg:flex-row items-center justify-between gap-6 text-[13px] text-text-muted">
 
@@ -88,8 +88,7 @@ function Footer() {
                         
                         {config.companyTagline && (
                             <div className="my-1">
-                                <span className="inline-flex items-center gap-1.5   bg-primary/10   text-primary font-bold text-xs tracking-wide shadow-2xs">
-                                    
+                                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary font-bold text-xs tracking-wide shadow-2xs">
                                     {config.companyTagline}
                                 </span>
                             </div>
@@ -128,7 +127,7 @@ function Footer() {
                             href={mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group block w-52 sm:w-60 md:w-64 rounded-xl overflow-hidden border border-border-base hover:border-primary/50 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer"
+                            className="group block w-52 sm:w-60 md:w-64 rounded-xl overflow-hidden border border-border-subtle hover:border-primary/50 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer"
                             title="Open Bengal Tiles on Google Maps"
                         >
                             <img
@@ -161,7 +160,7 @@ function Footer() {
                                             href={href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-7 h-7 rounded-full border border-border-base flex items-center justify-center text-text-muted hover:text-white hover:bg-primary hover:border-primary transition-all duration-300 shadow-2xs"
+                                            className="w-7 h-7 rounded-full border border-border-subtle flex items-center justify-center text-text-muted hover:text-compli hover:bg-primary hover:border-primary transition-all duration-300 shadow-2xs"
                                             title={social.platform}
                                         >
                                             <i className={`fa-brands ${social.icon} text-[11px]`} />
@@ -229,9 +228,9 @@ function Footer() {
                                 </Link>
                             ))}
                         </div>
-                        <p className="text-center text-sm text-text-muted">
+                        <p className="text-center text-sm text-white">
                             Design & Develop By{" "}
-                            <a href="https://needmet.in" target="_blank" rel="noopener noreferrer" className="font-bold underline text-green-600">
+                            <a href="https://needmet.in" target="_blank" rel="noopener noreferrer" className="font-bold underline text-green-500 hover:text-green-400 transition-colors">
                                 NeedMet
                             </a>
                         </p>

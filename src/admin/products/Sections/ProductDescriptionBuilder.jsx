@@ -50,7 +50,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
           value={descriptionState.short}
           onChange={(e) => updateShort(e.target.value)}
           placeholder="Brief 1-2 sentence overview of the product..."
-          className="w-full rounded-xl border border-border-base bg-bg-base px-3.5 py-2.5 text-xs text-text-base leading-relaxed focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-y min-h-[90px]"
+          className="w-full rounded-xl border border-border-subtle bg-bg-base px-3.5 py-2.5 text-xs text-text-base leading-relaxed focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-y min-h-[90px]"
         />
       </div>
 
@@ -79,14 +79,14 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
         </div>
 
         {descriptionState.sections.length === 0 ? (
-          <div className="p-6 border-2 border-dashed border-border-base/70 rounded-xl text-center text-text-muted text-xs bg-bg-base/40">
+          <div className="p-6 border-2 border-dashed border-border-subtle/70 rounded-xl text-center text-text-muted text-xs bg-bg-base/40">
             No description sections added. Click <span className="font-semibold text-primary">"+ Text Section"</span> or <span className="font-semibold text-primary">"+ Table Section"</span> above.
           </div>
         ) : (
           descriptionState.sections.map((section, idx) => (
-            <div key={idx} className="border border-border-base rounded-xl p-4 bg-bg-surface space-y-3.5 shadow-xs">
+            <div key={idx} className="border border-border-subtle rounded-xl p-4 bg-card space-y-3.5 shadow-xs">
               {/* Section Header */}
-              <div className="flex items-center justify-between gap-2 border-b border-border-base/60 pb-2.5">
+              <div className="flex items-center justify-between gap-2 border-b border-border-subtle/60 pb-2.5">
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase text-primary tracking-wide">
                   {section.type === "TEXT" ? <FaAlignLeft size={11} /> : <FaTable size={11} />}
                   {section.type} SECTION #{idx + 1}
@@ -97,7 +97,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                     type="button"
                     onClick={() => updateSections(moveSection(descriptionState.sections, idx, -1))}
                     disabled={idx === 0}
-                    className="p-1.5 rounded-md text-text-muted hover:text-text-base hover:bg-bg-base disabled:opacity-30 cursor-pointer transition"
+                    className="p-1.5 rounded-md text-text-muted hover:text-text-base hover:bg-card-hover disabled:opacity-30 cursor-pointer transition"
                     title="Move Up"
                   >
                     <FaArrowUp size={11} />
@@ -106,7 +106,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                     type="button"
                     onClick={() => updateSections(moveSection(descriptionState.sections, idx, 1))}
                     disabled={idx === descriptionState.sections.length - 1}
-                    className="p-1.5 rounded-md text-text-muted hover:text-text-base hover:bg-bg-base disabled:opacity-30 cursor-pointer transition"
+                    className="p-1.5 rounded-md text-text-muted hover:text-text-base hover:bg-card-hover disabled:opacity-30 cursor-pointer transition"
                     title="Move Down"
                   >
                     <FaArrowDown size={11} />
@@ -114,7 +114,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                   <button
                     type="button"
                     onClick={() => updateSections(removeSection(descriptionState.sections, idx))}
-                    className="p-1.5 rounded-md text-red-500 hover:bg-red-50 cursor-pointer ml-1 transition"
+                    className="p-1.5 rounded-md text-rose-500 hover:bg-rose-500/10 cursor-pointer ml-1 transition"
                     title="Delete Section"
                   >
                     <FaTrash size={11} />
@@ -129,7 +129,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                   value={section.title || ""}
                   onChange={(e) => updateSections(updateSectionField(descriptionState.sections, idx, "title", e.target.value))}
                   placeholder="Section Title (e.g. Overview or Technical Specifications)"
-                  className="w-full rounded-xl border border-border-base bg-bg-base px-3 py-2 text-xs font-bold text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  className="w-full rounded-xl border border-border-subtle bg-bg-base px-3 py-2 text-xs font-bold text-text-base focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                 />
               </div>
 
@@ -141,7 +141,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                     value={section.content || ""}
                     onChange={(e) => updateSections(updateSectionField(descriptionState.sections, idx, "content", e.target.value))}
                     placeholder="Write detailed section content here..."
-                    className="w-full rounded-xl border border-border-base bg-bg-base p-3 text-xs text-text-base leading-relaxed focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-y min-h-[120px]"
+                    className="w-full rounded-xl border border-border-subtle bg-bg-base p-3 text-xs text-text-base leading-relaxed focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-y min-h-[120px]"
                   />
                 </div>
               )}
@@ -149,25 +149,25 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
               {/* TABLE Section Builder */}
               {section.type === "TABLE" && (
                 <div className="space-y-3">
-                  <div className="overflow-x-auto border border-border-base rounded-lg bg-bg-base">
+                  <div className="overflow-x-auto border border-border-subtle rounded-lg bg-bg-base">
                     <table className="w-full text-left text-xs border-collapse">
                       <thead>
-                        <tr className="border-b border-border-base bg-gray-50/50">
+                        <tr className="border-b border-border-subtle bg-bg-base">
                           {(section.columns || []).map((col, cIdx) => (
-                            <th key={cIdx} className="p-2 border-r border-border-base/50 min-w-[120px]">
+                            <th key={cIdx} className="p-2 border-r border-border-subtle/50 min-w-[120px]">
                               <div className="flex items-center gap-1">
                                 <input
                                   type="text"
                                   value={col}
                                   onChange={(e) => updateSections(updateColumnName(descriptionState.sections, idx, cIdx, e.target.value))}
                                   placeholder={`Column ${cIdx + 1}`}
-                                  className="w-full bg-white border border-border-base rounded px-1.5 py-0.5 text-xs font-bold text-text-base focus:outline-none focus:ring-1 focus:ring-primary"
+                                  className="w-full bg-bg-base border border-border-subtle rounded px-1.5 py-0.5 text-xs font-bold text-text-base focus:outline-none focus:ring-1 focus:ring-primary"
                                 />
                                 {section.columns.length > 1 && (
                                   <button
                                     type="button"
                                     onClick={() => updateSections(removeColumn(descriptionState.sections, idx, cIdx))}
-                                    className="text-red-500 hover:text-red-700 p-0.5"
+                                    className="text-rose-500 hover:text-rose-400 p-0.5"
                                     title="Delete column"
                                   >
                                     ×
@@ -183,15 +183,15 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                         {(section.rows || []).map((row, rIdx) => {
                           const cells = getRowCells(row);
                           return (
-                            <tr key={rIdx} className="border-b border-border-base/50 last:border-0 hover:bg-white/40">
+                            <tr key={rIdx} className="border-b border-border-subtle/50 last:border-0 hover:bg-card-hover">
                               {(section.columns || []).map((_, cIdx) => (
-                                <td key={cIdx} className="p-1.5 border-r border-border-base/50">
+                                <td key={cIdx} className="p-1.5 border-r border-border-subtle/50">
                                   <input
                                     type="text"
                                     value={cells[cIdx] || ""}
                                     onChange={(e) => updateSections(updateCell(descriptionState.sections, idx, rIdx, cIdx, e.target.value))}
                                     placeholder="Cell value..."
-                                    className="w-full bg-white border border-border-base/70 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
+                                    className="w-full bg-bg-base border border-border-subtle/70 rounded px-2 py-1 text-xs text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary"
                                   />
                                 </td>
                               ))}
@@ -199,7 +199,7 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                                 <button
                                   type="button"
                                   onClick={() => updateSections(removeRow(descriptionState.sections, idx, rIdx))}
-                                  className="text-red-500 hover:text-red-700 font-bold px-1"
+                                  className="text-rose-500 hover:text-rose-400 font-bold px-1"
                                   title="Delete row"
                                 >
                                   ×
@@ -217,14 +217,14 @@ export default function ProductDescriptionBuilder({ value, onChange }) {
                     <button
                       type="button"
                       onClick={() => updateSections(addRow(descriptionState.sections, idx))}
-                      className="px-2.5 py-1 rounded bg-white border border-border-base text-text-base font-bold text-[10px] hover:bg-gray-50 cursor-pointer"
+                      className="px-2.5 py-1 rounded bg-bg-base border border-border-subtle text-text-base font-bold text-[10px] hover:bg-card-hover cursor-pointer"
                     >
                       + Add Row
                     </button>
                     <button
                       type="button"
                       onClick={() => updateSections(addColumn(descriptionState.sections, idx))}
-                      className="px-2.5 py-1 rounded bg-white border border-border-base text-text-base font-bold text-[10px] hover:bg-gray-50 cursor-pointer"
+                      className="px-2.5 py-1 rounded bg-bg-base border border-border-subtle text-text-base font-bold text-[10px] hover:bg-card-hover cursor-pointer"
                     >
                       + Add Column
                     </button>

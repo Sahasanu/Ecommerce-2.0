@@ -95,8 +95,8 @@ function OrderCard({ order, onViewDetails }) {
       default:
         return {
           label: st.replace(/_/g, " "),
-          icon: <FaClock className="text-slate-500" />,
-          className: "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300"
+          icon: <FaClock className="text-text-muted" />,
+          className: "bg-card text-text-muted border-border-subtle"
         };
     }
   };
@@ -122,9 +122,9 @@ function OrderCard({ order, onViewDetails }) {
   const grandTotal = order.pricing?.grandTotal || order.totalAmount || 0;
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs overflow-hidden transition-all duration-200 hover:shadow-md">
+    <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden transition-all duration-200 hover:border-primary/40">
       {/* Card Header Bar */}
-      <div className="px-5 py-3.5 border-b border-border-base/70 bg-bg-base/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div className="px-5 py-3.5 border-b border-border-subtle bg-bg-surface/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         {/* Left: ID & Date */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 font-black text-text-base">
@@ -135,11 +135,11 @@ function OrderCard({ order, onViewDetails }) {
               className="text-text-muted hover:text-primary transition p-1 cursor-pointer"
               title="Copy Order ID"
             >
-              {copied ? <FaCheck className="text-emerald-500" size={12} /> : <FaCopy size={12} />}
+              {copied ? <FaCheck className="text-emerald-400" size={12} /> : <FaCopy size={12} />}
             </button>
           </div>
 
-          <span className="text-border-base">•</span>
+          <span className="text-border-subtle">•</span>
 
           <div className="flex items-center gap-1.5 text-text-muted font-medium">
             <FaCalendarAlt size={12} />
@@ -165,9 +165,9 @@ function OrderCard({ order, onViewDetails }) {
       <div className="p-5 space-y-3">
         {isCustomOrder ? (
           /* Custom Order Representation */
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-bg-base/60 border border-border-base/60">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-bg-surface border border-border-subtle">
             <div className="flex items-center gap-3.5">
-              <div className="w-16 h-16 rounded-lg bg-white border border-border-base p-1 overflow-hidden shrink-0 shadow-xs">
+              <div className="w-16 h-16 rounded-lg bg-bg-base border border-border-subtle p-1 overflow-hidden shrink-0 shadow-xs">
                 {order.image ? (
                   <img src={order.image} alt="Custom Artwork" className="w-full h-full object-cover rounded-md" />
                 ) : (
@@ -188,7 +188,7 @@ function OrderCard({ order, onViewDetails }) {
                   Sheet Type: <strong className="text-text-base">{order.itemInfo?.selectedSheetType || "Standard"}</strong>
                 </p>
                 {order.edDate && (
-                  <p className="text-[11px] text-emerald-600 font-bold mt-1 flex items-center gap-1">
+                  <p className="text-[11px] text-emerald-400 font-bold mt-1 flex items-center gap-1">
                     <FaClock size={10} /> Estimated Delivery: {order.edDate?.toDate ? order.edDate.toDate().toLocaleDateString("en-IN") : String(order.edDate)}
                   </p>
                 )}
@@ -212,7 +212,7 @@ function OrderCard({ order, onViewDetails }) {
       </div>
 
       {/* Card Action Footer */}
-      <div className="px-5 py-3 border-t border-border-base/60 bg-bg-base/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="px-5 py-3 border-t border-border-subtle bg-bg-surface/50 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2 text-[11px] text-text-muted font-bold">
           <FaCreditCard size={12} className="text-primary" />
           <span>Payment: <strong className="text-text-base">{
@@ -229,7 +229,7 @@ function OrderCard({ order, onViewDetails }) {
               e.stopPropagation();
               navigate(`/order/${orderId}`, { state: { order } });
             }}
-            className="px-3.5 py-1.5 rounded-xl bg-primary text-white hover:bg-primary-hover font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer text-xs"
+            className="px-3.5 py-1.5 rounded-xl bg-primary text-compli hover:bg-primary-hover font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer text-xs"
           >
             <FaInfoCircle size={12} />
             <span>Order Details</span>

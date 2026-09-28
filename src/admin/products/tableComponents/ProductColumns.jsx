@@ -35,7 +35,7 @@ function getProductTableColumns({
       header: 'Product',
       className: 'w-16',
       render: (item) => (
-        <div className="w-10 h-10 rounded-lg overflow-hidden border border-border-base bg-bg-base flex items-center justify-center">
+        <div className="w-10 h-10 rounded-lg overflow-hidden border border-border-subtle bg-bg-base flex items-center justify-center">
           <img
             src={item.imageUrl || item.images?.[0] || 'https://via.placeholder.com/80'}
             alt={item.title}
@@ -141,7 +141,7 @@ function getProductTableColumns({
           <button
             type="button"
             onClick={() => onDeleteClick && onDeleteClick(item)}
-            className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-all cursor-pointer"
+            className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer"
             title="Delete Product"
           >
             <FaTrash size={12} />

@@ -15,6 +15,7 @@ const ProductDetails = lazy(() => import("../pages/ProductDetails/ProductDetails
 const CheckoutPage = lazy(() => import('../pages/checkout/CheckoutPage'));
 const CustomerOrderDetail = lazy(() => import("../pages/Order/orderDetails/CustomerOrderDetail"));
 const User = lazy(() => import('../pages/user/User'));
+const VideosPage = lazy(() => import('../pages/videos/VideosPage'));
 const NoPage = lazy(() => import("../pages/nopage/NoPage"));
 
 // Lazy-loaded legal & customer service pages
@@ -38,6 +39,8 @@ const UpdateProduct = lazy(() => import("../admin/products/UpdateProduct"));
 const Coupons = lazy(() => import("../admin/coupons/Coupons"));
 const CouponFormPage = lazy(() => import("../admin/coupons/CouponForm/CouponForm"));
 const Review = lazy(() => import('../admin/review/Review'));
+const AdminVideos = lazy(() => import('../admin/videos/AdminVideos'));
+const AdminTeam = lazy(() => import('../admin/team/AdminTeam'));
 const Configure = lazy(() => import('../admin/configure/Configure'));
 const AdminOrderDetail = lazy(() => import('../admin/orders/AdminOrderDetail'));
 const OrderInvoice = lazy(() => import('../admin/orders/OrderInvoice'));
@@ -89,6 +92,10 @@ export default function AppRoutes() {
         <Route path="/allproducts" element={<Allproducts />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/productdetails/:id' element={<ProductDetails />} />
+        <Route path="/videos" element={<VideosPage />} />
+        <Route path="/video" element={<VideosPage />} />
+        <Route path="/blog" element={<VideosPage />} />
+        <Route path="/blogs" element={<VideosPage />} />
         
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
@@ -130,6 +137,13 @@ export default function AppRoutes() {
           <Route path="/coupons/edit/:id" element={<CouponFormPage />} />
           <Route path="/reviews" element={<Review />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/admin/videos" element={<AdminVideos />} />
+          <Route path="/admin/team" element={<AdminTeam />} />
+          <Route path="/team" element={<AdminTeam />} />
+          <Route path="/admin/showcase" element={<Navigate to="/configure?tab=showcase" replace />} />
+          <Route path="/admin/bengal-tiles" element={<Navigate to="/configure?tab=showcase" replace />} />
+          <Route path="/admin/bengaltiles" element={<Navigate to="/configure?tab=showcase" replace />} />
+          <Route path="/admin/brands" element={<Navigate to="/configure?tab=brands" replace />} />
           <Route path="/configure" element={<Configure />} />
           <Route path="/admin/order/:id" element={<AdminOrderDetail />} />
           <Route path="/admin/order/:id/invoice" element={<OrderInvoice />} />

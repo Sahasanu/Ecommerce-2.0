@@ -6,11 +6,11 @@ import React from "react";
 export function ProductPricingSection({ products, setProducts }) {
     if (products.hasVariants) {
         return (
-            <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs overflow-hidden text-xs">
+            <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden text-xs">
                 {/* Section 4 Header */}
-                <div className="px-5 py-3.5 border-b border-border-base flex items-center justify-between bg-bg-base/30">
+                <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-base/40">
                     <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                        <div className="w-7 h-7 rounded-lg bg-primary text-compli font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
                             4
                         </div>
                         <div>
@@ -22,7 +22,7 @@ export function ProductPricingSection({ products, setProducts }) {
                             </p>
                         </div>
                     </div>
-                    <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-extrabold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-extrabold">
                         Multi-Variant Inventory
                     </span>
                 </div>
@@ -31,11 +31,11 @@ export function ProductPricingSection({ products, setProducts }) {
     }
 
     return (
-        <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs overflow-hidden text-xs">
+        <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden text-xs">
             {/* Section 4 Header */}
-            <div className="px-5 py-3.5 border-b border-border-base flex items-center justify-between bg-bg-base/30">
+            <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-base/40">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-primary text-compli font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
                         4
                     </div>
                     <div>
@@ -69,8 +69,8 @@ export function ProductPricingSection({ products, setProducts }) {
                                         price: e.target.value
                                     })
                                 }
-                                placeholder=" e.g . 499"
-                                className="w-full pl-8 rounded-xl border border-border-base bg-bg-base px-3.5 py-2 text-xs font-black focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                                placeholder="e.g. 499"
+                                className="w-full pl-8 rounded-xl border border-border-subtle bg-bg-base text-text-base px-3.5 py-2 text-xs font-black focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm placeholder:text-text-subtle"
                             />
                         </div>
                     </div>
@@ -94,7 +94,7 @@ export function ProductPricingSection({ products, setProducts }) {
                                     })
                                 }
                                 placeholder="e.g. 799"
-                                className="w-full pl-8 rounded-xl border border-border-base bg-bg-base px-3.5 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 text-text-muted"
+                                className="w-full pl-8 rounded-xl border border-border-subtle bg-bg-base px-3.5 py-2 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 text-text-muted placeholder:text-text-subtle"
                             />
                         </div>
                     </div>
@@ -113,8 +113,8 @@ export function ProductPricingSection({ products, setProducts }) {
                                     inStock: e.target.value
                                 })
                             }
-                            placeholder="e.g .25"
-                            className="w-full rounded-xl border border-border-base bg-bg-base px-3.5 py-2 text-xs font-black focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                            placeholder="e.g. 25"
+                            className="w-full rounded-xl border border-border-subtle bg-bg-base text-text-base px-3.5 py-2 text-xs font-black focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm placeholder:text-text-subtle"
                         />
                     </div>
                 </div>

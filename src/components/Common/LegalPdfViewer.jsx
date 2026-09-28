@@ -12,9 +12,9 @@ export default function LegalPdfViewer({ pdfUrl, title = "Document", lastUpdated
     // If no PDF URL is available or load failed
     if (!pdfUrl || hasError) {
         return (
-            <div className="w-full bg-white py-8 px-4 flex justify-center items-center font-sans">
-                <div className="w-full max-w-[920px] bg-white text-center space-y-3 py-12">
-                    <div className="w-12 h-12 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center mx-auto">
+            <div className="w-full bg-bg-base py-8 px-4 flex justify-center items-center font-sans">
+                <div className="w-full max-w-[920px] bg-card border border-border-subtle rounded-2xl text-center space-y-3 py-12 px-6">
+                    <div className="w-12 h-12 rounded-full bg-bg-surface border border-border-subtle text-primary flex items-center justify-center mx-auto">
                         <span className="material-symbols-outlined text-2xl">description</span>
                     </div>
                     <div className="space-y-1">
@@ -30,7 +30,7 @@ export default function LegalPdfViewer({ pdfUrl, title = "Document", lastUpdated
                                 setHasError(false);
                                 setIsLoaded(false);
                             }}
-                            className="h-9 px-4 rounded-lg border border-border-base bg-white hover:bg-gray-50 text-xs font-semibold text-text-base transition cursor-pointer"
+                            className="h-9 px-4 rounded-xl border border-border-subtle bg-bg-surface hover:bg-card-hover text-xs font-semibold text-text-base transition cursor-pointer"
                         >
                             Try again
                         </button>
@@ -41,12 +41,12 @@ export default function LegalPdfViewer({ pdfUrl, title = "Document", lastUpdated
     }
 
     return (
-        <div className="w-full bg-white min-h-screen py-6 sm:py-8 px-4 sm:px-6 flex justify-center items-start font-sans text-text-base">
+        <div className="w-full bg-bg-base min-h-screen py-6 sm:py-8 px-4 sm:px-6 flex justify-center items-start font-sans text-text-base">
             {/* Centered Document Area */}
-            <div className="w-full max-w-[920px] bg-white space-y-6">
+            <div className="w-full max-w-[920px] space-y-6">
                 
                 {/* Minimal Header */}
-                <div className="pb-4 border-b border-border-base">
+                <div className="pb-4 border-b border-border-subtle">
                     <h1 className="text-xl sm:text-2xl font-bold text-text-base tracking-tight">{title}</h1>
                     {lastUpdated && (
                         <p className="text-xs text-text-muted mt-1 font-medium">
@@ -56,30 +56,30 @@ export default function LegalPdfViewer({ pdfUrl, title = "Document", lastUpdated
                 </div>
 
                 {/* PDF Viewing Area */}
-                <div className="relative w-full bg-white min-h-[700px] overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="relative w-full bg-card border border-border-subtle rounded-2xl min-h-[700px] overflow-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     {/* Document Skeleton Loader (No Spinner) */}
                     {!isLoaded && (
-                        <div className="absolute inset-0 bg-white space-y-6 animate-pulse flex flex-col justify-start z-10">
-                            <div className="h-6 bg-gray-100 rounded-md w-1/3 mb-2" />
-                            <div className="h-3 bg-gray-100 rounded-md w-1/4 mb-6" />
+                        <div className="absolute inset-0 bg-card p-6 space-y-6 animate-pulse flex flex-col justify-start z-10">
+                            <div className="h-6 bg-card-hover rounded-md w-1/3 mb-2" />
+                            <div className="h-3 bg-card-hover rounded-md w-1/4 mb-6" />
 
                             <div className="space-y-3">
-                                <div className="h-4 bg-gray-100 rounded-md w-full" />
-                                <div className="h-4 bg-gray-100 rounded-md w-11/12" />
-                                <div className="h-4 bg-gray-100 rounded-md w-4/5" />
+                                <div className="h-4 bg-card-hover rounded-md w-full" />
+                                <div className="h-4 bg-card-hover rounded-md w-11/12" />
+                                <div className="h-4 bg-card-hover rounded-md w-4/5" />
                             </div>
 
                             <div className="space-y-3 pt-4">
-                                <div className="h-5 bg-gray-100 rounded-md w-2/5 mb-3" />
-                                <div className="h-4 bg-gray-100 rounded-md w-full" />
-                                <div className="h-4 bg-gray-100 rounded-md w-full" />
-                                <div className="h-4 bg-gray-100 rounded-md w-3/4" />
+                                <div className="h-5 bg-card-hover rounded-md w-2/5 mb-3" />
+                                <div className="h-4 bg-card-hover rounded-md w-full" />
+                                <div className="h-4 bg-card-hover rounded-md w-full" />
+                                <div className="h-4 bg-card-hover rounded-md w-3/4" />
                             </div>
 
                             <div className="space-y-3 pt-4">
-                                <div className="h-5 bg-gray-100 rounded-md w-1/3 mb-3" />
-                                <div className="h-4 bg-gray-100 rounded-md w-full" />
-                                <div className="h-4 bg-gray-100 rounded-md w-5/6" />
+                                <div className="h-5 bg-card-hover rounded-md w-1/3 mb-3" />
+                                <div className="h-4 bg-card-hover rounded-md w-full" />
+                                <div className="h-4 bg-card-hover rounded-md w-5/6" />
                             </div>
                         </div>
                     )}

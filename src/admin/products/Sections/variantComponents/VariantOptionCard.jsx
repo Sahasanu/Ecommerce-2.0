@@ -14,15 +14,15 @@ export default function VariantOptionCard({
   handleVariantTypeValuesChange,
 }) {
   return (
-    <div className="border border-border-base/80 rounded-2xl p-4 bg-bg-base/40 space-y-3 hover:border-primary/30 transition-all shadow-xs">
+    <div className="border border-border-subtle rounded-2xl p-4 bg-bg-base space-y-3 hover:border-primary/40 transition-all shadow-xs">
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-black uppercase text-primary tracking-widest bg-primary/10 px-2 py-0.5 rounded-md">
+        <span className="text-[10px] font-black uppercase text-primary tracking-widest bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-md">
           Option #{index + 1}
         </span>
         <button
           type="button"
           onClick={() => deleteVariantType(index)}
-          className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition cursor-pointer"
+          className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 transition cursor-pointer"
           title="Delete Option Attribute"
         >
           <FaTrash size={12} />
@@ -40,7 +40,7 @@ export default function VariantOptionCard({
             value={variant.name}
             placeholder="e.g. Size, Color"
             onChange={(e) => handleVariantTypeNameChange(index, e.target.value)}
-            className="w-full rounded-xl border border-border-base bg-bg-surface px-3 py-2 text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+            className="w-full rounded-xl border border-border-subtle bg-card text-text-base placeholder:text-text-subtle px-3 py-2 text-xs focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
           />
         </div>
 

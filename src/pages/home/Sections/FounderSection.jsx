@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 import { useSiteConfig } from '../../../context/SiteConfigContext';
 import founderDefaultImg from '../../../assets/founder.jpg';
 
@@ -7,12 +8,15 @@ export default function FounderSection() {
   const { config } = useSiteConfig();
   const companyName = config?.companyName || "Bengal Tiles";
   const founderName = config?.founderName || "SK Abdul Ohid";
+  const founderPhone = config?.founderPhone || config?.phones?.[0]?.number || "+91 95641 40786";
+  const founderPhoneClean = founderPhone.replace(/[^0-9+]/g, '');
+  const founderPhoneDigits = founderPhone.replace(/\D/g, '');
   const imglink = "https://firebasestorage.googleapis.com/v0/b/bengal-tiles---website.firebasestorage.app/o/company%2Fbengal_tiles_owner_1.jpeg?alt=media&token=e9760f80-9e5c-4462-8d95-78181928e15d";
   const founderPhoto = config?.founderPhoto || imglink || founderDefaultImg;
 
   return (
     <section className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-8 py-3 sm:py-6">
-      <div className="relative overflow-hidden rounded-3xl bg-bg-surface border border-border-base shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 p-6 sm:p-10 lg:p-12 transition-all duration-300">
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border-subtle shadow-lg shadow-black/20 hover:border-primary/40 p-6 sm:p-10 lg:p-12 transition-all duration-300">
         
         {/* Soft Ambient Background Glow */}
         <div className="absolute -top-24 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -23,7 +27,7 @@ export default function FounderSection() {
           {/* Elegant Founder Portrait */}
           <div className="md:col-span-5 flex justify-center">
             <div className="relative group/portrait w-full max-w-[280px] sm:max-w-[320px] md:max-w-none">
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-primary/20 bg-bg-base/50">
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-primary/30 bg-bg-base">
                 <img
                   src={founderPhoto}
                   alt={founderName}
@@ -60,6 +64,33 @@ export default function FounderSection() {
               "Great spaces are built around people, uncompromising quality, and relationships anchored in long-term trust."
             </p>
 
+            {/* Founder Contact & Direct Phone */}
+            {founderPhone && (
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5 pt-1">
+                <a
+                  href={`tel:${founderPhoneClean}`}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border-subtle hover:border-primary/50 text-xs font-bold text-text-base hover:text-primary transition-all duration-200 shadow-2xs group cursor-pointer"
+                  title={`Call ${founderName}`}
+                >
+                  <span className="w-5 h-5 rounded-md bg-primary/10 border border-primary/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-200">
+                    <FaPhoneAlt size={9} className="text-primary group-hover:text-[#090909] transition-colors duration-200" />
+                  </span>
+                  <span>{founderPhone}</span>
+                </a>
+
+                <a
+                  href={`https://wa.me/${founderPhoneDigits}?text=${encodeURIComponent(`Hello ${founderName}, I would like to connect with you regarding Bengal Tiles.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+                  title={`Chat with ${founderName} on WhatsApp`}
+                >
+                  <FaWhatsapp className="text-xs text-emerald-400" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            )}
+
             {/* Refined Minimal CTA with Smooth Arrow Slide */}
             <div className="pt-2 flex justify-center md:justify-start">
               <Link
@@ -70,8 +101,8 @@ export default function FounderSection() {
                   Meet Our Founder
                   <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-primary transition-all duration-300 group-hover/cta:w-full" />
                 </span>
-                <span className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover/cta:bg-primary group-hover/cta:text-compli group-hover/cta:border-primary group-hover/cta:translate-x-1.5 transition-all duration-300 shadow-2xs">
-                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                <span className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover/cta:bg-primary group-hover/cta:border-primary group-hover/cta:translate-x-1.5 transition-all duration-300 shadow-2xs">
+                  <span className="material-symbols-outlined text-[18px] text-primary group-hover/cta:text-[#090909] transition-colors duration-200">arrow_forward</span>
                 </span>
               </Link>
             </div>

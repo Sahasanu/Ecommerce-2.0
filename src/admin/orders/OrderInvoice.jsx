@@ -97,7 +97,7 @@ const OrderInvoice = ({ orderData: propOrder }) => {
         <h2 className="text-xl font-bold text-text-base">{error || "Invoice Not Found"}</h2>
         <button
           onClick={() => navigate(-1)}
-          className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-xs hover:bg-primary-hover transition"
+          className="px-4 py-2 rounded-xl bg-primary text-compli text-xs font-bold shadow-xs hover:bg-primary-hover transition"
         >
           Go Back
         </button>
@@ -110,11 +110,11 @@ const OrderInvoice = ({ orderData: propOrder }) => {
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">
       {/* Non-printable Action Bar */}
-      <div className="print:hidden flex items-center justify-between bg-bg-surface p-4 rounded-xl border border-border-base shadow-xs">
+      <div className="print:hidden flex items-center justify-between bg-card p-4 rounded-xl border border-border-subtle shadow-xs">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="px-3.5 py-1.5 rounded-lg border border-border-base hover:bg-bg-base text-text-base text-xs font-bold flex items-center gap-2 transition cursor-pointer"
+          className="px-3.5 py-1.5 rounded-lg border border-border-subtle bg-bg-base hover:bg-card-hover text-text-base text-xs font-bold flex items-center gap-2 transition cursor-pointer"
         >
           <FaArrowLeft size={12} />
           <span>Back</span>
@@ -133,7 +133,7 @@ const OrderInvoice = ({ orderData: propOrder }) => {
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary-hover text-xs font-bold flex items-center gap-2 transition shadow-xs cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-primary text-compli hover:bg-primary-hover text-xs font-bold flex items-center gap-2 transition shadow-xs cursor-pointer"
           >
             <FaPrint size={14} />
             <span>Print Invoice</span>

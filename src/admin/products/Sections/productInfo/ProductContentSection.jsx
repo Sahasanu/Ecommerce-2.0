@@ -6,11 +6,11 @@ import ProductDescriptionBuilder from "../ProductDescriptionBuilder";
  */
 export function ProductContentSection({ products, setProducts }) {
     return (
-        <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs overflow-hidden text-xs">
+        <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden text-xs">
             {/* Section 5 Header */}
-            <div className="px-5 py-3.5 border-b border-border-base flex items-center justify-between bg-bg-base/30">
+            <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-base/40">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-primary text-compli font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
                         5
                     </div>
                     <div>

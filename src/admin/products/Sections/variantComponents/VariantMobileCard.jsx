@@ -18,12 +18,12 @@ export default function VariantMobileCard({
   const isVariantActive = variant.isActive !== false && variant.isAvailable !== false;
 
   return (
-    <div className="p-4 bg-bg-surface flex flex-col gap-3">
+    <div className="p-4 bg-card flex flex-col gap-3">
       {/* Header: Attributes & Actions */}
       <div className="flex justify-between items-center gap-2">
         <div className="flex flex-wrap gap-2">
           {Object.entries(variant.attributes || {}).map(([attrKey, attrVal]) => (
-            <div key={attrKey} className="flex items-center gap-1 bg-primary/5 border border-primary/20 rounded-lg px-2 py-1">
+            <div key={attrKey} className="flex items-center gap-1 bg-primary/10 border border-primary/20 rounded-lg px-2 py-1">
               <span className="text-[10px] font-bold text-primary shrink-0">{attrKey}:</span>
               <input
                 type="text"
@@ -32,7 +32,7 @@ export default function VariantMobileCard({
                   const newAttrs = { ...(variant.attributes || {}), [attrKey]: e.target.value };
                   handleVariantChange(index, "attributes", newAttrs);
                 }}
-                className="w-16 px-1.5 py-0.5 rounded bg-bg-surface text-text-base text-[11px] font-bold border border-border-base focus:border-primary focus:outline-none"
+                className="w-16 px-1.5 py-0.5 rounded bg-bg-base text-text-base text-[11px] font-bold border border-border-subtle focus:border-primary focus:outline-none"
               />
             </div>
           ))}
@@ -51,7 +51,7 @@ export default function VariantMobileCard({
           <button
             type="button"
             onClick={() => deleteVariant(index)}
-            className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 transition cursor-pointer"
             title="Delete Variant"
           >
             <FaTrash size={12} />
@@ -65,7 +65,7 @@ export default function VariantMobileCard({
         <div className="flex flex-wrap items-center gap-1.5">
           {variant.images &&
             variant.images.map((url, imgIdx) => (
-              <div key={imgIdx} className="relative group w-12 h-12 rounded-xl border border-border-base overflow-hidden bg-bg-base shadow-xs">
+              <div key={imgIdx} className="relative group w-12 h-12 rounded-xl border border-border-subtle overflow-hidden bg-bg-base shadow-xs">
                 <img src={url} alt="Variant" className="w-full h-full object-cover" />
                 <button
                   type="button"
@@ -77,7 +77,7 @@ export default function VariantMobileCard({
                 </button>
               </div>
             ))}
-          <label className="relative flex flex-col items-center justify-center cursor-pointer w-12 h-12 rounded-xl bg-bg-base hover:bg-border-base border border-border-base transition text-[9px] font-bold text-text-muted gap-0.5 active:scale-95">
+          <label className="relative flex flex-col items-center justify-center cursor-pointer w-12 h-12 rounded-xl bg-card hover:bg-card-hover border border-border-subtle transition text-[9px] font-bold text-text-muted hover:text-text-base gap-0.5 active:scale-95">
             {variantUploadingIndex === index ? (
               <span className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
             ) : (
@@ -106,7 +106,7 @@ export default function VariantMobileCard({
             type="number"
             value={variant.price ?? ""}
             onChange={(e) => handleVariantChange(index, "price", Number(e.target.value))}
-            className="w-full rounded-xl border border-border-base bg-bg-base px-2 py-1.5 text-center font-bold text-xs focus:ring-2 focus:ring-primary/20 outline-none"
+            className="w-full rounded-xl border border-border-subtle bg-bg-base text-text-base px-2 py-1.5 text-center font-bold text-xs focus:ring-2 focus:ring-primary/20 outline-none"
           />
         </div>
         <div>
@@ -115,7 +115,7 @@ export default function VariantMobileCard({
             type="number"
             value={variant.originalPrice ?? ""}
             onChange={(e) => handleVariantChange(index, "originalPrice", Number(e.target.value))}
-            className="w-full rounded-xl border border-border-base bg-bg-base px-2 py-1.5 text-center font-semibold text-xs focus:ring-2 focus:ring-primary/20 outline-none text-text-muted"
+            className="w-full rounded-xl border border-border-subtle bg-bg-base text-text-muted px-2 py-1.5 text-center font-semibold text-xs focus:ring-2 focus:ring-primary/20 outline-none"
           />
         </div>
         <div>
@@ -124,7 +124,7 @@ export default function VariantMobileCard({
             type="number"
             value={variant.inStock ?? ""}
             onChange={(e) => handleVariantChange(index, "inStock", Number(e.target.value))}
-            className="w-full rounded-xl border border-border-base bg-bg-base px-2 py-1.5 text-center font-extrabold text-xs focus:ring-2 focus:ring-primary/20 outline-none"
+            className="w-full rounded-xl border border-border-subtle bg-bg-base text-text-base px-2 py-1.5 text-center font-extrabold text-xs focus:ring-2 focus:ring-primary/20 outline-none"
           />
         </div>
       </div>

@@ -77,7 +77,7 @@ export default function CustomerOrderDetail() {
         </p>
         <Link
           to="/user?tab=orders"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-xs hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-compli text-xs font-bold shadow-xs hover:bg-primary-hover transition-colors"
         >
           <FaArrowLeft size={10} />
           <span>Back to My Orders</span>
@@ -90,7 +90,7 @@ export default function CustomerOrderDetail() {
   if (!order || error) {
     return (
       <div className="w-full max-w-xl mx-auto px-4 py-16 text-center space-y-4">
-        <div className="w-16 h-16 rounded-full bg-bg-surface border border-border-base text-text-muted mx-auto flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-card border border-border-subtle text-text-muted mx-auto flex items-center justify-center">
           <FaShoppingBag size={24} />
         </div>
         <h2 className="text-lg font-black text-text-base">Order Not Found</h2>
@@ -99,7 +99,7 @@ export default function CustomerOrderDetail() {
         </p>
         <Link
           to="/user?tab=orders"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold shadow-xs hover:bg-primary-hover transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-compli text-xs font-bold shadow-xs hover:bg-primary-hover transition-colors"
         >
           <FaArrowLeft size={10} />
           <span>Return to Order History</span>
@@ -144,7 +144,7 @@ export default function CustomerOrderDetail() {
           <button
             type="button"
             onClick={() => copyToClipboard(orderId, "Order ID copied to clipboard!")}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-bg-base hover:bg-border-base/60 text-text-muted hover:text-text-base text-[11px] font-mono font-bold transition-colors cursor-pointer border border-border-base/40"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-card hover:bg-card-hover text-text-muted hover:text-text-base text-[11px] font-mono font-bold transition-colors cursor-pointer border border-border-subtle"
             title="Copy Order ID"
           >
             <FaCopy size={10} />

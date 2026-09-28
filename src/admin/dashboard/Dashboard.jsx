@@ -143,7 +143,7 @@ function Dashboard() {
                             {/* Manage Users Button */}
                             <button
                                 onClick={() => navigate('/users')}
-                                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-bg-surface hover:bg-bg-base text-text-base border border-border-base rounded-xl font-bold text-xs transition cursor-pointer shadow-2xs active:scale-95"
+                                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-card hover:bg-card-hover text-text-base border border-border-subtle rounded-xl font-bold text-xs transition cursor-pointer shadow-2xs active:scale-95"
                             >
                                 <FaUsers size={12} />
                                 <span>Users</span>

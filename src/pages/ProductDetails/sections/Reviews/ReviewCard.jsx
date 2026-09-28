@@ -53,12 +53,12 @@ export default function ReviewItem({ review }) {
   }
 
   return (
-    <div className="bg-white border border-border-base/70 rounded-2xl p-3 sm:p-5 md:p-6 shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between gap-3">
+    <div className="bg-card border border-border-subtle rounded-2xl p-3 sm:p-5 md:p-6 shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between gap-3">
       <div className="space-y-3">
         {/* Top Header Row */}
         <div className="flex items-center gap-3">
           {/* Avatar Box */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#f8f5f0] border border-[#e8dfd8] text-[#5c4033] font-serif font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/10 border border-primary/20 text-primary font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-2xs">
             {initials}
           </div>
 
@@ -77,14 +77,14 @@ export default function ReviewItem({ review }) {
 
         {/* Rating Stars + Headline Row */}
         <div className="flex items-center gap-2 flex-wrap pt-0.5">
-          <div className="flex items-center gap-0.5 text-amber-500 text-sm">
+          <div className="flex items-center gap-0.5 text-amber-400 text-sm">
             {Array(5)
               .fill(null)
               .map((_, i) => (
                 <span
                   key={i}
                   className={`text-sm ${
-                    i < displayRating ? 'text-amber-500' : 'text-gray-200'
+                    i < displayRating ? 'text-amber-400' : 'text-text-subtle/30'
                   }`}
                 >
                   ★
@@ -133,7 +133,7 @@ export default function ReviewItem({ review }) {
                 key={imgIdx}
                 src={img}
                 alt={`Review attachment ${imgIdx + 1}`}
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-border-base/70 shadow-2xs hover:scale-105 transition-transform"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-border-subtle shadow-2xs hover:scale-105 transition-transform"
                 loading="lazy"
               />
             ))}

@@ -1,22 +1,50 @@
 import React from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { useSiteConfig } from '../../../context/SiteConfigContext';
 import showroomImg from '../../../assets/showroom.jpg';
 import showroomMImg from '../../../assets/showroomM.png';
 
 /**
  * BengalTilesSection
- * Showcase banner for Bengal Tiles showroom & dealership with direct WhatsApp CTA.
+ * Showcase banner for Bengal Tiles showroom & dealership with direct WhatsApp CTA or custom link.
+ * Dynamically configurable from Admin -> Configure -> Bengal Tiles.
  */
 export default function BengalTilesSection() {
   const { config } = useSiteConfig();
+  const sectionConfig = config?.bengalTilesSection || {};
 
-  const title = config?.companyName || "Bengal Tiles";
-  const subtitle = "The Premium Tiles, Marble, Granite Showroom & Dealer in West Bengal";
+  // If explicitly hidden by admin in configuration
+  if (sectionConfig.enabled === false) {
+    return null;
+  }
 
-  // Resolve WhatsApp URL from site config or default contact
+  const title = sectionConfig.title || config?.companyName || "Bengal Tiles";
+  const subtitle = sectionConfig.subtitle || "The Premium Tiles, Marble, Granite Showroom & Dealer in West Bengal";
+  const badgeText = sectionConfig.badgeText || "";
+  const buttonText = sectionConfig.buttonText || "Contact us";
+  const buttonType = sectionConfig.buttonType || "whatsapp";
+  const customLink = sectionConfig.buttonLink?.trim() || "";
+
+  // Dynamic background images with fallback to showroom defaults
+  const desktopImage = sectionConfig.desktopImage || showroomImg;
+  const mobileImage = sectionConfig.mobileImage || sectionConfig.desktopImage || showroomMImg;
+
+  // Resolve WhatsApp URL
   const getWhatsAppUrl = () => {
-    // 1. Configured WhatsApp social link
+    const inquiryText = sectionConfig.whatsappMessage || 
+      `Hi ${title}, I would like to inquire about your tiles, marble, and granite collection.`;
+
+    // 1. Explicit override in section config
+    if (sectionConfig.whatsappNumber) {
+      const digits = sectionConfig.whatsappNumber.replace(/\D/g, "");
+      if (digits) {
+        const fullNumber = digits.length === 10 ? `91${digits}` : digits;
+        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(inquiryText)}`;
+      }
+    }
+
+    // 2. Configured WhatsApp social link
     const waSocial = config?.socialLinks?.find(
       (s) => s.platform === "whatsapp" && s.isActive && s.url
     );
@@ -25,13 +53,11 @@ export default function BengalTilesSection() {
       if (u.startsWith("http://") || u.startsWith("https://")) return u;
       const digits = u.replace(/\D/g, "");
       if (digits) {
-        return `https://wa.me/${digits}?text=${encodeURIComponent(
-          `Hi ${title}, I would like to inquire about your tiles, marble, and granite collection.`
-        )}`;
+        return `https://wa.me/${digits}?text=${encodeURIComponent(inquiryText)}`;
       }
     }
 
-    // 2. Configured phone numbers with WhatsApp enabled
+    // 3. Configured phone numbers with WhatsApp enabled
     const waPhone =
       config?.phones?.find((p) => p.isWhatsapp && p.number) ||
       config?.phones?.[0];
@@ -40,69 +66,96 @@ export default function BengalTilesSection() {
       const digits = waPhone.number.replace(/\D/g, "");
       if (digits.length >= 10) {
         const fullNumber = digits.length === 10 ? `91${digits}` : digits;
-        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(
-          `Hi ${title}, I would like to inquire about your tiles, marble, and granite collection.`
-        )}`;
+        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(inquiryText)}`;
       }
     }
 
-    // 3. Verified store WhatsApp fallback
-    return `https://wa.me/919564140786?text=${encodeURIComponent(
-      `Hi ${title}, I would like to inquire about your tiles, marble, and granite collection.`
-    )}`;
+    // 4. Default verified store WhatsApp fallback
+    return `https://wa.me/919564140786?text=${encodeURIComponent(inquiryText)}`;
   };
 
+  const isCustomLink = buttonType === "custom" && customLink;
+  const isExternalCustomLink = isCustomLink && (customLink.startsWith("http://") || customLink.startsWith("https://") || customLink.startsWith("//"));
   const whatsappUrl = getWhatsAppUrl();
 
   return (
-    <section className="relative w-auto -mx-4 sm:-mx-4 md:-mx-6 lg:-mx-10 xl:-mx-20 overflow-hidden rounded-none border-y border-border-base/15 shadow-xl group">
+    <section className="relative w-auto -mx-4 sm:-mx-4 md:-mx-6 lg:-mx-10 xl:-mx-20 overflow-hidden rounded-none border-y border-border-subtle shadow-xl group">
       {/* Background Image Container */}
       <div className="relative w-full h-[380px] sm:h-[440px] md:h-[500px] lg:h-[580px] xl:h-[640px] overflow-hidden">
         <picture className="absolute inset-0 w-full h-full">
-          <source media="(max-width: 767px)" srcSet={showroomMImg} />
+          <source media="(max-width: 767px)" srcSet={mobileImage} />
           <img
-            src={showroomImg}
+            src={desktopImage}
             alt={title}
             className="w-full h-full object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
           />
         </picture>
 
         {/* Cinematic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/15 pointer-events-none" />
 
         {/* Content Centered at Bottom Half */}
         <div className="absolute inset-0 flex flex-col justify-end items-center text-center px-4 sm:px-8 pb-10 sm:pb-14 lg:pb-16 z-10">
           <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4">
             
+            {/* Optional Luxury Eyebrow Badge */}
+            {badgeText && (
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-primary/15 border border-primary/40 text-primary text-[10px] sm:text-xs font-bold tracking-widest uppercase mb-1 shadow-sm backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span>{badgeText}</span>
+              </div>
+            )}
+
             {/* Main Title */}
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-text-base tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
               {title}
             </h2>
 
             {/* Tagline / Subtitle */}
-            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/95 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] px-2">
+            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-semibold text-text-muted max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] px-2">
               {subtitle}
             </p>
 
-            {/* Primary CTA redirecting to WhatsApp */}
+            {/* CTA Button */}
             <div className="pt-2 sm:pt-4 flex justify-center items-center">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3 sm:py-3.5 bg-primary hover:bg-primary-hover text-compli font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 transition-all duration-300 cursor-pointer"
-              >
-                <FaWhatsapp className="text-lg sm:text-xl text-white" />
-                <span>Contact us</span>
-              </a>
+              {isCustomLink ? (
+                isExternalCustomLink ? (
+                  <a
+                    href={customLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3 sm:py-3.5 bg-primary hover:bg-primary-hover text-compli font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 transition-all duration-300 cursor-pointer"
+                  >
+                    <span>{buttonText}</span>
+                    <FaArrowRight className="text-sm text-compli" />
+                  </a>
+                ) : (
+                  <Link
+                    to={customLink}
+                    className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3 sm:py-3.5 bg-primary hover:bg-primary-hover text-compli font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 transition-all duration-300 cursor-pointer"
+                  >
+                    <span>{buttonText}</span>
+                    <FaArrowRight className="text-sm text-compli" />
+                  </Link>
+                )
+              ) : (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-3 sm:py-3.5 bg-primary hover:bg-primary-hover text-compli font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 transition-all duration-300 cursor-pointer"
+                >
+                  <FaWhatsapp className="text-lg sm:text-xl text-compli" />
+                  <span>{buttonText}</span>
+                </a>
+              )}
             </div>
 
           </div>
         </div>
 
-       
-
       </div>
     </section>
   );
 }
+

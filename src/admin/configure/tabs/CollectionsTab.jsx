@@ -68,8 +68,8 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
     });
 
     return (
-        <div className="bg-bg-surface border border-border-base/70 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
-            <div className="flex items-center justify-between border-b border-border-base/50 pb-3">
+        <div className="bg-card border border-border-subtle rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-border-subtle pb-3">
                 <h3 className="font-extrabold text-sm text-text-base flex items-center gap-2">
                     <FaLayerGroup className="text-primary" size={14} />
                     {col ? `Edit Collection: ${col.title}` : "Create New Collection Section"}
@@ -82,16 +82,16 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
                 {/* Left Form Column */}
                 <div className="lg:col-span-5 space-y-4">
-                    <div className="space-y-3 bg-bg-base/40 p-3.5 rounded-xl border border-border-base/60">
+                    <div className="space-y-3 bg-bg-base/40 p-3.5 rounded-xl border border-border-subtle">
                         <div className="space-y-1">
                             <label className="block text-[10px] font-bold text-text-muted uppercase tracking-wider pl-0.5">
-                                Collection Title <span className="text-red-500">*</span>
+                                Collection Title <span className="text-rose-500">*</span>
                             </label>
                             <input
                                 value={form.title}
                                 onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
                                 placeholder="Section title e.g. Trending Now"
-                                className="w-full h-10 px-3.5 rounded-xl border border-border-base bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary text-xs sm:text-sm font-medium transition-all"
+                                className="w-full h-10 px-3.5 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-xs sm:text-sm font-medium transition-all"
                             />
                         </div>
 
@@ -103,7 +103,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                 value={form.subtitle}
                                 onChange={(e) => setForm((p) => ({ ...p, subtitle: e.target.value }))}
                                 placeholder="e.g. Handcrafted with love"
-                                className="w-full h-10 px-3.5 rounded-xl border border-border-base bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary text-xs sm:text-sm font-medium transition-all"
+                                className="w-full h-10 px-3.5 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-xs sm:text-sm font-medium transition-all"
                             />
                         </div>
 
@@ -130,7 +130,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                 <button
                                     type="button"
                                     onClick={() => setForm((p) => ({ ...p, productIds: [] }))}
-                                    className="text-[10px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+                                    className="text-[10px] font-bold text-rose-400 hover:text-rose-300 cursor-pointer"
                                 >
                                     Clear All
                                 </button>
@@ -138,29 +138,29 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                         </div>
 
                         {selectedProductsList.length === 0 ? (
-                            <div className="p-4 rounded-xl border border-dashed border-border-base/70 bg-bg-base/40 text-center">
+                            <div className="p-4 rounded-xl border border-dashed border-border-subtle bg-bg-base/40 text-center">
                                 <p className="text-xs text-text-muted font-medium">
                                     No products selected. Check items in the catalog on the right.
                                 </p>
                             </div>
                         ) : (
-                            <div className="max-h-64 overflow-y-auto pr-1 space-y-1.5 border border-border-base/60 rounded-xl bg-bg-base/30 p-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border-base [&::-webkit-scrollbar-thumb]:rounded-full">
+                            <div className="max-h-64 overflow-y-auto pr-1 space-y-1.5 border border-border-subtle rounded-xl bg-bg-base/30 p-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar-thumb]:rounded-full">
                                 {selectedProductsList.map((p, idx) => {
                                     const img = p.imageUrl || p.images?.[0] || "";
                                     return (
                                         <div
                                             key={p.id}
-                                            className="flex items-center justify-between gap-2 p-2 bg-white rounded-lg border border-border-base/60 shadow-2xs text-xs"
+                                            className="flex items-center justify-between gap-2 p-2 bg-card rounded-lg border border-border-subtle shadow-2xs text-xs"
                                         >
                                             <div className="flex items-center gap-2 min-w-0">
                                                 <span className="text-[10px] font-mono font-bold text-text-muted w-4 shrink-0 text-center">
                                                     #{idx + 1}
                                                 </span>
-                                                <div className="w-8 h-8 rounded-md bg-gray-50 border border-border-base/50 p-0.5 shrink-0 flex items-center justify-center overflow-hidden">
+                                                <div className="w-8 h-8 rounded-md bg-bg-base border border-border-subtle/50 p-0.5 shrink-0 flex items-center justify-center overflow-hidden">
                                                     {img ? (
                                                         <img src={img} alt={p.title} className="w-full h-full object-contain" />
                                                     ) : (
-                                                        <FaImage size={12} className="text-gray-400" />
+                                                        <FaImage size={12} className="text-text-subtle" />
                                                     )}
                                                 </div>
                                                 <div className="min-w-0">
@@ -174,7 +174,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                                     type="button"
                                                     onClick={() => moveProductInCollection(idx, -1)}
                                                     disabled={idx === 0}
-                                                    className="w-5 h-5 flex items-center justify-center rounded border border-border-base bg-gray-50 hover:bg-gray-100 disabled:opacity-25 cursor-pointer text-text-muted"
+                                                    className="w-5 h-5 flex items-center justify-center rounded border border-border-subtle bg-bg-base hover:bg-card-hover disabled:opacity-25 cursor-pointer text-text-muted hover:text-primary transition"
                                                     title="Move Up"
                                                 >
                                                     <FaArrowUp size={8} />
@@ -183,7 +183,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                                     type="button"
                                                     onClick={() => moveProductInCollection(idx, 1)}
                                                     disabled={idx === selectedProductsList.length - 1}
-                                                    className="w-5 h-5 flex items-center justify-center rounded border border-border-base bg-gray-50 hover:bg-gray-100 disabled:opacity-25 cursor-pointer text-text-muted"
+                                                    className="w-5 h-5 flex items-center justify-center rounded border border-border-subtle bg-bg-base hover:bg-card-hover disabled:opacity-25 cursor-pointer text-text-muted hover:text-primary transition"
                                                     title="Move Down"
                                                 >
                                                     <FaArrowDown size={8} />
@@ -191,7 +191,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                                 <button
                                                     type="button"
                                                     onClick={() => removeProduct(p.id)}
-                                                    className="w-5 h-5 flex items-center justify-center rounded bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 cursor-pointer ml-0.5"
+                                                    className="w-5 h-5 flex items-center justify-center rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 hover:bg-rose-500/20 cursor-pointer ml-0.5 transition"
                                                     title="Remove"
                                                 >
                                                     <FaTimes size={9} />
@@ -206,20 +206,20 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                 </div>
 
                 {/* Right Catalog Picker Column */}
-                <div className="lg:col-span-7 space-y-3 bg-bg-base/30 p-3.5 rounded-xl border border-border-base/60">
+                <div className="lg:col-span-7 space-y-3 bg-bg-base/30 p-3.5 rounded-xl border border-border-subtle">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                         <label className="block text-[10px] font-bold text-text-muted uppercase tracking-wider pl-0.5">
                             Catalog Product Picker
                         </label>
 
                         {/* Filter Mode Tabs */}
-                        <div className="flex gap-1 bg-bg-base border border-border-base/70 rounded-lg p-0.5 self-stretch sm:self-auto">
+                        <div className="flex gap-1 bg-bg-base border border-border-subtle rounded-lg p-0.5 self-stretch sm:self-auto">
                             <button
                                 type="button"
                                 onClick={() => setFilterMode("all")}
                                 className={`flex-1 sm:flex-initial px-2.5 py-1 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
                                     filterMode === "all"
-                                        ? "bg-primary text-white shadow-xs"
+                                        ? "bg-primary text-compli font-bold shadow-xs"
                                         : "text-text-muted hover:text-text-base"
                                 }`}
                             >
@@ -230,7 +230,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                 onClick={() => setFilterMode("selected")}
                                 className={`flex-1 sm:flex-initial px-2.5 py-1 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
                                     filterMode === "selected"
-                                        ? "bg-primary text-white shadow-xs"
+                                        ? "bg-primary text-compli font-bold shadow-xs"
                                         : "text-text-muted hover:text-text-base"
                                 }`}
                             >
@@ -248,30 +248,30 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search by title, brand, or category..."
-                                className="w-full pl-8 pr-3 h-9 text-xs rounded-xl border border-border-base bg-white focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-text-muted/60"
+                                className="w-full pl-8 pr-3 h-9 text-xs rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary"
                             />
                         </div>
                         <select
                             value={filterCategory}
                             onChange={(e) => setFilterCategory(e.target.value)}
-                            className="h-9 px-3 rounded-xl border border-border-base bg-white text-xs font-semibold text-text-base focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer shrink-0"
+                            className="h-9 px-3 rounded-xl border border-border-subtle bg-bg-base text-xs font-semibold text-text-base focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer shrink-0"
                         >
                             {categories.map((c) => (
-                                <option key={c} value={c}>{c === "ALL" ? "All Categories" : c}</option>
+                                <option key={c} value={c} className="bg-card text-text-base">{c === "ALL" ? "All Categories" : c}</option>
                             ))}
                         </select>
                     </div>
 
                     {/* Products Checklist */}
-                    <div className="max-h-[360px] overflow-y-auto border border-border-base/60 rounded-xl bg-white divide-y divide-border-base/40 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border-base [&::-webkit-scrollbar-thumb]:rounded-full">
+                    <div className="max-h-[360px] overflow-y-auto border border-border-subtle rounded-xl bg-card divide-y divide-border-subtle/50 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar-thumb]:rounded-full">
                         {filteredProducts.map((p) => {
                             const isChecked = form.productIds.includes(p.id);
                             const img = p.imageUrl || p.images?.[0] || "";
                             return (
                                 <label
                                     key={p.id}
-                                    className={`flex items-center gap-3 px-3.5 py-2.5 hover:bg-gray-50/70 cursor-pointer transition-colors ${
-                                        isChecked ? "bg-primary/5 border-l-3 border-l-primary" : ""
+                                    className={`flex items-center gap-3 px-3.5 py-2.5 hover:bg-card-hover cursor-pointer transition-colors ${
+                                        isChecked ? "bg-primary/10 border-l-3 border-l-primary" : ""
                                     }`}
                                 >
                                     <input
@@ -280,11 +280,11 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                         onChange={() => toggleProduct(p.id)}
                                         className="w-4 h-4 accent-primary rounded cursor-pointer shrink-0"
                                     />
-                                    <div className="w-9 h-9 rounded-lg bg-gray-50 border border-border-base/50 p-0.5 shrink-0 flex items-center justify-center overflow-hidden">
+                                    <div className="w-9 h-9 rounded-lg bg-bg-base border border-border-subtle/50 p-0.5 shrink-0 flex items-center justify-center overflow-hidden">
                                         {img ? (
                                             <img src={img} alt={p.title} className="w-full h-full object-contain" />
                                         ) : (
-                                            <FaImage size={12} className="text-gray-400" />
+                                            <FaImage size={12} className="text-text-subtle" />
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
@@ -293,7 +293,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                                             ₹{p.price || p.minPrice || 0} {p.brand ? `• ${p.brand}` : ""}
                                         </span>
                                     </div>
-                                    <span className="text-[10px] text-text-muted bg-bg-surface border border-border-base/50 px-2 py-0.5 rounded-full font-bold shrink-0">
+                                    <span className="text-[10px] text-text-muted bg-bg-surface border border-border-subtle/50 px-2 py-0.5 rounded-full font-bold shrink-0">
                                         {p.category || "General"}
                                     </span>
                                 </label>
@@ -309,11 +309,11 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2.5 justify-end pt-3 border-t border-border-base/50">
+            <div className="flex gap-2.5 justify-end pt-3 border-t border-border-subtle/50">
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="h-9 px-4 rounded-xl border border-border-base bg-white hover:bg-gray-50 text-text-muted font-bold text-xs transition-colors cursor-pointer"
+                    className="h-9 px-4 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover text-text-muted font-bold text-xs transition-colors cursor-pointer"
                 >
                     Cancel
                 </button>
@@ -321,7 +321,7 @@ function CollectionEditor({ col, products, onSave, onCancel, saving }) {
                     type="button"
                     onClick={() => onSave(form)}
                     disabled={saving || !form.title.trim()}
-                    className="h-9 px-4 rounded-xl bg-primary text-white font-bold text-xs hover:bg-primary-hover disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                    className="h-9 px-4 rounded-xl bg-primary text-compli font-bold text-xs hover:bg-primary-hover disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                 >
                     <FaCheck size={11} />
                     <span>{saving ? "Saving..." : "Save Collection"}</span>
@@ -480,7 +480,7 @@ export default function CollectionsTab() {
     return (
         <div className="space-y-5">
             {/* Top Bar Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-base/50 pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-subtle pb-3">
                 <div>
                     <h3 className="font-extrabold text-base text-text-base flex items-center gap-2">
                         <FaLayerGroup className="text-primary" size={16} />
@@ -491,7 +491,7 @@ export default function CollectionsTab() {
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-text-muted bg-bg-surface px-3 py-1 rounded-full border border-border-base">
+                    <span className="text-xs font-bold text-text-muted bg-bg-base px-3 py-1 rounded-full border border-border-subtle">
                         {collections.length} Section{collections.length !== 1 ? "s" : ""} Configured
                     </span>
                 </div>
@@ -534,8 +534,8 @@ export default function CollectionsTab() {
                                         onClick={() => setSelectedCollectionId(colId)}
                                         className={`p-3.5 rounded-2xl border transition-all cursor-pointer space-y-2.5 ${
                                             isSelected
-                                                ? "bg-primary/5 border-primary shadow-xs ring-2 ring-primary/20"
-                                                : "bg-bg-surface border-border-base/70 hover:border-primary/40 shadow-2xs"
+                                                ? "bg-primary/10 border-primary shadow-xs ring-2 ring-primary/20"
+                                                : "bg-bg-surface border-border-subtle hover:border-primary/40 shadow-2xs"
                                         }`}
                                     >
                                         {/* Header Row: Reorder + Title + Status + Action Buttons */}
@@ -550,7 +550,7 @@ export default function CollectionsTab() {
                                                         type="button"
                                                         onClick={() => handleMoveCollection(idx, -1)}
                                                         disabled={idx === 0 || reordering}
-                                                        className="w-5 h-4 rounded bg-bg-base border border-border-base/70 flex items-center justify-center text-text-muted hover:text-primary hover:bg-gray-100 disabled:opacity-25 cursor-pointer transition"
+                                                        className="w-5 h-4 rounded bg-bg-base border border-border-subtle flex items-center justify-center text-text-muted hover:text-primary hover:bg-card-hover disabled:opacity-25 cursor-pointer transition"
                                                         title="Move Up"
                                                     >
                                                         <FaChevronUp size={7} />
@@ -559,7 +559,7 @@ export default function CollectionsTab() {
                                                         type="button"
                                                         onClick={() => handleMoveCollection(idx, 1)}
                                                         disabled={idx === collections.length - 1 || reordering}
-                                                        className="w-5 h-4 rounded bg-bg-base border border-border-base/70 flex items-center justify-center text-text-muted hover:text-primary hover:bg-gray-100 disabled:opacity-25 cursor-pointer transition"
+                                                        className="w-5 h-4 rounded bg-bg-base border border-border-subtle flex items-center justify-center text-text-muted hover:text-primary hover:bg-card-hover disabled:opacity-25 cursor-pointer transition"
                                                         title="Move Down"
                                                     >
                                                         <FaChevronDown size={7} />
@@ -584,15 +584,15 @@ export default function CollectionsTab() {
                                             <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
                                                 <span className={`inline-flex px-1.5 py-0.5 rounded-full text-[8.5px] font-bold border ${
                                                     col.isActive
-                                                        ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                                        : "bg-gray-100 text-text-muted border-gray-200"
+                                                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                                                        : "bg-bg-base text-text-muted border-border-subtle"
                                                 }`}>
                                                     {col.isActive ? "Active" : "Hidden"}
                                                 </span>
                                                 <button
                                                     type="button"
                                                     onClick={() => setEditing(colId)}
-                                                    className="h-7 w-7 flex items-center justify-center rounded-lg bg-white border border-border-base hover:bg-gray-50 text-primary transition shadow-2xs cursor-pointer"
+                                                    className="h-7 w-7 flex items-center justify-center rounded-lg bg-card border border-border-subtle hover:bg-card-hover text-primary transition shadow-2xs cursor-pointer"
                                                     title="Edit Collection"
                                                 >
                                                     <FaEdit size={10} />
@@ -601,7 +601,7 @@ export default function CollectionsTab() {
                                                     type="button"
                                                     onClick={() => handleDelete(col)}
                                                     disabled={deleting === colId}
-                                                    className="h-7 w-7 flex items-center justify-center rounded-lg bg-white border border-border-base hover:bg-rose-50 text-rose-600 disabled:opacity-50 transition shadow-2xs cursor-pointer"
+                                                    className="h-7 w-7 flex items-center justify-center rounded-lg bg-card border border-border-subtle hover:bg-rose-500/20 text-rose-400 disabled:opacity-50 transition shadow-2xs cursor-pointer"
                                                     title="Delete Collection"
                                                 >
                                                     <FaTrash size={9} />
@@ -610,7 +610,7 @@ export default function CollectionsTab() {
                                         </div>
 
                                         {/* Bottom Row: Thumbnail Mini Preview Stack */}
-                                        <div className="pt-1.5 border-t border-border-base/40 flex items-center justify-between gap-2">
+                                        <div className="pt-1.5 border-t border-border-subtle/50 flex items-center justify-between gap-2">
                                             <div className="flex items-center gap-1.5">
                                                 <span className="text-[10px] font-bold text-text-muted">
                                                     {colProducts.length} item{colProducts.length !== 1 ? "s" : ""}:
@@ -621,21 +621,21 @@ export default function CollectionsTab() {
                                                         return (
                                                             <div
                                                                 key={p.id || pIdx}
-                                                                className="w-6 h-6 rounded-md bg-white border border-border-base p-0.5 overflow-hidden shrink-0 shadow-2xs flex items-center justify-center"
+                                                                className="w-6 h-6 rounded-md bg-card border border-border-subtle p-0.5 overflow-hidden shrink-0 shadow-2xs flex items-center justify-center"
                                                                 title={p.title}
                                                             >
                                                                 {img ? (
                                                                     <img src={img} alt={p.title} className="w-full h-full object-contain" />
                                                                 ) : (
-                                                                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                                                                        <FaImage size={8} className="text-gray-400" />
+                                                                    <div className="w-full h-full bg-bg-base flex items-center justify-center">
+                                                                        <FaImage size={8} className="text-text-subtle" />
                                                                     </div>
                                                                 )}
                                                             </div>
                                                         );
                                                     })}
                                                     {remainingCount > 0 && (
-                                                        <span className="h-6 px-1.5 rounded-md bg-bg-base border border-border-base text-[9px] font-bold text-text-muted flex items-center justify-center shrink-0">
+                                                        <span className="h-6 px-1.5 rounded-md bg-bg-base border border-border-subtle text-[9px] font-bold text-text-muted flex items-center justify-center shrink-0">
                                                             +{remainingCount}
                                                         </span>
                                                     )}
@@ -657,18 +657,18 @@ export default function CollectionsTab() {
                         <button
                             type="button"
                             onClick={() => setEditing("new")}
-                            className="w-full py-3 border-2 border-dashed border-border-base/80 rounded-2xl text-xs font-extrabold text-primary hover:border-primary hover:bg-primary/5 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+                            className="w-full py-3 border-2 border-dashed border-border-subtle rounded-2xl text-xs font-extrabold text-primary hover:border-primary hover:bg-primary/5 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
                         >
                             <FaPlus size={11} /> Add New Collection Section
                         </button>
                     </div>
 
                     {/* RIGHT COLUMN: Table View of Products in Selected Collection */}
-                    <div className="lg:col-span-8 bg-bg-surface border border-border-base/70 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+                    <div className="lg:col-span-8 bg-card border border-border-subtle rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
                         {activeSelectedCollection ? (
                             <>
                                 {/* Header Details */}
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-base/50 pb-3">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border-subtle pb-3">
                                     <div className="min-w-0">
                                         <div className="flex items-center gap-2">
                                             <h4 className="font-extrabold text-sm sm:text-base text-text-base truncate">
@@ -689,7 +689,7 @@ export default function CollectionsTab() {
                                         <button
                                             type="button"
                                             onClick={() => setEditing(activeSelectedCollection.collectionId || activeSelectedCollection.id)}
-                                            className="h-8 px-3 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+                                            className="h-8 px-3 rounded-xl bg-primary text-compli text-xs font-bold hover:bg-primary-hover transition flex items-center gap-1.5 cursor-pointer shadow-xs"
                                         >
                                             <FaEdit size={11} />
                                             <span>Edit Collection</span>
@@ -705,13 +705,13 @@ export default function CollectionsTab() {
                                         value={productSearch}
                                         onChange={(e) => setProductSearch(e.target.value)}
                                         placeholder={`Search within ${activeSelectedCollection.title}...`}
-                                        className="w-full pl-8 pr-3 h-8.5 text-xs rounded-xl border border-border-base bg-bg-base/40 focus:outline-none focus:ring-1 focus:ring-primary focus:bg-white placeholder:text-text-muted/60 transition"
+                                        className="w-full pl-8 pr-3 h-8.5 text-xs rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary transition"
                                     />
                                 </div>
 
                                 {/* PRODUCTS DATA TABLE */}
                                 {filteredActiveProducts.length === 0 ? (
-                                    <div className="p-8 text-center rounded-xl border border-dashed border-border-base/70 bg-bg-base/20 space-y-2">
+                                    <div className="p-8 text-center rounded-xl border border-dashed border-border-subtle bg-bg-base/20 space-y-2">
                                         <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
                                             <FaBoxOpen size={16} />
                                         </div>
@@ -723,10 +723,10 @@ export default function CollectionsTab() {
                                         </p>
                                     </div>
                                 ) : (
-                                    <div className="overflow-x-auto rounded-xl border border-border-base/60 bg-white">
+                                    <div className="overflow-x-auto rounded-xl border border-border-subtle bg-card">
                                         <table className="w-full text-left text-xs border-collapse">
                                             <thead>
-                                                <tr className="border-b border-border-base/60 bg-bg-base/40 text-[11px] font-bold text-text-muted uppercase tracking-wider">
+                                                <tr className="border-b border-border-subtle bg-bg-base text-[11px] font-bold text-text-muted uppercase tracking-wider">
                                                     <th className="py-2.5 px-3 text-center w-12">#</th>
                                                     <th className="py-2.5 px-2 text-center w-14">Image</th>
                                                     <th className="py-2.5 px-3">Product Title</th>
@@ -737,7 +737,7 @@ export default function CollectionsTab() {
                                                     <th className="py-2.5 px-3 text-center w-20">Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-border-base/40">
+                                            <tbody className="divide-y divide-border-subtle">
                                                 {filteredActiveProducts.map((item, pIdx) => {
                                                     const img = item.imageUrl || item.images?.[0] || "";
                                                     const stockCount = getProductStockCount(item);
@@ -745,7 +745,7 @@ export default function CollectionsTab() {
                                                     const isLive = item.isActive !== false;
 
                                                     return (
-                                                        <tr key={item.id || pIdx} className="hover:bg-gray-50/50 transition-colors">
+                                                        <tr key={item.id || pIdx} className="hover:bg-card-hover transition-colors">
                                                             {/* S.No */}
                                                             <td className="py-2.5 px-3 text-center font-bold text-text-muted text-[11px]">
                                                                 {pIdx + 1}
@@ -753,11 +753,11 @@ export default function CollectionsTab() {
 
                                                             {/* Image */}
                                                             <td className="py-2.5 px-2 text-center">
-                                                                <div className="w-10 h-10 rounded-lg overflow-hidden border border-border-base bg-bg-base flex items-center justify-center mx-auto p-0.5">
+                                                                <div className="w-10 h-10 rounded-lg overflow-hidden border border-border-subtle bg-bg-base flex items-center justify-center mx-auto p-0.5">
                                                                     {img ? (
                                                                         <img src={img} alt={item.title} className="w-full h-full object-contain" />
                                                                     ) : (
-                                                                        <FaImage size={14} className="text-gray-400" />
+                                                                        <FaImage size={14} className="text-text-subtle" />
                                                                     )}
                                                                 </div>
                                                             </td>
@@ -811,7 +811,7 @@ export default function CollectionsTab() {
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => handleRemoveProductFromCollection(item.id)}
-                                                                        className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                                                                        className="p-1.5 text-rose-400 hover:bg-rose-500/20 rounded-lg transition cursor-pointer"
                                                                         title="Remove from this collection"
                                                                     >
                                                                         <FaTrash size={11} />

@@ -78,9 +78,9 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
   };
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5">
+    <div className="bg-card border border-border-subtle rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-base pb-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-subtle pb-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="p-2 rounded-xl bg-primary/10 text-primary shrink-0">
             <FaFilePdf size={15} />
@@ -92,8 +92,8 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
 
         <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide border shrink-0 ${
           isUploaded
-            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-            : "bg-indigo-50 text-indigo-700 border-indigo-200"
+            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+            : "bg-primary/10 text-primary border-primary/20"
         }`}>
           {isUploaded ? "Custom Uploaded PDF" : "System Generated"}
         </span>
@@ -101,10 +101,10 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
 
       {/* Body Status Content */}
       {isUploaded ? (
-        <div className="p-3.5 sm:p-4 rounded-xl bg-bg-base/60 border border-border-base/70 space-y-3">
+        <div className="p-3.5 sm:p-4 rounded-xl bg-bg-base border border-border-subtle/70 space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200">
+              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0 border border-rose-500/20">
                 <FaFilePdf size={18} />
               </div>
               <div className="min-w-0">
@@ -114,7 +114,7 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
                 {uploadedAt && (
                   <p className="text-[10px] text-text-muted mt-0.5">Uploaded: {uploadedAt}</p>
                 )}
-                <p className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
+                <p className="text-[10px] text-emerald-400 font-bold flex items-center gap-1 mt-0.5">
                   <FaCheckCircle size={9} /> Active for Client Download
                 </p>
               </div>
@@ -123,14 +123,14 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
             <button
               type="button"
               onClick={handleDownloadUploaded}
-              className="h-8 px-3 rounded-xl bg-bg-surface border border-border-base text-text-base text-xs font-bold hover:bg-bg-base hover:border-primary/40 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs shrink-0 self-start sm:self-auto"
+              className="h-8 px-3 rounded-xl bg-card border border-border-subtle text-text-base text-xs font-bold hover:bg-card-hover hover:border-primary/40 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs shrink-0 self-start sm:self-auto"
             >
               <FaDownload size={10} className="text-primary" />
               <span>Download</span>
             </button>
           </div>
 
-          <div className="pt-2.5 border-t border-border-base/60 flex flex-wrap items-center justify-between gap-2.5">
+          <div className="pt-2.5 border-t border-border-subtle/60 flex flex-wrap items-center justify-between gap-2.5">
             <label className="h-8 px-3 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border border-primary/20">
               {uploading ? <FaSpinner className="animate-spin" size={11} /> : <FaFileUpload size={11} />}
               <span>{uploading ? "Replacing..." : "Replace PDF"}</span>
@@ -147,7 +147,7 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
               type="button"
               onClick={handleRemove}
               disabled={uploading || removing}
-              className="h-8 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border border-rose-200"
+              className="h-8 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border border-rose-500/20"
             >
               {removing ? <FaSpinner className="animate-spin" size={11} /> : <FaTrashAlt size={10} />}
               <span>Remove Upload</span>
@@ -155,14 +155,14 @@ export default function OrderInvoiceAdminSection({ order, onRefresh }) {
           </div>
         </div>
       ) : (
-        <div className="p-4 rounded-xl bg-bg-base/40 border border-border-base/60 space-y-3">
+        <div className="p-4 rounded-xl bg-bg-base border border-border-subtle space-y-3">
           <div className="flex items-center gap-2 text-xs text-text-muted font-medium">
             <FaInfoCircle size={14} className="text-primary shrink-0" />
             <span>Currently using <strong>System-Generated Tax Invoice</strong>. Clients can generate and download their invoice on demand.</span>
           </div>
 
           <div>
-            <label className="w-full h-10 px-4 rounded-xl bg-primary text-white hover:bg-primary-hover text-xs font-extrabold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+            <label className="w-full h-10 px-4 rounded-xl bg-primary text-compli hover:bg-primary-hover text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer shadow-xs">
               {uploading ? <FaSpinner className="animate-spin" size={13} /> : <FaFileUpload size={13} />}
               <span>{uploading ? "Uploading Invoice PDF..." : "Upload Custom Invoice PDF"}</span>
               <input

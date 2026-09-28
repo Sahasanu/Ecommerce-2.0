@@ -8,11 +8,11 @@ export function ProductModeSection({ products, setProducts }) {
     const isVariants = Boolean(products.hasVariants);
 
     return (
-        <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xs overflow-hidden text-xs">
+        <div className="bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden text-xs">
             {/* Section 3 Header */}
-            <div className="px-5 py-3.5 border-b border-border-base flex items-center justify-between bg-bg-base/30">
+            <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-base/40">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-primary text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-primary text-compli font-bold text-xs flex items-center justify-center shadow-xs shrink-0">
                         3
                     </div>
                     <div>
@@ -33,12 +33,12 @@ export function ProductModeSection({ products, setProducts }) {
                         onClick={() => setProducts({ ...products, hasVariants: false })}
                         className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer flex items-start gap-3.5 ${
                             !isVariants
-                                ? "border-primary bg-primary/5 shadow-xs"
-                                : "border-border-base bg-bg-base hover:border-primary/50"
+                                ? "border-primary bg-primary/10 shadow-xs"
+                                : "border-border-subtle bg-bg-base hover:border-primary/50"
                         }`}
                     >
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                            !isVariants ? "bg-primary text-white" : "bg-bg-surface text-text-muted border border-border-base"
+                            !isVariants ? "bg-primary text-compli font-bold" : "bg-card text-text-muted border border-border-subtle"
                         }`}>
                             <FaBoxOpen size={16} />
                         </div>
@@ -61,12 +61,12 @@ export function ProductModeSection({ products, setProducts }) {
                         onClick={() => setProducts({ ...products, hasVariants: true })}
                         className={`p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer flex items-start gap-3.5 ${
                             isVariants
-                                ? "border-primary bg-primary/5 shadow-xs"
-                                : "border-border-base bg-bg-base hover:border-primary/50"
+                                ? "border-primary bg-primary/10 shadow-xs"
+                                : "border-border-subtle bg-bg-base hover:border-primary/50"
                         }`}
                     >
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                            isVariants ? "bg-primary text-white" : "bg-bg-surface text-text-muted border border-border-base"
+                            isVariants ? "bg-primary text-compli font-bold" : "bg-card text-text-muted border border-border-subtle"
                         }`}>
                             <FaLayerGroup size={16} />
                         </div>

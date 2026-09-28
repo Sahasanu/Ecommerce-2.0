@@ -25,13 +25,13 @@ function FilterBar({
                         placeholder={searchPlaceholder}
                         value={search || ""}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full h-11 pl-10 pr-9 rounded-xl border border-border-base bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary transition-all font-medium text-text-base placeholder:text-text-muted/70 shadow-2xs"
+                        className="w-full h-11 pl-10 pr-9 rounded-xl border border-border-subtle bg-bg-base text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-medium text-text-base placeholder:text-text-subtle shadow-2xs"
                     />
                     {search && (
                         <button
                             type="button"
                             onClick={() => setSearch("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-text-muted hover:text-text-base rounded-full hover:bg-gray-100 transition-colors"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-text-muted hover:text-primary rounded-full hover:bg-card-hover transition-colors cursor-pointer"
                             aria-label="Clear search"
                         >
                             <FaTimes className="text-xs" />
@@ -57,14 +57,14 @@ function FilterBar({
                                             <select
                                                 value={filter.value}
                                                 onChange={(e) => filter.onChange(e.target.value)}
-                                                className={`w-full appearance-none h-11 rounded-xl border pl-3.5 pr-8 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary transition-all cursor-pointer font-semibold shadow-2xs ${
+                                                className={`w-full appearance-none h-11 rounded-xl border pl-3.5 pr-8 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all cursor-pointer font-semibold shadow-2xs ${
                                                     isFiltered
-                                                        ? "border-primary/50 bg-primary/5 text-primary"
-                                                        : "border-border-base bg-white text-text-base hover:border-gray-300"
+                                                        ? "border-primary bg-primary/10 text-primary"
+                                                        : "border-border-subtle bg-bg-base text-text-base hover:border-primary/40"
                                                 }`}
                                             >
                                                 {filter.options.map((opt) => (
-                                                    <option key={opt.value} value={opt.value} className="bg-white text-text-base py-1">
+                                                    <option key={opt.value} value={opt.value} className="bg-card text-text-base py-1">
                                                         {opt.label}
                                                     </option>
                                                 ))}

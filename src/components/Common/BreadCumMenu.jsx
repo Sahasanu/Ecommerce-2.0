@@ -45,7 +45,7 @@ function Breadcrumb({
             {/* Back button — go to previous page in history */}
             <button
                 onClick={() => navigate(-1)}
-                className="w-6 h-6 flex items-center justify-center rounded-md border border-border-base bg-bg-surface hover:bg-bg-base text-text-muted hover:text-text-base transition text-[10px]"
+                className="w-6 h-6 flex items-center justify-center rounded-md border border-border-subtle hover:border-primary/40 bg-bg-surface hover:bg-card-hover text-text-muted hover:text-text-base transition text-[10px]"
                 title="Go Back"
             >
                 <FaArrowLeft />

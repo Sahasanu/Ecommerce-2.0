@@ -16,7 +16,7 @@ export default function BottomNavigation({ activeView, handleNavClick }) {
     ];
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-bg-surface border-t border-border-base h-16 rounded-t-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.03)] flex justify-around items-center px-2 md:hidden print:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-bg-surface border-t border-border-subtle h-16 rounded-t-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.03)] flex justify-around items-center px-2 md:hidden print:hidden">
             {bottomNavItems.map((item) => {
                 const isActive = activeView === item.id;
                 return (

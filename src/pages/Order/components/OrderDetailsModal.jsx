@@ -36,20 +36,20 @@ function OrderDetailsModal({ open, onClose, order }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col text-xs text-text-base">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-card border border-border-subtle rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col text-xs text-text-base">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-border-base flex items-center justify-between bg-bg-base/50">
+        <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between bg-bg-surface/50">
           <div>
             <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider block">Order Summary</span>
             <h3 className="text-base font-black text-text-base flex items-center gap-2 mt-0.5">
               <span>#{orderId}</span>
               <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black border ${
                 isCancelled
-                  ? "bg-rose-50 text-rose-700 border-rose-200"
+                  ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
                   : status === "DELIVERED"
-                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                  : "bg-indigo-50 text-indigo-700 border-indigo-200"
+                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                  : "bg-indigo-500/10 text-indigo-400 border-indigo-500/30"
               }`}>
                 {status}
               </span>
@@ -59,7 +59,7 @@ function OrderDetailsModal({ open, onClose, order }) {
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-bg-surface border border-border-base flex items-center justify-center text-text-muted hover:text-text-base hover:bg-bg-base transition cursor-pointer"
+            className="w-8 h-8 rounded-full bg-bg-base border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-base hover:bg-card-hover transition cursor-pointer"
           >
             <FaTimes size={14} />
           </button>
@@ -69,7 +69,7 @@ function OrderDetailsModal({ open, onClose, order }) {
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
           {/* Timeline Tracking Header (If not cancelled) */}
           {!isCancelled && (
-            <div className="bg-bg-base/40 p-4 rounded-xl border border-border-base/60">
+            <div className="bg-bg-base/40 p-4 rounded-xl border border-border-subtle">
               <h4 className="font-extrabold text-xs text-text-base mb-3 flex items-center gap-2">
                 <FaTruck className="text-primary" /> Delivery Progress
               </h4>
@@ -80,7 +80,7 @@ function OrderDetailsModal({ open, onClose, order }) {
                     <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs mb-1.5 transition-colors ${
                       step.active
                         ? "bg-emerald-500 text-white shadow-xs"
-                        : "bg-border-base/60 text-text-muted"
+                        : "bg-card border border-border-subtle text-text-muted"
                     }`}>
                       {step.active ? <FaCheckCircle size={12} /> : idx + 1}
                     </div>
@@ -129,9 +129,9 @@ function OrderDetailsModal({ open, onClose, order }) {
                 }
 
                 return (
-                  <div key={idx} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-base/60 border border-border-base/50">
+                  <div key={idx} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-surface border border-border-subtle">
                     <div className="flex items-center gap-3">
-                      <img src={img} alt={title} className="w-12 h-12 rounded-lg object-cover bg-white border border-border-base" />
+                      <img src={img} alt={title} className="w-12 h-12 rounded-lg object-cover bg-bg-base border border-border-subtle p-0.5" />
                       <div>
                         <p className="font-bold text-text-base">{title}</p>
                         <p className="text-[10px] text-text-muted font-medium mt-0.5">Qty: {qty} × ₹{fmt(price)}</p>
@@ -147,7 +147,7 @@ function OrderDetailsModal({ open, onClose, order }) {
           {/* Shipping Address & Payment Breakdown Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Address */}
-            <div className="p-4 rounded-xl bg-bg-base/40 border border-border-base/60 space-y-1.5">
+            <div className="p-4 rounded-xl bg-bg-surface border border-border-subtle space-y-1.5">
               <h4 className="font-extrabold text-xs text-text-base flex items-center gap-1.5 mb-2">
                 <FaMapMarkerAlt className="text-primary" /> Shipping Address
               </h4>
@@ -158,7 +158,7 @@ function OrderDetailsModal({ open, onClose, order }) {
             </div>
 
             {/* Payment Details */}
-            <div className="p-4 rounded-xl bg-bg-base/40 border border-border-base/60 space-y-2">
+            <div className="p-4 rounded-xl bg-bg-surface border border-border-subtle space-y-2">
               <h4 className="font-extrabold text-xs text-text-base flex items-center gap-1.5 mb-2">
                 <FaReceipt className="text-primary" /> Payment Summary
               </h4>
@@ -168,7 +168,7 @@ function OrderDetailsModal({ open, onClose, order }) {
                 <span className="font-semibold text-text-base">₹{fmt(pricing.subtotal || grandTotal)}</span>
               </div>
               {pricing.discountAmount > 0 && (
-                <div className="flex justify-between text-emerald-600 font-semibold">
+                <div className="flex justify-between text-emerald-400 font-semibold">
                   <span>Discount:</span>
                   <span>-₹{fmt(pricing.discountAmount)}</span>
                 </div>
@@ -180,9 +180,9 @@ function OrderDetailsModal({ open, onClose, order }) {
                 </span>
               </div>
 
-              <div className="pt-2 border-t border-border-base/60 flex justify-between font-black text-sm text-text-base">
+              <div className="pt-2 border-t border-border-subtle flex justify-between font-black text-sm text-text-base">
                 <span>Grand Total:</span>
-                <span className="text-primary">₹{fmt(grandTotal)}</span>
+                <span className="text-primary font-black">₹{fmt(grandTotal)}</span>
               </div>
 
               <div className="pt-1 text-[10px] text-text-muted font-bold flex items-center justify-between">
@@ -196,13 +196,13 @@ function OrderDetailsModal({ open, onClose, order }) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 border-t border-border-base bg-bg-base/50 flex items-center justify-between gap-3">
+        <div className="px-6 py-3 border-t border-border-subtle bg-bg-surface/50 flex items-center justify-between gap-3">
           <InvoiceDownloadButton order={order} />
 
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-bg-surface border border-border-base font-bold text-xs hover:bg-bg-base text-text-base transition cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-bg-base border border-border-subtle font-bold text-xs hover:bg-card-hover text-text-base transition cursor-pointer"
           >
             Close Details
           </button>

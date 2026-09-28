@@ -75,8 +75,8 @@ export default function OrderPriceDetailsCard({ order }) {
   const isUpi = paymentMode.includes("UPI");
 
   return (
-    <div className="bg-bg-surface border border-border-base/70 rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
-      <div className="flex items-center justify-between pb-3.5 border-b border-border-base/50">
+    <div className="bg-card border border-border-subtle rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+      <div className="flex items-center justify-between pb-3.5 border-b border-border-subtle">
         <h3 className="text-sm sm:text-base font-bold text-text-base">
           Price details
         </h3>
@@ -96,7 +96,7 @@ export default function OrderPriceDetailsCard({ order }) {
 
         {/* Coupon Discount (only if actually applied) */}
         {couponDiscount > 0 && (
-          <div className="flex justify-between items-center text-emerald-600 dark:text-emerald-400 font-medium">
+          <div className="flex justify-between items-center text-emerald-400 font-medium">
             <span className="flex items-center gap-1.5">
               <FaTag size={10} />
               <span>Coupon Savings {couponCode && <strong className="font-mono">({couponCode})</strong>}</span>
@@ -110,7 +110,7 @@ export default function OrderPriceDetailsCard({ order }) {
           <span>Delivery Charges</span>
           <span className="font-bold text-text-base">
             {deliveryFee > 0 ? `₹${fmt(deliveryFee)}` : (
-              <span className="text-emerald-600 dark:text-emerald-400 uppercase text-[10px] tracking-wider font-bold">
+              <span className="text-emerald-400 uppercase text-[10px] tracking-wider font-bold">
                 FREE
               </span>
             )}
@@ -131,14 +131,14 @@ export default function OrderPriceDetailsCard({ order }) {
         <div className="flex justify-between items-center pt-0.5 text-text-muted">
           <span>Payment Method</span>
           <span className={`font-bold px-2 py-0.5 rounded-md text-[10px] uppercase tracking-wider ${
-            isCod ? "bg-amber-500/10 text-amber-700 dark:text-amber-400" : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+            isCod ? "bg-amber-500/10 text-amber-400 border border-amber-500/30" : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
           }`}>
             {isCod ? "Cash on Delivery" : (isUpi ? "UPI Payment" : "Online Payment")}
           </span>
         </div>
 
         {/* Dashed Separator Line */}
-        <div className="border-t border-dashed border-border-base/80 my-2" />
+        <div className="border-t border-dashed border-border-subtle my-2" />
 
         {/* Total Amount */}
         <div className="flex justify-between items-center text-sm font-bold text-text-base">
@@ -151,7 +151,7 @@ export default function OrderPriceDetailsCard({ order }) {
         <div className="pt-3">
           <InvoiceDownloadButton
             order={order}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-border-base/80 bg-bg-surface hover:bg-bg-base text-text-base font-bold text-xs transition-colors shadow-2xs cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-border-subtle bg-bg-base hover:bg-card-hover text-text-base font-bold text-xs transition-colors shadow-2xs cursor-pointer"
           />
         </div>
       </div>

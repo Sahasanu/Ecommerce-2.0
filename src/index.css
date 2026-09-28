@@ -80,6 +80,9 @@ body {
 .text-primary {
   color: var(--color-primary) !important;
 }
+.text-logo {
+  color: var(--color-text-logo) !important;
+}
 .text-compli {
   color: var(--color-text-compli) !important;
 }
@@ -111,6 +114,35 @@ body {
 .border-border-base {
   border-color: var(--color-border-base) !important;
 }
+
+.border-border-subtle {
+  border-color: var(--color-border-subtle) !important;
+}
+
+.border-border-gold {
+  border-color: var(--color-border-gold) !important;
+}
+
+.bg-card {
+  background-color: var(--color-bg-card) !important;
+}
+
+.bg-card-hover {
+  background-color: var(--color-bg-card-hover) !important;
+}
+
+.hover\:bg-card-hover:hover {
+  background-color: var(--color-bg-card-hover) !important;
+}
+
+.text-subtle {
+  color: var(--color-text-subtle) !important;
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-light) !important;
+}
+
 
 /* Brand Partner Marquee Keyframe */
 @keyframes brandMarquee {

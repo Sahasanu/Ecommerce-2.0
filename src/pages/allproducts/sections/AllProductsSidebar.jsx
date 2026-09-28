@@ -25,18 +25,18 @@ export default function AllProductsSidebar({
   );
 
   return (
-    <aside className={`w-full bg-bg-surface border border-border-base lg:rounded-2xl lg:shadow-sm p-4 sm:p-5 space-y-5 lg:col-span-3 lg:sticky lg:top-28 transition-all duration-300 z-50 lg:z-auto ${
+    <aside className={`w-full bg-bg-surface border border-border-subtle lg:rounded-2xl lg:shadow-sm p-4 sm:p-5 space-y-5 lg:col-span-3 lg:sticky lg:top-28 transition-all duration-300 z-50 lg:z-auto ${
       isMobileOpen 
-        ? "fixed bottom-0 left-0 right-0 max-h-[75vh] overflow-y-auto rounded-t-3xl border-t border-border-base shadow-2xl translate-y-0" 
+        ? "fixed bottom-0 left-0 right-0 max-h-[75vh] overflow-y-auto rounded-t-3xl border-t border-border-subtle shadow-2xl translate-y-0" 
         : "hidden lg:block"
     }`}>
 
       {/* Drawer Mobile Header */}
-      <div className="flex items-center justify-between lg:hidden pb-2 border-b border-border-base">
+      <div className="flex items-center justify-between lg:hidden pb-2 border-b border-border-subtle">
         <h2 className="text-xs font-bold uppercase tracking-wider text-text-base">Filters</h2>
         <button 
           onClick={onClose}
-          className="p-1.5 rounded-full hover:bg-bg-base text-text-muted hover:text-text-base transition cursor-pointer"
+          className="p-1.5 rounded-full hover:bg-card text-text-muted hover:text-text-base transition cursor-pointer"
         >
           <span className="material-symbols-outlined text-lg">close</span>
         </button>
@@ -62,7 +62,7 @@ export default function AllProductsSidebar({
             Category
           </h3>
           {uniqueCategory.length > 0 && (
-            <span className="text-[10px] font-bold text-text-muted px-2 py-0.5 rounded-full bg-bg-base border border-border-base">
+            <span className="text-[10px] font-bold text-text-muted px-2 py-0.5 rounded-full bg-bg-base border border-border-subtle">
               {uniqueCategory.length}
             </span>
           )}
@@ -77,7 +77,7 @@ export default function AllProductsSidebar({
               placeholder="Search category..."
               value={categorySearch}
               onChange={(e) => setCategorySearch(e.target.value)}
-              className="w-full h-8 pl-8 pr-7 rounded-lg border border-border-base bg-bg-base text-xs font-medium text-text-base focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+              className="w-full h-8 pl-8 pr-7 rounded-lg border border-border-subtle bg-bg-base text-xs font-medium text-text-base focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
             />
             {categorySearch && (
               <button
@@ -92,12 +92,12 @@ export default function AllProductsSidebar({
         )}
 
         {/* Scrollable Category Container */}
-        <div className="max-h-48 grid grid-cols-2 gap-2 overflow-y-auto pr-1 space-y-1.5 scrollbar-thin scrollbar-thumb-border-base">
+        <div className="max-h-48 grid grid-cols-2 gap-2 overflow-y-auto pr-1 space-y-1.5 scrollbar-thin scrollbar-thumb-border-subtle">
           <button
               onClick={() => setFilterType("")}
               className={`w-full text-left px-3 text-ellipsis rounded-lg text-xs font-semibold border transition cursor-pointer truncate ${filterType === ""
-                  ? "bg-primary text-compli border-primary"
-                  : "border-border-base/70 bg-bg-surface hover:bg-bg-base text-text-base"
+                  ? "bg-primary text-compli border-primary font-bold shadow-xs"
+                  : "border-border-subtle bg-bg-base hover:bg-card-hover text-text-base"
                 }`}
             >
              All Categories
@@ -108,8 +108,8 @@ export default function AllProductsSidebar({
               key={idx}
               onClick={() => setFilterType(cat)}
               className={`w-full text-left px-3 py-1.5 text-ellipsis rounded-lg text-xs font-semibold border transition cursor-pointer truncate ${filterType === cat
-                  ? "bg-primary text-compli border-primary"
-                  : "border-border-base/70 bg-bg-surface hover:bg-bg-base text-text-base"
+                  ? "bg-primary text-compli border-primary font-bold shadow-xs"
+                  : "border-border-subtle bg-bg-base hover:bg-card-hover text-text-base"
                 }`}
             >
               {cat}
@@ -198,7 +198,7 @@ export default function AllProductsSidebar({
             setFilterPrice("");
             setSearchkey("");
           }}
-          className="w-full py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 text-sm font-semibold transition"
+          className="w-full py-2.5 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-xs font-semibold transition active:scale-95 cursor-pointer"
         >
           Clear All Filters
         </button>

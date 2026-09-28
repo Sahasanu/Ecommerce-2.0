@@ -32,10 +32,10 @@ export default function OrderCustomerInfoSection({
   };
 
   return (
-    <div className="bg-bg-surface p-5 rounded-2xl border border-border-base shadow-xs space-y-4 text-xs transition-all">
+    <div className="bg-card p-5 rounded-2xl border border-border-subtle shadow-xs space-y-4 text-xs transition-all">
       <div 
         onClick={() => setIsExpanded((prev) => !prev)}
-        className="flex items-center justify-between pb-3 border-b border-border-base/70 cursor-pointer select-none group"
+        className="flex items-center justify-between pb-3 border-b border-border-subtle/70 cursor-pointer select-none group"
       >
         <h2 className="text-sm font-black text-text-base flex items-center gap-2">
           <FaUser className="text-primary" /> Customer Details
@@ -70,7 +70,7 @@ export default function OrderCustomerInfoSection({
             <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider block mb-1">
               Contact Phone
             </label>
-            <div className="flex items-center justify-between p-2.5 rounded-xl bg-bg-base/60 border border-border-base/70">
+            <div className="flex items-center justify-between p-2.5 rounded-xl bg-bg-base border border-border-subtle/70">
               <span className="font-extrabold text-text-base flex items-center gap-1.5">
                 <FaPhoneAlt size={10} className="text-primary" />
                 {customerPhone}
@@ -92,7 +92,7 @@ export default function OrderCustomerInfoSection({
             <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider block mb-1">
               Email Address
             </label>
-            <div className="p-2.5 rounded-xl bg-bg-base/60 border border-border-base/70 font-semibold text-text-base truncate flex items-center gap-1.5">
+            <div className="p-2.5 rounded-xl bg-bg-base border border-border-subtle/70 font-semibold text-text-base truncate flex items-center gap-1.5">
               <FaEnvelope size={10} className="text-primary shrink-0" />
               <span className="truncate">{customerEmail}</span>
             </div>
@@ -104,7 +104,7 @@ export default function OrderCustomerInfoSection({
           <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider block mb-1">
             Shipping Address
           </label>
-          <div className="p-3.5 rounded-xl bg-bg-base/60 border border-border-base/70 space-y-1.5 text-[11.5px] leading-relaxed">
+          <div className="p-3.5 rounded-xl bg-bg-base border border-border-subtle/70 space-y-1.5 text-[11.5px] leading-relaxed">
             <p className="font-extrabold text-text-base flex items-start gap-1.5">
               <FaMapMarkerAlt size={12} className="text-primary mt-0.5 shrink-0" />
               <span>{fullStreet}</span>

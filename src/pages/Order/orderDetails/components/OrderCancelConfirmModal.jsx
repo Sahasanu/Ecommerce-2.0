@@ -31,11 +31,11 @@ export default function OrderCancelConfirmModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-bg-surface border border-border-base rounded-2xl shadow-xl w-full max-w-md overflow-hidden text-xs text-text-base">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-card border border-border-subtle rounded-2xl shadow-2xl w-full max-w-md overflow-hidden text-xs text-text-base">
         {/* Modal Header */}
-        <div className="px-5 py-4 border-b border-border-base flex items-center justify-between bg-rose-50/50 dark:bg-rose-950/20">
-          <div className="flex items-center gap-2.5 text-rose-600 dark:text-rose-400">
+        <div className="px-5 py-4 border-b border-border-subtle flex items-center justify-between bg-rose-500/10">
+          <div className="flex items-center gap-2.5 text-rose-400">
             <FaExclamationTriangle size={15} />
             <h3 className="text-sm font-black text-text-base">Cancel Order #{orderId}</h3>
           </div>
@@ -43,7 +43,7 @@ export default function OrderCancelConfirmModal({
             type="button"
             onClick={onClose}
             disabled={cancelling}
-            className="w-7 h-7 rounded-full bg-bg-surface border border-border-base flex items-center justify-center text-text-muted hover:text-text-base transition cursor-pointer"
+            className="w-7 h-7 rounded-full bg-bg-base border border-border-subtle flex items-center justify-center text-text-muted hover:text-text-base transition cursor-pointer"
           >
             <FaTimes size={12} />
           </button>
@@ -61,8 +61,8 @@ export default function OrderCancelConfirmModal({
                 key={reason}
                 className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-colors ${
                   selectedReason === reason
-                    ? "border-primary bg-primary/5 text-text-base font-bold"
-                    : "border-border-base/60 bg-bg-base/40 text-text-muted hover:border-border-base"
+                    ? "border-primary bg-primary/10 text-text-base font-bold shadow-xs"
+                    : "border-border-subtle bg-bg-base text-text-muted hover:border-primary/50"
                 }`}
               >
                 <input
@@ -85,7 +85,7 @@ export default function OrderCancelConfirmModal({
                 onChange={(e) => setCustomReason(e.target.value)}
                 placeholder="Please describe your reason (optional)..."
                 rows={2}
-                className="w-full p-2.5 rounded-xl border border-border-base bg-bg-surface text-xs text-text-base focus:border-primary focus:outline-hidden"
+                className="w-full p-2.5 rounded-xl border border-border-subtle bg-bg-base text-xs text-text-base placeholder:text-text-subtle focus:border-primary focus:outline-hidden"
               />
             </div>
           )}
@@ -95,7 +95,7 @@ export default function OrderCancelConfirmModal({
               type="button"
               onClick={onClose}
               disabled={cancelling}
-              className="px-4 py-2 rounded-xl bg-bg-base hover:bg-border-base/50 text-text-base font-bold text-xs transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-bg-base border border-border-subtle hover:bg-card-hover text-text-base font-bold text-xs transition-colors cursor-pointer"
             >
               Keep Order
             </button>

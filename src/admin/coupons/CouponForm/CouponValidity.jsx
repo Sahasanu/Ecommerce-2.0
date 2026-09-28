@@ -9,10 +9,10 @@ function CouponValidity({
         new Date(coupon.validUntil) < new Date();
 
     return (
-        <div className="bg-bg-base border border-border-base rounded-xl text-xs shadow-xs">
+        <div className="bg-card border border-border-subtle rounded-xl text-xs shadow-xs">
 
             {/* Header */}
-            <div className="border-b border-border-base px-3 py-2">
+            <div className="border-b border-border-subtle px-3 py-2">
                 <h3 className="font-bold text-text-base">
                     Validity
                 </h3>
@@ -28,7 +28,7 @@ function CouponValidity({
 
                     {/* Valid From */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Valid From
                         </label>
                         <input
@@ -40,13 +40,13 @@ function CouponValidity({
                                     validFrom: e.target.value,
                                 }))
                             }
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-1 focus:ring-primary text-xs"
                         />
                     </div>
 
                     {/* Valid Until */}
                     <div>
-                        <label className="block font-semibold mb-1">
+                        <label className="block font-semibold mb-1 text-text-base">
                             Valid Until
                         </label>
                         <input
@@ -58,7 +58,7 @@ function CouponValidity({
                                     validUntil: e.target.value,
                                 }))
                             }
-                            className="w-full px-3 py-1.5 rounded-lg border border-border-base bg-bg-surface focus:outline-none focus:ring-1 focus:ring-primary text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg border border-border-subtle bg-bg-base text-text-base focus:outline-none focus:ring-1 focus:ring-primary text-xs"
                         />
                     </div>
 
@@ -66,33 +66,33 @@ function CouponValidity({
 
                 {/* Summary Row */}
                 <div className="grid grid-cols-3 gap-3">
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Starts</p>
-                        <h4 className="font-semibold mt-1 break-words text-[10px]">
+                        <h4 className="font-semibold mt-1 break-words text-[10px] text-text-base">
                             {coupon.validFrom
                                 ? new Date(coupon.validFrom).toLocaleDateString()
                                 : "--"}
                         </h4>
                     </div>
 
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Ends</p>
-                        <h4 className="font-semibold mt-1 break-words text-[10px]">
+                        <h4 className="font-semibold mt-1 break-words text-[10px] text-text-base">
                             {coupon.validUntil
                                 ? new Date(coupon.validUntil).toLocaleDateString()
                                 : "--"}
                         </h4>
                     </div>
 
-                    <div className="rounded-lg border border-border-base bg-bg-surface p-2.5 flex flex-col justify-between">
+                    <div className="rounded-lg border border-border-subtle bg-bg-base p-2.5 flex flex-col justify-between">
                         <p className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Status</p>
                         <span
                             className={`inline-flex mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold text-center justify-center uppercase ${
                                 !coupon.isActive
-                                    ? "bg-gray-100 text-gray-700"
+                                    ? "bg-white/10 text-text-muted border border-border-subtle/50"
                                     : isExpired
-                                    ? "bg-red-100 text-red-700"
-                                    : "bg-green-100 text-green-700"
+                                    ? "bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                                    : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                             }`}
                         >
                             {!coupon.isActive ? "Inactive" : isExpired ? "Expired" : "Active"}

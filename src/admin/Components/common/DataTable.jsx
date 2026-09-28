@@ -26,7 +26,7 @@ export default function DataTable({
       {mobileCardRender && (
         <div className="block md:hidden space-y-4">
           {data.length === 0 ? (
-            <div className="bg-bg-surface p-8 text-center text-text-muted rounded-2xl border border-border-base shadow-xs text-xs font-bold">
+            <div className="bg-card p-8 text-center text-text-muted rounded-2xl border border-border-subtle shadow-xs text-xs font-bold">
               {emptyMessage}
             </div>
           ) : (
@@ -36,11 +36,11 @@ export default function DataTable({
       )}
 
       {/* 2. Desktop & Tablet Data Table (Always formatted consistently) */}
-      <div className={`${mobileCardRender ? 'hidden md:block' : 'block'} bg-bg-surface rounded-2xl border border-border-base shadow-xs overflow-hidden text-xs`}>
+      <div className={`${mobileCardRender ? 'hidden md:block' : 'block'} bg-card rounded-2xl border border-border-subtle shadow-xs overflow-hidden text-xs`}>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-border-base bg-bg-base/70 text-text-muted text-[11px] font-black uppercase tracking-wider">
+              <tr className="border-b border-border-subtle bg-bg-base text-text-muted text-[11px] font-black uppercase tracking-wider">
                 {columns.map((col, idx) => (
                   <th
                     key={col.key || idx}
@@ -51,7 +51,7 @@ export default function DataTable({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-base/60 text-text-base font-semibold">
+            <tbody className="divide-y divide-border-subtle text-text-base font-semibold">
               {data.length === 0 ? (
                 <tr>
                   <td colSpan={columns.length} className="px-6 py-12 text-center text-text-muted font-bold text-xs">
@@ -63,7 +63,7 @@ export default function DataTable({
                   <tr
                     key={getRowKey(item, rowIndex)}
                     onClick={() => onRowClick && onRowClick(item, rowIndex)}
-                    className={`hover:bg-bg-base/40 transition-colors duration-150 align-middle ${onRowClick ? 'cursor-pointer group' : ''}`}
+                    className={`hover:bg-card-hover transition-colors duration-150 align-middle ${onRowClick ? 'cursor-pointer group' : ''}`}
                   >
                     {columns.map((col, colIdx) => (
                       <td

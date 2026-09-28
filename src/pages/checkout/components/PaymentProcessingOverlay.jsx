@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 export default function PaymentProcessingOverlay({ orderId }) {
   return (
@@ -19,7 +19,7 @@ export default function PaymentProcessingOverlay({ orderId }) {
         <p className="text-text-muted text-sm font-semibold mb-8 text-amber-500">Do not close this page or press back.</p>
 
         {orderId && (
-          <div className="bg-bg-surface rounded-xl px-5 py-3 border border-border-base mb-6">
+          <div className="bg-bg-surface rounded-xl px-5 py-3 border border-border-subtle mb-6">
             <p className="text-xs text-text-muted">Order Reference</p>
             <p className="text-sm font-mono font-semibold text-text-base truncate">{orderId}</p>
           </div>

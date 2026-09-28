@@ -69,10 +69,10 @@ export default function RecentActivityFeed({ activities: initialActivities = [],
   const isLoading = parentLoading || isRefreshing;
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl p-5 shadow-xs flex flex-col h-full">
-      <div className="flex items-center justify-between pb-4 border-b border-border-base/60">
+    <div className="bg-card border border-border-subtle rounded-2xl p-5 shadow-xs flex flex-col h-full">
+      <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
             <FaHistory size={14} />
           </div>
           <div>
@@ -87,14 +87,14 @@ export default function RecentActivityFeed({ activities: initialActivities = [],
             type="button"
             onClick={handleRefresh}
             disabled={isLoading}
-            className="p-1.5 rounded-lg border border-border-base bg-bg-base hover:bg-bg-surface text-text-muted hover:text-primary transition cursor-pointer flex items-center gap-1 text-[11px] font-bold active:scale-95 disabled:opacity-50"
+            className="p-1.5 rounded-lg border border-border-subtle bg-bg-surface hover:bg-card-hover text-text-muted hover:text-primary transition cursor-pointer flex items-center gap-1 text-[11px] font-bold active:scale-95 disabled:opacity-50"
             title="Refresh Activity Logs"
           >
             <FaRedo size={11} className={isLoading ? "animate-spin text-primary" : ""} />
             <span className="hidden sm:inline">Refresh</span>
           </button>
 
-          <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-primary/10 text-primary uppercase">
+          <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary uppercase">
             Live Feed
           </span>
         </div>
@@ -115,9 +115,9 @@ export default function RecentActivityFeed({ activities: initialActivities = [],
           activities.map((act) => (
             <div
               key={act.id}
-              className="flex items-start gap-3 p-3 rounded-xl bg-bg-base/50 border border-border-base/40 hover:border-primary/30 transition-all text-xs"
+              className="flex items-start gap-3 p-3 rounded-xl bg-bg-base border border-border-subtle hover:border-primary/40 transition-all text-xs"
             >
-              <div className="p-2 rounded-lg bg-bg-surface border border-border-base/50 shrink-0 mt-0.5">
+              <div className="p-2 rounded-lg bg-card border border-border-subtle shrink-0 mt-0.5">
                 {getActivityIcon(act.type)}
               </div>
               <div className="flex-1 min-w-0">
@@ -132,7 +132,7 @@ export default function RecentActivityFeed({ activities: initialActivities = [],
                 )}
                 {act.userEmail && (
                   <div className="mt-1 flex items-center gap-1.5">
-                    <span className="inline-block px-1.5 py-0.2 rounded bg-bg-surface border border-border-base text-[9px] font-bold text-text-muted">
+                    <span className="inline-block px-1.5 py-0.5 rounded bg-card border border-border-subtle text-[9px] font-bold text-text-muted">
                       By: {act.userEmail}
                     </span>
                   </div>

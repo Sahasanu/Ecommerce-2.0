@@ -51,23 +51,23 @@ export default function DraftRecoveryDialog({ formName = 'Product', draftMeta, o
     <div
       role="alert"
       aria-live="polite"
-      className="flex items-center justify-between flex-wrap gap-3.5 p-4 sm:px-5 rounded-xl bg-amber-500/10 dark:bg-amber-500/10 border border-amber-500/30 dark:border-amber-500/40 backdrop-blur-md transition-all shadow-sm"
+      className="flex items-center justify-between flex-wrap gap-3.5 p-4 sm:px-5 rounded-2xl bg-card border border-border-gold/40 backdrop-blur-md transition-all shadow-sm"
     >
       {/* Icon + Copy */}
       <div className="flex items-start gap-3">
-        <div className="p-2 rounded-lg bg-amber-500/20 text-amber-500 shrink-0 mt-0.5">
+        <div className="p-2 rounded-lg bg-primary/15 text-primary shrink-0 mt-0.5">
           <FaFileAlt className="w-4 h-4" />
         </div>
         <div>
-          <p className="font-bold text-sm text-amber-500 dark:text-amber-400 tracking-wide">
+          <p className="font-bold text-sm text-primary tracking-wide">
             Unsaved Draft Found
           </p>
-          <p className="text-xs sm:text-sm text-amber-600/90 dark:text-amber-300/90 mt-0.5">
+          <p className="text-xs sm:text-sm text-text-muted mt-0.5">
             You have an unfinished {formName} draft.
           </p>
           {timeLabel && (
-            <p className="text-xs text-amber-600/75 dark:text-amber-400/75 mt-1">
-              Last edited: <strong className="font-semibold text-amber-600 dark:text-amber-300">{timeLabel}</strong>
+            <p className="text-xs text-text-subtle mt-1">
+              Last edited: <strong className="font-semibold text-text-muted">{timeLabel}</strong>
             </p>
           )}
         </div>
@@ -80,7 +80,7 @@ export default function DraftRecoveryDialog({ formName = 'Product', draftMeta, o
           id="draft-recovery-discard-btn"
           type="button"
           onClick={onDiscard}
-          className="px-4 py-2 rounded-lg border border-amber-500/30 hover:border-amber-500/60 bg-transparent hover:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs sm:text-sm font-medium transition-all duration-150 cursor-pointer"
+          className="px-4 py-2 rounded-xl border border-border-subtle hover:border-primary/60 bg-bg-base hover:bg-card-hover text-text-muted hover:text-text-base text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer"
         >
           Discard Draft
         </button>
@@ -90,7 +90,7 @@ export default function DraftRecoveryDialog({ formName = 'Product', draftMeta, o
           id="draft-recovery-continue-btn"
           type="button"
           onClick={onRestore}
-          className="px-4 py-2 rounded-lg border-0 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs sm:text-sm font-semibold shadow-md hover:shadow-amber-500/25 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
+          className="px-4 py-2 rounded-xl border-0 bg-primary hover:bg-primary-hover text-compli text-xs sm:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
         >
           Continue Editing
         </button>

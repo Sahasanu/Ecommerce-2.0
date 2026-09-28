@@ -33,10 +33,10 @@ export default function ProductMobileCard({
   return (
     <div
       key={index}
-      className="group bg-bg-surface rounded-2xl border border-border-base/60 shadow-xs hover:shadow-md transition-all duration-300 p-4"
+      className="group bg-card rounded-2xl border border-border-subtle shadow-xs hover:border-primary/40 transition-all duration-300 p-4"
     >
       <div className="flex gap-3">
-        <div className="w-20 h-20 sm:w-16 sm:h-16 rounded-xl overflow-hidden border border-border-base bg-bg-base shrink-0 flex items-center justify-center relative">
+        <div className="w-20 h-20 sm:w-16 sm:h-16 rounded-xl overflow-hidden border border-border-subtle bg-bg-base shrink-0 flex items-center justify-center relative">
           <img src={imageUrl} alt={title} className="w-full h-full object-contain" />
         </div>
 
@@ -78,7 +78,7 @@ export default function ProductMobileCard({
         </div>
       </div>
 
-      <div className="my-4 border-t border-border-base/60" />
+      <div className="my-4 border-t border-border-subtle" />
 
       <div className="grid grid-cols-2 gap-3">
         <button
@@ -91,7 +91,7 @@ export default function ProductMobileCard({
         <button
           type="button"
           onClick={() => onDeleteClick && onDeleteClick(item)}
-          className="h-11 rounded-xl text-rose-500 font-semibold text-sm flex items-center justify-center cursor-pointer gap-2 hover:bg-rose-100 transition"
+          className="h-11 rounded-xl text-rose-500 font-semibold text-sm flex items-center justify-center cursor-pointer gap-2 hover:bg-rose-500/10 transition"
         >
           <FaTrash size={14} /> Delete
         </button>

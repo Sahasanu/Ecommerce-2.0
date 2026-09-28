@@ -68,24 +68,13 @@ export default function ProductPurchase({
             onClick={handleAddToCart}
             disabled={isButtonDisabled}
             className={`flex-grow py-2 px-4 rounded-full font-extrabold text-xs flex items-center justify-center gap-2 hover:shadow-md transition-all active:scale-[0.98] ${isButtonDisabled
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none'
-                : 'bg-bg-surface border border-border-base text-text-base hover:bg-bg-surface/80'
+                ? 'bg-bg-base border border-border-subtle/50 text-text-subtle cursor-not-allowed hover:shadow-none opacity-50'
+                : 'bg-bg-surface border border-border-subtle text-text-base hover:bg-card-hover hover:border-primary/50 cursor-pointer'
               }`}
           >
             <span className="material-symbols-outlined text-lg">shopping_bag</span>
             ADD TO CART
           </button>
-
-          {/* WhatsApp Enquiry Button */}
-          {/* <a
-            href={`https://wa.me/9564140786?text=${encodeURIComponent(whatsappText)}`}
-            target="_blank"
-            rel="noreferrer"
-            className="h-11 w-11 flex-shrink-0 bg-emerald-500 text-white rounded-full flex items-center justify-center hover:bg-emerald-600 transition-all active:scale-[0.98]"
-            aria-label="Enquire on WhatsApp"
-          >
-            <i className="fa-brands fa-whatsapp fa-lg"></i>
-          </a> */}
         </div>
 
         {/* Buy Now Action */}
@@ -93,8 +82,8 @@ export default function ProductPurchase({
           onClick={handleBuyNow}
           disabled={isButtonDisabled}
           className={`w-full h-12 rounded-full font-extrabold text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-md shadow-primary/10 ${isButtonDisabled
-              ? 'bg-gray-200 text-gray-400 cursor-not-allowed hover:shadow-none'
-              : 'bg-primary hover:bg-primary-hover text-compli'
+              ? 'bg-bg-base border border-border-subtle/50 text-text-subtle cursor-not-allowed hover:shadow-none opacity-50'
+              : 'bg-primary hover:bg-primary-hover text-compli cursor-pointer font-black'
             }`}
         >
           BUY NOW

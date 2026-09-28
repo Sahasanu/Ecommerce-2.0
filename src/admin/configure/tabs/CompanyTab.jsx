@@ -22,8 +22,8 @@ const Input = ({ value, onChange, placeholder, type = "text", disabled = false, 
         placeholder={placeholder}
         disabled={disabled}
         readOnly={readOnly}
-        className={`w-full h-11 rounded-xl border border-border-base bg-white px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all ${
-            disabled || readOnly ? "bg-gray-100/90 text-gray-500 cursor-not-allowed border-gray-200 select-none" : ""
+        className={`w-full h-11 rounded-xl border border-border-subtle bg-bg-base px-4 text-sm font-medium text-text-base placeholder:text-text-subtle focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all ${
+            disabled || readOnly ? "bg-bg-surface text-text-muted cursor-not-allowed border-border-subtle select-none" : ""
         } ${className}`}
     />
 );
@@ -75,10 +75,10 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
     };
 
     return (
-        <div className="space-y-4 bg-bg-surface p-4 rounded-2xl border border-border-base/60">
+        <div className="space-y-4 bg-bg-surface p-4 rounded-2xl border border-border-subtle">
             {/* Preview panel with transparency checkerboard */}
-            <div className={`relative h-40 rounded-2xl border-2 border-dashed overflow-hidden bg-bg-base flex items-center justify-center transition-colors bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:12px_12px] ${
-                displayUrl ? "border-primary/40" : "border-border-base"
+            <div className={`relative h-40 rounded-2xl border-2 border-dashed overflow-hidden bg-bg-base flex items-center justify-center transition-colors bg-[radial-gradient(#3a2d0b_1px,transparent_1px)] [background-size:12px_12px] ${
+                displayUrl ? "border-primary/40" : "border-border-subtle"
             }`}>
                 {displayUrl ? (
                     <>
@@ -88,14 +88,14 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
                             className="max-h-full max-w-full object-contain p-4 drop-shadow-xs"
                         />
                         {localPreview && (
-                            <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider shadow-xs">
+                            <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-primary text-compli text-[10px] font-bold uppercase tracking-wider shadow-xs">
                                 Unsaved
                             </div>
                         )}
                     </>
                 ) : (
                     <div className="text-center">
-                        <span className="material-symbols-outlined text-4xl text-gray-300">image</span>
+                        <span className="material-symbols-outlined text-4xl text-text-subtle">image</span>
                         <p className="mt-2 text-xs text-text-muted font-medium">No {label} set</p>
                     </div>
                 )}
@@ -111,7 +111,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
                         <span>Uploading...</span>
                         <span>{progress}%</span>
                     </div>
-                    <div className="h-2 rounded-full bg-gray-150 overflow-hidden">
+                    <div className="h-2 rounded-full bg-bg-base border border-border-subtle/50 overflow-hidden">
                         <div
                             className="h-full bg-primary transition-all duration-300"
                             style={{ width: `${progress}%` }}
@@ -135,7 +135,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
                         <button
                             type="button"
                             onClick={handleDiscard}
-                            className="h-10 px-3.5 rounded-xl border border-border-base bg-white hover:bg-gray-50 text-text-muted font-bold text-xs transition-colors cursor-pointer shrink-0"
+                            className="h-10 px-3.5 rounded-xl border border-border-subtle bg-card hover:bg-card-hover text-text-base font-bold text-xs transition-colors cursor-pointer shrink-0"
                         >
                             Discard
                         </button>
@@ -143,7 +143,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
                 )}
 
                 <label className="block">
-                    <span className="w-full h-10 rounded-xl border border-border-base bg-white hover:bg-gray-50 text-text-base font-bold text-xs transition-colors flex items-center justify-center cursor-pointer shadow-xs gap-1.5">
+                    <span className="w-full h-10 rounded-xl border border-border-subtle bg-card hover:bg-card-hover text-text-base font-bold text-xs transition-colors flex items-center justify-center cursor-pointer shadow-xs gap-1.5">
                         <span className="material-symbols-outlined text-base">photo_camera</span>
                         <span>{displayUrl ? `Replace ${label}` : `Select ${label}`}</span>
                     </span>
@@ -203,6 +203,24 @@ export default function CompanyTab({ draft, updateDraft }) {
                         value={draft.companyTagline}
                         onChange={(e) => updateDraft({ companyTagline: e.target.value })}
                         placeholder="Quality you can trust."
+                    />
+                </Field>
+            </div>
+
+            {/* Founder Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                <Field label="Founder Name">
+                    <Input
+                        value={draft.founderName || ""}
+                        onChange={(e) => updateDraft({ founderName: e.target.value })}
+                        placeholder="e.g. SK Abdul Ohid"
+                    />
+                </Field>
+                <Field label="Founder Phone Number">
+                    <Input
+                        value={draft.founderPhone || ""}
+                        onChange={(e) => updateDraft({ founderPhone: e.target.value })}
+                        placeholder="e.g. +91 95641 40786"
                     />
                 </Field>
             </div>

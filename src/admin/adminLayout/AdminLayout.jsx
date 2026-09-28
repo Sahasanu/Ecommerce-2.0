@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/auth/useAuth';
-import { FaShoppingCart, FaBoxes, FaUsers, FaChartBar, FaStar, FaBandcamp } from 'react-icons/fa';
+import { FaShoppingCart, FaBoxes, FaUsers, FaChartBar, FaStar, FaBandcamp, FaYoutube, FaUserTie, FaAward } from 'react-icons/fa';
 import { RiCoupon2Fill } from "react-icons/ri";
 import { useSiteConfig } from '../../context/SiteConfigContext';
 import WarningModal from '../../components/modal/WarningModal';
@@ -37,6 +37,9 @@ export default function AdminLayout({ children, activeView = 'products', onViewC
         { id: 'users', label: 'Users', icon: <FaUsers size={16} /> },
         { id: 'coupons', label: 'Coupons', icon: <RiCoupon2Fill size={16} /> },
         { id: 'reviews', label: 'Reviews', icon: <FaStar size={16} /> },
+        { id: 'videos', label: 'Videos', icon: <FaYoutube size={16} /> },
+        { id: 'team', label: 'Team', icon: <FaUserTie size={16} /> },
+        { id: 'brands', label: 'Brands', icon: <FaAward size={16} /> },
         { id: 'configure', label: 'Configure', icon: <FaBandcamp size={16} /> }
     ];
 
@@ -59,6 +62,15 @@ export default function AdminLayout({ children, activeView = 'products', onViewC
                 break;
             case 'reviews':
                 navigate('/reviews');
+                break;
+            case 'videos':
+                navigate('/admin/videos');
+                break;
+            case 'team':
+                navigate('/admin/team');
+                break;
+            case 'brands':
+                navigate('/configure?tab=brands');
                 break;
             case 'configure':
                 navigate('/configure');
@@ -85,6 +97,7 @@ export default function AdminLayout({ children, activeView = 'products', onViewC
     const getHeaderTitle = () => {
         if (location.pathname === '/addproduct') return 'Add New Product';
         if (location.pathname === '/updateproduct') return 'Update Product Details';
+        if (location.pathname === '/admin/videos') return 'Content → Videos';
         if (activeView === 'overview') return 'Dashboard';
         return `${activeView.charAt(0).toUpperCase() + activeView.slice(1)}`;
     };

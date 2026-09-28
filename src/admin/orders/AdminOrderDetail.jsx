@@ -42,24 +42,24 @@ const COD_STATUS_STEPS = [
 ];
 
 const STATUS_BADGE_STYLES = {
-  PAYMENT_PENDING: "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300",
-  PLACED: "bg-indigo-100 text-indigo-800 border-indigo-300 dark:bg-indigo-950/40 dark:text-indigo-300",
-  CONFIRMED: "bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/40 dark:text-blue-300",
-  PACKED: "bg-purple-100 text-purple-800 border-purple-300 dark:bg-purple-950/40 dark:text-purple-300",
-  SHIPPED: "bg-cyan-100 text-cyan-800 border-cyan-300 dark:bg-cyan-950/40 dark:text-cyan-300",
-  IN_TRANSIT: "bg-teal-100 text-teal-800 border-teal-300 dark:bg-teal-950/40 dark:text-teal-300",
-  OUT_FOR_DELIVERY: "bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-950/40 dark:text-orange-300",
-  DELIVERED: "bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-300",
-  CANCELLED: "bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-950/40 dark:text-rose-300",
-  REFUNDED: "bg-slate-200 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300",
+  PAYMENT_PENDING: "bg-transparent text-amber-500 font-extrabold border border-amber-500/30",
+  PLACED: "bg-transparent text-indigo-400 font-extrabold border border-indigo-500/30",
+  CONFIRMED: "bg-transparent text-blue-400 font-extrabold border border-blue-500/30",
+  PACKED: "bg-transparent text-purple-400 font-extrabold border border-purple-500/30",
+  SHIPPED: "bg-transparent text-sky-400 font-extrabold border border-sky-500/30",
+  IN_TRANSIT: "bg-transparent text-teal-400 font-extrabold border border-teal-500/30",
+  OUT_FOR_DELIVERY: "bg-transparent text-amber-500 font-extrabold border border-amber-500/30",
+  DELIVERED: "bg-transparent text-emerald-400 font-extrabold border border-emerald-500/30",
+  CANCELLED: "bg-transparent text-rose-500 font-extrabold border border-rose-500/30",
+  REFUNDED: "bg-transparent text-text-muted font-extrabold border border-border-subtle",
 };
 
 const PAYMENT_BADGE_STYLES = {
-  Pending: "bg-amber-100 text-amber-700 border-amber-200",
-  Success: "bg-emerald-100 text-emerald-700 border-emerald-200",
-  Paid: "bg-emerald-100 text-emerald-700 border-emerald-200",
-  Failed: "bg-rose-100 text-rose-700 border-rose-200",
-  Refunded: "bg-blue-100 text-blue-700 border-blue-200",
+  Pending: "bg-transparent text-amber-500 font-extrabold border border-amber-500/30",
+  Success: "bg-transparent text-emerald-400 font-extrabold border border-emerald-500/30",
+  Paid: "bg-transparent text-emerald-400 font-extrabold border border-emerald-500/30",
+  Failed: "bg-transparent text-rose-500 font-extrabold border border-rose-500/30",
+  Refunded: "bg-transparent text-blue-400 font-extrabold border border-blue-500/30",
 };
 
 function formatDate(dateVal) {
@@ -276,7 +276,7 @@ export default function AdminOrderDetail() {
         <p className="text-xs text-text-muted">The requested order ID does not exist or has been deleted.</p>
         <button
           onClick={() => navigate("/orders")}
-          className="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold shadow-sm hover:opacity-90 transition cursor-pointer"
+          className="px-5 py-2.5 rounded-xl bg-primary text-compli text-xs font-bold shadow-sm hover:bg-primary-hover transition cursor-pointer"
         >
           Back to Orders
         </button>

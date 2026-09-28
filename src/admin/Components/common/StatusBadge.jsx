@@ -169,7 +169,7 @@ export default function StatusBadge({
 
     default:
       defaultLabel = defaultLabel || status.replace(/_/g, ' ');
-      badgeColorClasses = 'bg-transparent text-text-muted border border-border-base';
+      badgeColorClasses = 'bg-transparent text-text-muted border border-border-subtle';
       break;
   }
 

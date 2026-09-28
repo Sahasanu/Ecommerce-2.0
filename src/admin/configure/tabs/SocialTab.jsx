@@ -35,8 +35,8 @@ export default function SocialTab({ draft, updateDraft }) {
                         key={link.platform}
                         className={`flex flex-col gap-3.5 p-4 rounded-2xl border transition-all ${
                             link.isActive
-                                ? "border-primary/30 bg-primary/5 shadow-xs"
-                                : "border-border-base bg-bg-surface"
+                                ? "border-primary/40 bg-primary/10 shadow-xs"
+                                : "border-border-subtle bg-bg-surface"
                         }`}
                     >
                         {/* Top Info and Toggle Row */}
@@ -55,7 +55,7 @@ export default function SocialTab({ draft, updateDraft }) {
                                     onChange={(e) => update(link.platform, "isActive", e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:bg-primary transition relative after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-4 cursor-pointer" />
+                                <div className="w-9 h-5 bg-bg-base border border-border-subtle rounded-full peer peer-checked:bg-primary peer-checked:border-primary transition relative after:absolute after:top-0.5 after:left-0.5 after:w-3.5 after:h-3.5 after:bg-text-muted peer-checked:after:bg-compli after:rounded-full after:transition-all peer-checked:after:translate-x-4 cursor-pointer" />
                             </label>
                         </div>
 
@@ -70,7 +70,7 @@ export default function SocialTab({ draft, updateDraft }) {
                                         ? "e.g. 919876543210 or https://wa.me/919876543210"
                                         : `https://${link.platform}.com/yourpage`
                                 }
-                                className="w-full h-11 px-4 rounded-xl border border-border-base bg-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
+                                className="w-full h-11 px-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
                             />
                         )}
                     </div>

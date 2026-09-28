@@ -92,7 +92,7 @@ export default function ProductInfo({
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
-                  className="material-symbols-outlined text-[16px] text-gray-300 opacity-60"
+                  className="material-symbols-outlined text-[16px] text-text-subtle opacity-40"
                 >
                   star
                 </span>
@@ -111,10 +111,10 @@ export default function ProductInfo({
               </span>
               {discountPct && (
                 <>
-                  <span className="text-text-muted line-through text-sm">
+                  <span className="text-text-subtle line-through text-sm">
                     ₹{Number(activeOriginalPrice || 0).toLocaleString('en-IN')}
                   </span>
-                  <span className="bg-green-200 text-green-800 font-bold px-3 py-1 rounded-full text-xs">
+                  <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold px-2.5 py-0.5 rounded-full text-xs">
                     {discountPct}% OFF
                   </span>
                 </>

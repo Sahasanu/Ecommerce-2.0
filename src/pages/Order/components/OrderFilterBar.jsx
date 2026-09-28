@@ -28,13 +28,13 @@ function OrderFilterBar({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by Order ID, item title, or status..."
-            className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-border-base bg-bg-surface text-text-base text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 font-medium transition"
+            className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-xs focus:outline-none focus:border-primary font-medium transition"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-base p-1"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-base p-1 cursor-pointer"
             >
               <FaTimes size={12} />
             </button>
@@ -43,7 +43,7 @@ function OrderFilterBar({
       </div>
 
       {/* Filter Tabs Header */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar border-b border-border-base/50">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar border-b border-border-subtle">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -53,16 +53,16 @@ function OrderFilterBar({
               onClick={() => setActiveTab(tab.id)}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer ${
                 isActive
-                  ? "bg-primary text-white shadow-xs"
-                  : "bg-bg-surface text-text-muted hover:text-text-base border border-border-base/60 hover:bg-bg-base"
+                  ? "bg-primary text-compli shadow-xs font-black"
+                  : "bg-card text-text-muted hover:text-text-base border border-border-subtle hover:bg-card-hover"
               }`}
             >
               <span>{tab.label}</span>
               <span
                 className={`px-1.5 py-0.5 rounded-md text-[10px] font-black ${
                   isActive
-                    ? "bg-white/20 text-white"
-                    : "bg-bg-base text-text-muted border border-border-base/50"
+                    ? "bg-black/20 text-compli"
+                    : "bg-bg-base text-text-muted border border-border-subtle"
                 }`}
               >
                 {tab.count}

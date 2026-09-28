@@ -12,10 +12,10 @@ export default function RecentOrdersTable({ orders = [], onViewAll }) {
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div className="bg-bg-surface border border-border-base rounded-2xl p-5 shadow-xs flex flex-col h-full">
-      <div className="flex items-center justify-between pb-4 border-b border-border-base/60">
+    <div className="bg-card border border-border-subtle rounded-2xl p-5 shadow-xs flex flex-col h-full">
+      <div className="flex items-center justify-between pb-4 border-b border-border-subtle">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
             <FaShoppingBag size={14} />
           </div>
           <div>
@@ -37,14 +37,14 @@ export default function RecentOrdersTable({ orders = [], onViewAll }) {
       <div className="overflow-x-auto mt-3">
         <table className="w-full text-xs text-left border-collapse">
           <thead>
-            <tr className="border-b border-border-base/50 text-[10px] text-text-muted uppercase font-extrabold tracking-wider">
+            <tr className="border-b border-border-subtle text-[10px] text-text-muted uppercase font-extrabold tracking-wider">
               <th className="py-2.5 px-3">Order ID</th>
               <th className="py-2.5 px-3">Customer</th>
               <th className="py-2.5 px-3 text-center">Status</th>
               <th className="py-2.5 px-3 text-right">Amount</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border-base/30 font-semibold">
+          <tbody className="divide-y divide-border-subtle font-semibold">
             {recentOrders.length === 0 ? (
               <tr>
                 <td colSpan="4" className="py-8 text-center text-text-muted font-bold">
@@ -56,7 +56,7 @@ export default function RecentOrdersTable({ orders = [], onViewAll }) {
                 const norm = normalizeOrder(ord);
 
                 return (
-                  <tr key={ord.id || norm.targetId} className="hover:bg-bg-base/30 transition-colors">
+                  <tr key={ord.id || norm.targetId} className="hover:bg-card-hover transition-colors">
                     <td className="py-3 px-3 font-mono font-extrabold text-text-base text-xs">
                       #{norm.displayId.slice(0, 10)}
                     </td>

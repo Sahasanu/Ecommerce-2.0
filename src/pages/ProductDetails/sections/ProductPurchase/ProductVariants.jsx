@@ -37,10 +37,10 @@ export default function ProductVariants({
                     onClick={() => selectOption(type.name, val)}
                     className={`px-5 py-2 border rounded-full text-xs font-semibold transition-all duration-200 ${
                       isSelected
-                        ? 'border-primary bg-primary text-compli ring-2 ring-primary/20 cursor-default'
+                        ? 'border-primary bg-primary text-compli font-bold ring-2 ring-primary/20 cursor-default'
                         : isEnabled
-                          ? 'border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:border-gray-400 cursor-pointer'
-                          : 'border-gray-200/90 bg-gray-300/80 text-gray-800 opacity-40 cursor-not-allowed line-through'
+                          ? 'border-border-subtle bg-bg-surface text-text-base hover:bg-card-hover hover:text-primary hover:border-primary/50 cursor-pointer'
+                          : 'border-border-subtle/50 bg-bg-base text-text-subtle opacity-40 cursor-not-allowed line-through'
                     }`}
                   >
                     {val}

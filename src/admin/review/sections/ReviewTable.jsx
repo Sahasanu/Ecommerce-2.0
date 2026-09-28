@@ -51,7 +51,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                 {paginatedReviews.map((review) => {
                     const productName = products[review.productId] || review.productId;
                     return (
-                        <div key={review.id} className="bg-white p-6 rounded-2xl border border-border-base shadow-xs space-y-4">
+                        <div key={review.id} className="bg-card p-6 rounded-2xl border border-border-subtle shadow-xs space-y-4">
                             <div className="flex justify-between items-start gap-2">
                                 <div className="space-y-1">
                                     <p className="font-bold text-sm text-text-base">
@@ -64,23 +64,23 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                 </span>
                             </div>
 
-                            <div className="bg-gray-50/55 p-3 rounded-xl space-y-1">
+                            <div className="bg-bg-base p-3 rounded-xl space-y-1 border border-border-subtle/40">
                                 <div className="text-[10px] uppercase tracking-wider font-bold text-text-muted">Product</div>
                                 <div className="font-bold text-primary text-xs truncate">
                                     {productName}
                                 </div>
                             </div>
 
-                            <p className="text-sm text-text-base leading-relaxed bg-gray-50/30 p-4 rounded-xl border border-border-base/50">
+                            <p className="text-sm text-text-base leading-relaxed bg-bg-base p-4 rounded-xl border border-border-subtle/50">
                                 {review.review || "—"}
                             </p>
 
-                            <div className="border-t border-border-base my-2"></div>
+                            <div className="border-t border-border-subtle my-2"></div>
 
                             <div className="flex justify-end">
                                 <button
                                     onClick={() => onDelete(review)}
-                                    className="w-full h-11 flex items-center justify-center gap-2 text-rose-600 bg-rose-50 border border-rose-100 hover:bg-rose-100 rounded-xl text-sm font-bold transition duration-150 cursor-pointer"
+                                    className="w-full h-11 flex items-center justify-center gap-2 text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl text-sm font-bold transition duration-150 cursor-pointer"
                                 >
                                     <FaTrash size={12} />
                                     <span>Delete Review</span>
@@ -90,7 +90,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                     );
                 })}
                 {reviews.length === 0 && (
-                    <div className="bg-white p-8 text-center text-text-muted rounded-2xl border border-border-base shadow-xs">
+                    <div className="bg-card p-8 text-center text-text-muted rounded-2xl border border-border-subtle shadow-xs">
                         <div className="flex flex-col items-center gap-2 py-4">
                             <span className="text-3xl">💬</span>
                             <p className="font-bold text-text-base text-sm">No reviews found</p>
@@ -101,11 +101,11 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
             </div>
 
             {/* Desktop/Tablet Table (Hidden on mobile) */}
-            <div className="hidden md:block bg-white border border-border-base rounded-2xl shadow-xs overflow-hidden">
+            <div className="hidden md:block bg-card border border-border-subtle rounded-2xl shadow-xs overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="border-b border-border-base bg-gray-50/50 text-text-muted text-xs font-bold uppercase tracking-wider">
+                            <tr className="border-b border-border-subtle bg-bg-base text-text-muted text-xs font-bold uppercase tracking-wider">
                                 <th className="px-6 py-4 w-32">Rating</th>
                                 <th className="px-6 py-4 w-44">Reviewer</th>
                                 <th className="px-6 py-4">Product</th>
@@ -115,7 +115,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-border-base text-sm text-text-base">
+                        <tbody className="divide-y divide-border-subtle text-sm text-text-base">
                             {reviews.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-12 text-center text-text-muted">
@@ -134,7 +134,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                 return (
                                     <tr
                                         key={review.id}
-                                        className="hover:bg-gray-50/20 transition-colors"
+                                        className="hover:bg-card-hover transition-colors"
                                     >
                                         {/* Rating stars */}
                                         <td className="px-6 py-4">
@@ -184,7 +184,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                             <button
                                                 type="button"
                                                 onClick={() => onDelete(review)}
-                                                className="w-9 h-9 flex items-center justify-center text-rose-600 hover:bg-rose-50 rounded-xl transition duration-150 cursor-pointer mx-auto"
+                                                className="w-9 h-9 flex items-center justify-center text-rose-400 hover:bg-rose-500/15 rounded-xl transition duration-150 cursor-pointer mx-auto"
                                                 title="Delete Review"
                                             >
                                                 <FaTrash size={14} />

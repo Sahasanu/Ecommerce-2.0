@@ -75,8 +75,8 @@ function renderStatusBadge(statusRaw, paymentStatRaw, paymentModeRaw, orderObj =
   if (isCod) {
     if (raw === "CANCELLED" || raw === "ORDER_CANCELLED") {
       return (
-        <span className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-          <FaTimesCircle className="text-gray-500" size={11} />
+        <span className="flex items-center gap-1.5 text-[10px] font-bold text-text-subtle uppercase tracking-wider">
+          <FaTimesCircle className="text-text-subtle" size={11} />
           <span>CANCELLED</span>
         </span>
       );
@@ -151,8 +151,8 @@ function renderStatusBadge(statusRaw, paymentStatRaw, paymentModeRaw, orderObj =
 
   if (raw === "CANCELLED" || raw === "ORDER_CANCELLED") {
     return (
-      <span className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-        <FaTimesCircle className="text-gray-500" size={11} />
+      <span className="flex items-center gap-1.5 text-[10px] font-bold text-text-subtle uppercase tracking-wider">
+        <FaTimesCircle className="text-text-subtle" size={11} />
         <span>CANCELLED</span>
       </span>
     );
@@ -248,7 +248,7 @@ export default function OrdersTab({ orders = [] }) {
   return (
     <div className="space-y-3.5 text-xs">
       {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-border-base/50">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-border-subtle">
         <div className="flex items-baseline justify-between sm:block">
           <h2 className="text-sm sm:text-base font-extrabold text-text-base tracking-tight">My Orders</h2>
           <p className="text-[10px] text-text-muted sm:mt-0.5">{orders.length} total orders recorded</p>
@@ -257,13 +257,13 @@ export default function OrdersTab({ orders = [] }) {
         {/* Search */}
         <div className="w-full sm:w-60">
           <div className="relative">
-            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[11px]" />
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-text-subtle text-[11px]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search orders..."
-              className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-border-base/70 bg-bg-base/60 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-text-muted/60"
+              className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-border-subtle bg-bg-base text-text-base text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-text-subtle"
             />
           </div>
         </div>
@@ -287,10 +287,10 @@ export default function OrdersTab({ orders = [] }) {
               <div
                 key={o.id || o.orderId || idx}
                 onClick={() => navigate(`/order/${targetOrderId}`, { state: { order: o } })}
-                className="group bg-bg-surface hover:bg-bg-surface/80 border border-border-base/70 hover:border-primary/50 rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-sm transition-all duration-200 space-y-3 cursor-pointer relative overflow-hidden"
+                className="group bg-card hover:bg-card-hover border border-border-subtle hover:border-primary/40 rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 space-y-3 cursor-pointer relative overflow-hidden"
               >
                 {/* ── Top Header Row: Status Badge & Date on Left, Total Amount & Invoice on Right ── */}
-                <div className="flex items-center justify-between gap-3 pb-3 border-b border-border-base/50 flex-wrap sm:flex-nowrap">
+                <div className="flex items-center justify-between gap-3 pb-3 border-b border-border-subtle flex-wrap sm:flex-nowrap">
                   <div className="flex items-center gap-2 flex-wrap min-w-0">
                     {renderStatusBadge(
                       o.orderStatus || o.status,
@@ -312,7 +312,7 @@ export default function OrdersTab({ orders = [] }) {
                     <div onClick={(e) => e.stopPropagation()}>
                       <InvoiceDownloadButton
                         order={o}
-                        buttonClass="px-2.5 py-1 rounded-lg bg-bg-base hover:bg-primary hover:text-white border border-border-base text-text-base text-[10px] sm:text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                        buttonClass="px-2.5 py-1 rounded-lg bg-bg-surface hover:bg-primary hover:text-compli border border-border-subtle text-text-base text-[10px] sm:text-xs font-bold transition-all shadow-2xs flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                         label="Invoice"
                       />
                     </div>
@@ -321,7 +321,7 @@ export default function OrdersTab({ orders = [] }) {
 
                 {/* ── Product Items List + Arrow Icon ── */}
                 <div className="flex items-center justify-between gap-3 pt-0.5">
-                  <div className="divide-y divide-border-base/40 space-y-2.5 min-w-0 flex-1">
+                  <div className="divide-y divide-border-subtle space-y-2.5 min-w-0 flex-1">
                     {items.map((item, itemIdx) => {
                       const itemImg = item.productImage || item.imageUrl || item.images?.[0] || "";
                       const itemTitle = item.productName || item.title || item.name || "Product Item";
@@ -357,7 +357,7 @@ export default function OrdersTab({ orders = [] }) {
                       return (
                         <div key={itemIdx} className={`flex items-center gap-3 ${itemIdx > 0 ? "pt-2.5" : ""}`}>
                           {/* Product Thumbnail */}
-                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-bg-base/30 border border-border-base/60 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-bg-base border border-border-subtle p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
                             {itemImg ? (
                               <img src={itemImg} alt={itemTitle} className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-200" />
                             ) : (
@@ -391,7 +391,7 @@ export default function OrdersTab({ orders = [] }) {
 
                   {/* ── Right Navigation Chevron Arrow ── */}
                   <div className="shrink-0 pl-1">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-bg-base/60 border border-border-base/60 flex items-center justify-center text-text-muted group-hover:text-primary group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:translate-x-1 transition-all duration-200 shadow-2xs">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-bg-base/60 border border-border-subtle flex items-center justify-center text-text-muted group-hover:text-primary group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:translate-x-1 transition-all duration-200 shadow-2xs">
                       <FaChevronRight size={11} />
                     </div>
                   </div>

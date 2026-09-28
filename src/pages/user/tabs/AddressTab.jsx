@@ -95,7 +95,7 @@ export default function AddressTab({ profile, uid: propUid }) {
   return (
     <div className="space-y-3.5 text-xs">
       {/* Header & Add Button */}
-      <div className="flex items-center justify-between flex-wrap gap-2 pb-1.5 border-b border-border-base/50">
+      <div className="flex items-center justify-between flex-wrap gap-2 pb-1.5 border-b border-border-subtle">
         <div>
           <h3 className="text-sm font-extrabold text-text-base">Delivery Addresses</h3>
           <p className="text-[10px] text-text-muted mt-0.5">Manage saved shipping addresses for instant checkout</p>
@@ -116,11 +116,11 @@ export default function AddressTab({ profile, uid: propUid }) {
       {loading ? (
         <div className="space-y-2.5">
           {[1, 2].map((i) => (
-            <div key={i} className="h-20 bg-border-base/40 animate-pulse rounded-xl" />
+            <div key={i} className="h-20 bg-card border border-border-subtle animate-pulse rounded-xl" />
           ))}
         </div>
       ) : addresses.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-8 px-3 border-2 border-dashed border-border-base rounded-2xl text-center bg-bg-base/40">
+        <div className="flex flex-col items-center justify-center py-8 px-3 border-2 border-dashed border-border-subtle rounded-2xl text-center bg-card">
           <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-2">
             <FaMapPin size={16} />
           </div>
@@ -142,7 +142,7 @@ export default function AddressTab({ profile, uid: propUid }) {
           {addresses.map((addr) => (
             <div
               key={addr.addressId}
-              className="relative p-3 sm:p-3.5 rounded-xl border border-border-base/70 bg-bg-surface hover:border-primary/50 transition-all shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
+              className="relative p-3 sm:p-3.5 rounded-xl border border-border-subtle bg-bg-surface hover:bg-card-hover hover:border-primary/40 transition-all shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
             >
               <div className="space-y-1 min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -152,7 +152,7 @@ export default function AddressTab({ profile, uid: propUid }) {
                     {addr.addressType || "HOME"}
                   </span>
                   {addr.isDefault && (
-                    <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
                       <FaCheckCircle size={8} /> Default
                     </span>
                   )}
@@ -168,11 +168,11 @@ export default function AddressTab({ profile, uid: propUid }) {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-1.5 flex-shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-border-base/40">
+              <div className="flex items-center gap-1.5 flex-shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-border-subtle">
                 {!addr.isDefault && (
                   <button
                     onClick={() => handleSetDefault(addr.addressId)}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-base/70 text-text-muted hover:text-emerald-600 hover:border-emerald-300 transition text-[11px] font-semibold cursor-pointer"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-subtle text-text-muted hover:text-emerald-400 hover:border-emerald-500/40 transition text-[11px] font-semibold cursor-pointer"
                   >
                     Set Default
                   </button>
@@ -182,13 +182,13 @@ export default function AddressTab({ profile, uid: propUid }) {
                     setEditingAddress(addr);
                     setModalOpen(true);
                   }}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-base/70 text-text-muted hover:text-primary hover:border-primary transition text-[11px] font-semibold cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-subtle text-text-muted hover:text-primary hover:border-primary transition text-[11px] font-semibold cursor-pointer"
                 >
                   <FaEdit size={10} /> Edit
                 </button>
                 <button
                   onClick={() => handleDelete(addr.addressId)}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-base/70 text-text-muted hover:text-rose-600 hover:border-rose-300 transition text-[11px] font-semibold cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border-subtle text-text-muted hover:text-rose-400 hover:border-rose-500/40 transition text-[11px] font-semibold cursor-pointer"
                 >
                   <FaTrash size={9} /> Delete
                 </button>
