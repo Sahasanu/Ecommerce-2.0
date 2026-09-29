@@ -2,17 +2,14 @@ import {
   doc,
   getDoc,
   setDoc,
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
   serverTimestamp,
 } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 
+// Dedicated document for videos (guaranteed permissions under configure collection)
+const VIDEOS_CONFIG_DOC = () => doc(fireDB, "configure", "videos");
+// Secondary / fallback document (legacy)
 const SITE_DOC = () => doc(fireDB, "configure", "site");
-const VIDEOS_COL = () => collection(fireDB, "videos");
 
 /**
  * Extracts a YouTube Video ID from any standard YouTube URL:
@@ -103,39 +100,106 @@ export const DEFAULT_TILE_VIDEOS = [
 
 export const videoService = {
   /**
-   * Save full videos array to configure/site (guaranteed authorized for admin)
+   * Persist full videos array to Firestore and local cache
+   * Saves to dedicated configure/videos doc (isolated from configure/site settings)
+   * and mirrors to configure/site doc for compatibility.
    */
   async _saveVideosList(videosList) {
     const sorted = [...videosList].sort(
       (a, b) => (Number(a.displayOrder) || 999) - (Number(b.displayOrder) || 999)
     );
 
+    // 1. Immediately cache in localStorage
     try {
       localStorage.setItem("cached_site_videos", JSON.stringify(sorted));
+      localStorage.setItem("cached_videos_initialized", "true");
     } catch (e) {}
 
-    await setDoc(
-      SITE_DOC(),
-      {
-        videos: sorted,
-        updatedAt: serverTimestamp(),
-      },
-      { merge: true }
-    );
+    // 2. Save to dedicated configure/videos document
+    try {
+      await setDoc(
+        VIDEOS_CONFIG_DOC(),
+        {
+          videos: sorted,
+          initialized: true,
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } catch (err) {
+      console.warn("Could not save to configure/videos:", err);
+    }
+
+    // 3. Mirror to configure/site document for backward compatibility
+    try {
+      await setDoc(
+        SITE_DOC(),
+        {
+          videos: sorted,
+          videosInitialized: true,
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } catch (err) {
+      console.warn("Could not sync videos to configure/site:", err);
+    }
 
     return sorted;
   },
 
   /**
-   * Fetch all videos (checks configure/site, then videos collection, then defaults)
+   * Fetch all videos:
+   * 1. Checks dedicated configure/videos doc (primary)
+   * 2. Checks configure/site doc (fallback/migration)
+   * 3. Checks localStorage cache
+   * 4. Only if store has never been initialized, seeds DEFAULT_TILE_VIDEOS
    */
   async getVideos() {
-    // 1. Try reading from configure/site doc
+    // 1. Primary: Dedicated configure/videos document
+    try {
+      const vSnap = await getDoc(VIDEOS_CONFIG_DOC());
+      if (vSnap.exists()) {
+        const data = vSnap.data();
+        if (Array.isArray(data.videos)) {
+          try {
+            localStorage.setItem("cached_site_videos", JSON.stringify(data.videos));
+            localStorage.setItem("cached_videos_initialized", "true");
+          } catch (e) {}
+
+          return [...data.videos].sort(
+            (a, b) => (Number(a.displayOrder) || 999) - (Number(b.displayOrder) || 999)
+          );
+        }
+      }
+    } catch (err) {
+      console.warn("Could not read from configure/videos:", err);
+    }
+
+    // 2. Fallback: configure/site document
     try {
       const siteSnap = await getDoc(SITE_DOC());
       if (siteSnap.exists()) {
         const data = siteSnap.data();
-        if (Array.isArray(data.videos) && data.videos.length > 0) {
+        if (Array.isArray(data.videos) && (data.videos.length > 0 || data.videosInitialized)) {
+          // Self-heal: populate configure/videos doc so future reads are isolated
+          try {
+            setDoc(
+              VIDEOS_CONFIG_DOC(),
+              {
+                videos: data.videos,
+                initialized: true,
+                updatedAt: serverTimestamp(),
+              },
+              { merge: true }
+            );
+          } catch (e) {}
+
+          try {
+            localStorage.setItem("cached_site_videos", JSON.stringify(data.videos));
+            localStorage.setItem("cached_videos_initialized", "true");
+          } catch (e) {}
+
           return [...data.videos].sort(
             (a, b) => (Number(a.displayOrder) || 999) - (Number(b.displayOrder) || 999)
           );
@@ -145,30 +209,24 @@ export const videoService = {
       console.warn("Could not read videos from configure/site:", err);
     }
 
-    // 2. Try reading from videos collection
-    try {
-      const snap = await getDocs(VIDEOS_COL());
-      if (!snap.empty) {
-        const list = snap.docs.map((d) => ({
-          id: d.id,
-          ...d.data(),
-        }));
-        return list.sort(
-          (a, b) => (Number(a.displayOrder) || 999) - (Number(b.displayOrder) || 999)
-        );
-      }
-    } catch (err) {
-      console.warn("Using default videos due to Firestore permissions on /videos:", err?.message);
-    }
-
-    // 3. Fallback to cached or curated defaults
+    // 3. Fallback: Local Cache
     try {
       const cached = localStorage.getItem("cached_site_videos");
+      const isInitialized = localStorage.getItem("cached_videos_initialized") === "true";
       if (cached) {
         const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && (parsed.length > 0 || isInitialized)) {
+          return parsed;
+        }
       }
     } catch (e) {}
+
+    // 4. First-time initialization only: Seed defaults and persist
+    try {
+      await this._saveVideosList(DEFAULT_TILE_VIDEOS);
+    } catch (e) {
+      console.warn("Could not auto-seed default videos:", e);
+    }
 
     return DEFAULT_TILE_VIDEOS;
   },
@@ -200,7 +258,7 @@ export const videoService = {
   },
 
   /**
-   * Add new video (persisted to configure/site without permission errors)
+   * Add new video
    */
   async addVideo(data) {
     const rawUrl = (data.youtubeUrl || "").trim();
@@ -228,13 +286,6 @@ export const videoService = {
     const updated = [...current, newVideo];
     await this._saveVideosList(updated);
 
-    // Also try top-level collection write if permitted
-    try {
-      await addDoc(VIDEOS_COL(), newVideo);
-    } catch (e) {
-      // Ignore top-level collection security rule issues
-    }
-
     return newVideo;
   },
 
@@ -246,7 +297,7 @@ export const videoService = {
     const current = await this.getVideos();
 
     const rawUrl = (data.youtubeUrl || "").trim();
-    const youtubeId = extractYouTubeId(rawUrl);
+    const youtubeId = rawUrl ? extractYouTubeId(rawUrl) : undefined;
     const thumbnail =
       (data.thumbnail || "").trim() ||
       (youtubeId ? getYouTubeThumbnail(youtubeId, "hqdefault") : undefined);
@@ -256,9 +307,9 @@ export const videoService = {
         return {
           ...v,
           youtubeUrl: rawUrl || v.youtubeUrl,
-          youtubeId: youtubeId || v.youtubeId,
-          title: (data.title || v.title || "Untitled Video").trim(),
-          category: (data.category || v.category || "General").trim(),
+          youtubeId: youtubeId !== undefined ? (youtubeId || v.youtubeId) : v.youtubeId,
+          title: data.title !== undefined ? data.title.trim() : v.title,
+          category: data.category !== undefined ? data.category.trim() : v.category,
           description: data.description !== undefined ? data.description.trim() : v.description,
           thumbnail: thumbnail || v.thumbnail,
           isFeatured: data.isFeatured !== undefined ? Boolean(data.isFeatured) : v.isFeatured,
@@ -271,15 +322,6 @@ export const videoService = {
     });
 
     await this._saveVideosList(updated);
-
-    // Also try top-level collection update if permitted
-    try {
-      const docRef = doc(fireDB, "videos", videoId);
-      await updateDoc(docRef, { ...data, updatedAt: serverTimestamp() });
-    } catch (e) {
-      // Ignore top-level collection rule issues
-    }
-
     return updated.find((v) => v.id === videoId);
   },
 
@@ -302,24 +344,15 @@ export const videoService = {
   },
 
   /**
-   * Delete video without permission errors
+   * Delete video
    */
   async deleteVideo(videoId) {
     if (!videoId) throw new Error("Video ID is required");
     const current = await this.getVideos();
     const updated = current.filter((v) => v.id !== videoId);
 
-    // Save updated list to configure/site (guaranteed permission)
+    // Save updated list to dedicated document and sync
     await this._saveVideosList(updated);
-
-    // Try deleting from top-level collection if permitted
-    try {
-      const docRef = doc(fireDB, "videos", videoId);
-      await deleteDoc(docRef);
-    } catch (e) {
-      // Ignore top-level collection rule permissions
-    }
-
     return true;
   },
 };

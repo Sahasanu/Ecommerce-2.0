@@ -24,30 +24,33 @@ export default function TeamSection() {
     };
   }, []);
 
-  // Duplicate list if less than 6 to ensure rich continuous marquee scroll
-  const displayList = members.length < 5 ? [...members, ...members] : members;
+  const shouldMove = members.length >= 4;
+
+  if (members.length === 0) return null;
 
   return (
     <section className="w-full bg-[#090909] text-white py-12 sm:py-16 lg:py-20 border-t border-b border-[#C9A227]/20 transition-colors overflow-hidden">
-      {/* Dynamic Keyframes for smooth infinite marquee */}
-      <style>
-        {`
-        @keyframes teamMarquee {
-          0% {
-            transform: translateX(0);
+      {/* Dynamic Keyframes for smooth infinite marquee (only used when >= 4 members) */}
+      {shouldMove && (
+        <style>
+          {`
+          @keyframes teamMarquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-100% - 1.5rem));
+            }
           }
-          100% {
-            transform: translateX(calc(-100% - 1.5rem));
+          .animate-team-marquee {
+            animation: teamMarquee 35s linear infinite;
           }
-        }
-        .animate-team-marquee {
-          animation: teamMarquee 35s linear infinite;
-        }
-        .team-marquee-container:hover .animate-team-marquee {
-          animation-play-state: paused;
-        }
-        `}
-      </style>
+          .team-marquee-container:hover .animate-team-marquee {
+            animation-play-state: paused;
+          }
+          `}
+        </style>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -66,37 +69,49 @@ export default function TeamSection() {
         </div>
       </div>
 
-      {/* Infinite Horizontal Marquee Container */}
-      <div
-        className="team-marquee-container group relative flex overflow-hidden py-3"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
-        }}
-      >
-        {/* Set 1: Original */}
-        <div className="flex shrink-0 gap-6 animate-team-marquee mr-6">
-          {displayList.map((member, idx) => (
-            <TeamMemberCard key={`orig-${member.id || idx}-${idx}`} member={member} />
+      {/* Render based on team size */}
+      {shouldMove ? (
+        /* Infinite Horizontal Marquee for >= 4 members */
+        <div
+          className="team-marquee-container group relative flex overflow-hidden py-3"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          }}
+        >
+          {/* Set 1: Original */}
+          <div className="flex shrink-0 gap-6 animate-team-marquee mr-6">
+            {members.map((member, idx) => (
+              <TeamMemberCard key={`orig-${member.id || idx}-${idx}`} member={member} />
+            ))}
+          </div>
+
+          {/* Set 2: Duplicate for seamless loop */}
+          <div className="flex shrink-0 gap-6 animate-team-marquee mr-6" aria-hidden="true">
+            {members.map((member, idx) => (
+              <TeamMemberCard key={`dup-${member.id || idx}-${idx}`} member={member} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        /* Static, perfectly centered layout for 1, 2, or 3 members (no replication, no moving) */
+        <div className="flex flex-wrap justify-center items-center gap-6 py-3 px-4 max-w-7xl mx-auto">
+          {members.map((member, idx) => (
+            <TeamMemberCard key={`static-${member.id || idx}`} member={member} />
           ))}
         </div>
+      )}
 
-        {/* Set 2: Duplicate for seamless loop */}
-        <div className="flex shrink-0 gap-6 animate-team-marquee mr-6" aria-hidden="true">
-          {displayList.map((member, idx) => (
-            <TeamMemberCard key={`dup-${member.id || idx}-${idx}`} member={member} />
-          ))}
+      {/* Subtle bottom note for scrolling marquee */}
+      {shouldMove && (
+        <div className="text-center pt-6">
+          <p className="text-[11px] font-semibold text-[#B9A66A]/70 uppercase tracking-widest">
+            Hover over any member card to pause &amp; connect directly
+          </p>
         </div>
-      </div>
-
-      {/* Subtle bottom note */}
-      <div className="text-center pt-6">
-        <p className="text-[11px] font-semibold text-[#B9A66A]/70 uppercase tracking-widest">
-          Hover over any member card to pause &amp; connect directly
-        </p>
-      </div>
+      )}
     </section>
   );
 }

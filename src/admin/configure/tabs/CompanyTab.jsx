@@ -160,7 +160,7 @@ function LogoUpload({ label, currentUrl, onUpload, hint }) {
     );
 }
 
-export default function CompanyTab({ draft, updateDraft }) {
+export default function CompanyTab({ draft, updateDraft, markFieldSaved }) {
     const { setConfig } = useSiteConfig();
     const { user } = useAuth();
 
@@ -169,6 +169,7 @@ export default function CompanyTab({ draft, updateDraft }) {
         try {
             await configureService.saveSiteConfig({ companyLogo: url }, user?.uid || "");
             setConfig((prev) => ({ ...prev, companyLogo: url }));
+            if (markFieldSaved) markFieldSaved("companyLogo", url);
         } catch (err) {
             console.error("Failed to save company logo:", err);
             toast.error("Failed to save logo to database");
@@ -180,6 +181,7 @@ export default function CompanyTab({ draft, updateDraft }) {
         try {
             await configureService.saveSiteConfig({ faviconUrl: url }, user?.uid || "");
             setConfig((prev) => ({ ...prev, faviconUrl: url }));
+            if (markFieldSaved) markFieldSaved("faviconUrl", url);
         } catch (err) {
             console.error("Failed to save favicon:", err);
             toast.error("Failed to save favicon to database");

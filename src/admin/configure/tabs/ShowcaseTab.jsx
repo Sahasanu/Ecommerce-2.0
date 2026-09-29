@@ -22,7 +22,7 @@ const DEFAULT_SHOWCASE = {
   mobileImage: "",
 };
 
-export default function ShowcaseTab({ draft, updateDraft }) {
+export default function ShowcaseTab({ draft, updateDraft, onSave, isDirty, saving: parentSaving }) {
   const { setConfig } = useSiteConfig();
   const { user } = useAuth();
 
@@ -36,7 +36,8 @@ export default function ShowcaseTab({ draft, updateDraft }) {
   const [progressDesktop, setProgressDesktop] = useState(0);
   const [uploadingMobile, setUploadingMobile] = useState(false);
   const [progressMobile, setProgressMobile] = useState(0);
-  const [saving, setSaving] = useState(false);
+  const [internalSaving, setInternalSaving] = useState(false);
+  const saving = parentSaving !== undefined ? parentSaving : internalSaving;
 
   // Helper to update specific showcase fields in draft
   const updateSection = (field, value) => {
@@ -84,20 +85,23 @@ export default function ShowcaseTab({ draft, updateDraft }) {
 
   // Save changes explicitly
   const handleSaveSection = async () => {
-    setSaving(true);
+    if (onSave) {
+      await onSave();
+      return;
+    }
+    setInternalSaving(true);
     try {
       const updatedConfig = {
-        ...draft,
         bengalTilesSection: showcaseConfig,
       };
       await configureService.saveSiteConfig(updatedConfig, user?.uid || "");
-      setConfig(updatedConfig);
+      setConfig((prev) => ({ ...prev, ...updatedConfig }));
       toast.success("Hero Showcase section saved successfully!");
     } catch (err) {
       console.error("Save error:", err);
       toast.error(err?.message || "Failed to save showcase section");
     } finally {
-      setSaving(false);
+      setInternalSaving(false);
     }
   };
 

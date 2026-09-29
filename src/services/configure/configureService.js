@@ -84,14 +84,25 @@ export const configureService = {
     async getSiteConfig() {
         const snap = await getDoc(SITE_DOC());
         if (!snap.exists()) return { ...DEFAULT_CONFIG };
-        return { ...DEFAULT_CONFIG, ...snap.data() };
+        const rawData = snap.data();
+        // Exclude fields managed by independent services (videos, teamMembers)
+        // so that draft store settings never cache or overwrite them
+        const { videos, teamMembers, videosInitialized, ...cleanConfig } = rawData;
+        return { ...DEFAULT_CONFIG, ...cleanConfig };
     },
 
     /** Partially update the site config (merge) */
     async saveSiteConfig(data, adminUid = "") {
+        // Strip out independent collections/docs managed by their own services
+        // so that saving site settings never accidentally overwrites videos or team members!
+        const cleanData = { ...data };
+        delete cleanData.videos;
+        delete cleanData.teamMembers;
+        delete cleanData.videosInitialized;
+
         await setDoc(
             SITE_DOC(),
-            { ...data, updatedAt: serverTimestamp(), updatedBy: adminUid },
+            { ...cleanData, updatedAt: serverTimestamp(), updatedBy: adminUid },
             { merge: true }
         );
     },

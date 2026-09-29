@@ -20,7 +20,7 @@ import { uploadService } from "../../../services/upload/uploadService";
 import { useSiteConfig } from "../../../context/SiteConfigContext";
 import useAuth from "../../../hooks/auth/useAuth";
 
-export default function BrandsTab({ draft, updateDraft }) {
+export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving: parentSaving, savedData }) {
   const { config, setConfig } = useSiteConfig();
   const { user } = useAuth();
 
@@ -32,7 +32,8 @@ export default function BrandsTab({ draft, updateDraft }) {
     enabled: true,
   });
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [internalSaving, setInternalSaving] = useState(false);
+  const saving = parentSaving !== undefined ? parentSaving : internalSaving;
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all"); // 'all' | 'active' | 'inactive'
 
@@ -48,27 +49,45 @@ export default function BrandsTab({ draft, updateDraft }) {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  // Initialize from draft/context or fetch from Firestore
+  // Initialize from draft/context or fetch from Firestore on mount
   useEffect(() => {
+    let isMounted = true;
     const initData = async () => {
       try {
-        const data = await brandService.getBrandsData();
-        const loadedBrands = Array.isArray(draft?.brands) && draft.brands.length > 0
-          ? draft.brands
-          : data.brands;
-        const loadedSection = draft?.brandsSection || data.sectionConfig;
-
-        setBrands(loadedBrands);
-        setSectionConfig(loadedSection);
+        if (Array.isArray(draft?.brands) && draft.brands.length > 0) {
+          if (isMounted) {
+            setBrands(draft.brands);
+            setSectionConfig(draft.brandsSection || { title: "Brand Partner and Dealer", subtitle: "", enabled: true });
+          }
+        } else {
+          const data = await brandService.getBrandsData();
+          if (isMounted) {
+            setBrands(data.brands);
+            setSectionConfig(data.sectionConfig);
+          }
+        }
       } catch (err) {
         console.error("Error loading brands:", err);
-        setBrands(DEFAULT_BRANDS);
+        if (isMounted) setBrands(DEFAULT_BRANDS);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     initData();
-  }, [draft]);
+    return () => {
+      isMounted = false;
+    };
+  }, []); // Run on initial mount only
+
+  // Sync if savedData reverts/resets from parent (e.g. Discard / Cancel)
+  useEffect(() => {
+    if (savedData?.brands) {
+      setBrands(savedData.brands);
+    }
+    if (savedData?.brandsSection) {
+      setSectionConfig(savedData.brandsSection);
+    }
+  }, [savedData]);
 
   // Sync back to parent draft
   const syncWithDraft = (newBrands, newSection) => {
@@ -84,7 +103,11 @@ export default function BrandsTab({ draft, updateDraft }) {
 
   // Save changes explicitly to Firestore
   const handleSaveAll = async () => {
-    setSaving(true);
+    if (onSave) {
+      await onSave();
+      return;
+    }
+    setInternalSaving(true);
     try {
       await brandService.saveBrandsData(brands, sectionConfig, user?.uid || "");
       if (setConfig) {
@@ -99,7 +122,7 @@ export default function BrandsTab({ draft, updateDraft }) {
       console.error("Failed to save brands:", err);
       toast.error(err?.message || "Failed to save brands");
     } finally {
-      setSaving(false);
+      setInternalSaving(false);
     }
   };
 

@@ -75,6 +75,13 @@ export default function VideoGuidesSection() {
                       alt={video.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
+                      onError={(e) => {
+                        if (video.youtubeId && !e.currentTarget.src.includes('mqdefault')) {
+                          e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`;
+                        } else {
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+                        }
+                      }}
                     />
 
                     {/* Gradient Overlay */}

@@ -7,7 +7,7 @@ export default function MeetFounder() {
   const { config } = useSiteConfig();
   const companyName = config.companyName || "Bengal Tiles";
   const founderName = config.founderName || "SK Abdul Ohid";
-  const founderPhone = config.founderPhone || config?.phones?.[0]?.number || "+91 7384461098";
+  const founderPhone = config.founderPhone || config?.phones?.[0]?.number || "+91 9734567831";
   const founderPhoneClean = founderPhone.replace(/[^0-9+]/g, "");
   const founderPhoneDigits = founderPhone.replace(/\D/g, "");
   const imglink = "https://firebasestorage.googleapis.com/v0/b/bengal-tiles---website.firebasestorage.app/o/company%2Fbengal_tiles_owner_1.jpeg?alt=media&token=e9760f80-9e5c-4462-8d95-78181928e15d";

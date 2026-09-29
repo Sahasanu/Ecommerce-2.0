@@ -307,6 +307,13 @@ export default function AdminVideos() {
                           src={video.thumbnail || `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
                           alt={video.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                          onError={(e) => {
+                            if (video.youtubeId && !e.currentTarget.src.includes('mqdefault')) {
+                              e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`;
+                            } else {
+                              e.currentTarget.src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+                            }
+                          }}
                         />
                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors">
                           <FaPlay className="text-white text-[10px]" />
