@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   FaPlus,
   FaTrash,
@@ -19,6 +20,7 @@ import { DEFAULT_BRANDS } from "../../../services/brands/defaultBrands";
 import { uploadService } from "../../../services/upload/uploadService";
 import { useSiteConfig } from "../../../context/SiteConfigContext";
 import useAuth from "../../../hooks/auth/useAuth";
+import ToggleButton from "../../../components/Common/ToggleButton";
 
 export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving: parentSaving, savedData }) {
   const { config, setConfig } = useSiteConfig();
@@ -48,6 +50,27 @@ export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving:
   });
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setModalOpen(false);
+      }
+    };
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalOpen]);
 
   // Initialize from draft/context or fetch from Firestore on mount
   useEffect(() => {
@@ -416,18 +439,15 @@ export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving:
               <span className="text-xs font-bold text-text-base block">Section Visibility</span>
               <span className="text-[10px] text-text-muted">Display marquee on homepage</span>
             </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={sectionConfig.enabled !== false}
-                onChange={(e) => {
-                  const updated = { ...sectionConfig, enabled: e.target.checked };
-                  syncWithDraft(brands, updated);
-                }}
-                className="sr-only peer"
-              />
-              <div className="w-10 h-5 bg-border-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-            </label>
+            <ToggleButton
+              checked={sectionConfig.enabled !== false}
+              onChange={(val) => {
+                const updated = { ...sectionConfig, enabled: val };
+                syncWithDraft(brands, updated);
+              }}
+              size="sm"
+              color="primary"
+            />
           </div>
         </div>
       </div>
@@ -617,160 +637,188 @@ export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving:
         </button>
       </div>
 
-      {/* Add / Edit Modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6" role="dialog" aria-modal="true">
-          <div className="min-h-full flex items-center justify-center py-6">
+      {/* Add / Edit Modal via Portal */}
+      {modalOpen && mounted && typeof document !== "undefined" && document.body && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md p-3 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="min-h-full flex items-center justify-center py-4 sm:py-6">
             <div
-              className="bg-card border border-border-subtle rounded-3xl w-full max-w-md overflow-hidden shadow-2xl space-y-5 p-6"
+              className="relative w-full max-w-3xl lg:max-w-4xl bg-card border border-border-subtle rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
-              <h3 className="text-sm font-extrabold text-text-base flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-xl">
-                  {editingBrand ? "edit_note" : "add_business"}
-                </span>
-                <span>{editingBrand ? "Edit Brand Partner" : "Add New Brand Partner"}</span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-bg-base hover:bg-card-hover text-text-muted hover:text-text-base flex items-center justify-center transition cursor-pointer"
-              >
-                <FaTimes size={12} />
-              </button>
-            </div>
-
-            {/* Modal Form */}
-            <form onSubmit={handleSaveModal} className="space-y-4">
-              {/* Brand Name */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5">
-                  Brand / Dealer Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={brandForm.name}
-                  onChange={(e) => setBrandForm({ ...brandForm, name: e.target.value })}
-                  placeholder="e.g. Kajaria Ceramics"
-                  className="w-full h-11 px-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-
-              {/* Brand Logo Upload & URL */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5">
-                  Brand Logo Image *
-                </label>
-
-                {/* Logo Preview */}
-                <div className="relative h-28 rounded-xl border border-border-subtle bg-bg-base flex items-center justify-center overflow-hidden p-3">
-                  {brandForm.logo ? (
-                    <img
-                      src={brandForm.logo}
-                      alt="Brand preview"
-                      className="max-h-full max-w-full object-contain filter contrast-105"
-                    />
-                  ) : (
-                    <span className="text-xs text-text-muted">No logo selected</span>
-                  )}
-                </div>
-
-                {/* Upload Progress */}
-                {uploadingLogo && (
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-[11px] text-text-muted font-semibold">
-                      <span>Uploading logo...</span>
-                      <span>{uploadProgress}%</span>
-                    </div>
-                    <div className="h-1.5 rounded-full bg-bg-base overflow-hidden border border-border-subtle">
-                      <div
-                        className="h-full bg-primary transition-all duration-200"
-                        style={{ width: `${uploadProgress}%` }}
-                      />
-                    </div>
+              <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-border-subtle bg-bg-base/70">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center text-sm font-bold">
+                    <span className="material-symbols-outlined text-base">
+                      {editingBrand ? "edit_note" : "add_business"}
+                    </span>
                   </div>
-                )}
-
-                {/* Upload Action & URL Input */}
-                <div className="flex items-center gap-2">
-                  <label className="flex-1 h-10 rounded-xl bg-card border border-border-subtle hover:bg-card-hover text-text-base text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition">
-                    <FaUpload size={11} className="text-primary" />
-                    <span>Upload Logo File</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      disabled={uploadingLogo}
-                      onChange={handleFileUpload}
-                    />
-                  </label>
+                  <div>
+                    <h3 className="text-base font-bold text-text-base leading-tight">
+                      {editingBrand ? "Edit Brand Partner" : "Add New Brand Partner"}
+                    </h3>
+                    <p className="text-xs text-text-muted">
+                      Configure partner identity, brand logo, and store marquee visibility
+                    </p>
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <span className="text-[10px] text-text-muted font-bold pl-0.5">Or direct image URL:</span>
-                  <input
-                    type="text"
-                    value={brandForm.logo}
-                    onChange={(e) => setBrandForm({ ...brandForm, logo: e.target.value })}
-                    placeholder="https://... logo URL"
-                    className="w-full h-10 px-3 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-xs font-medium focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
-                </div>
-              </div>
-
-              {/* Website URL */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5">
-                  Partner Website URL (Optional)
-                </label>
-                <input
-                  type="text"
-                  value={brandForm.website}
-                  onChange={(e) => setBrandForm({ ...brandForm, website: e.target.value })}
-                  placeholder="https://brandpartner.com"
-                  className="w-full h-11 px-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
-
-              {/* Active Toggle */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-bg-base border border-border-subtle">
-                <span className="text-xs font-bold text-text-base">Active in Marquee</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={brandForm.isActive}
-                    onChange={(e) => setBrandForm({ ...brandForm, isActive: e.target.checked })}
-                    className="sr-only peer"
-                  />
-                  <div className="w-10 h-5 bg-border-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                </label>
-              </div>
-
-              {/* Modal Buttons */}
-              <div className="pt-2 flex items-center justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl border border-border-subtle bg-card hover:bg-card-hover text-text-muted hover:text-text-base text-xs font-bold transition cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-card hover:bg-card-hover border border-border-subtle text-text-muted hover:text-text-base flex items-center justify-center transition cursor-pointer"
+                  aria-label="Close modal"
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={uploadingLogo}
-                  className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary-hover text-compli font-bold text-xs shadow-md shadow-primary/20 transition cursor-pointer disabled:opacity-50"
-                >
-                  {editingBrand ? "Save Brand" : "Add Brand"}
+                  <FaTimes size={13} />
                 </button>
               </div>
-            </form>
+
+              {/* Modal Form - 2 Columns */}
+              <form onSubmit={handleSaveModal}>
+                <div className="p-5 sm:p-7">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    {/* Left Column: Brand Details (7 of 12) */}
+                    <div className="lg:col-span-7 space-y-4">
+                      {/* Brand Name */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5">
+                          Brand / Dealer Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={brandForm.name}
+                          onChange={(e) => setBrandForm({ ...brandForm, name: e.target.value })}
+                          placeholder="e.g. Kajaria Ceramics"
+                          className="w-full h-11 px-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary"
+                        />
+                      </div>
+
+                      {/* Website URL */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5">
+                          Partner Website URL (Optional)
+                        </label>
+                        <input
+                          type="text"
+                          value={brandForm.website}
+                          onChange={(e) => setBrandForm({ ...brandForm, website: e.target.value })}
+                          placeholder="https://brandpartner.com"
+                          className="w-full h-11 px-4 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary"
+                        />
+                      </div>
+
+                      {/* Active Toggle Card */}
+                      <div className="flex items-center justify-between p-3.5 rounded-2xl bg-bg-base border border-border-subtle">
+                        <div>
+                          <span className="text-xs font-bold text-text-base block">Active in Marquee</span>
+                          <span className="text-[11px] text-text-muted">Display brand logo in homepage marquee</span>
+                        </div>
+                        <ToggleButton
+                          checked={Boolean(brandForm.isActive)}
+                          onChange={(val) => setBrandForm({ ...brandForm, isActive: val })}
+                          size="sm"
+                          color="primary"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right Column: Logo Upload & Preview (5 of 12) */}
+                    <div className="lg:col-span-5 space-y-3.5">
+                      <label className="text-xs font-bold text-text-base uppercase tracking-wider pl-0.5 block">
+                        Brand Logo Image *
+                      </label>
+
+                      {/* Logo Preview */}
+                      <div className="relative h-32 rounded-2xl border border-border-subtle bg-bg-base flex items-center justify-center overflow-hidden p-4">
+                        {brandForm.logo ? (
+                          <img
+                            src={brandForm.logo}
+                            alt="Brand preview"
+                            className="max-h-full max-w-full object-contain filter contrast-105"
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center gap-1.5 text-text-muted text-center">
+                            <span className="material-symbols-outlined text-2xl text-text-subtle">image</span>
+                            <span className="text-xs font-medium">No logo selected</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Upload Progress */}
+                      {uploadingLogo && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[11px] text-text-muted font-semibold">
+                            <span>Uploading logo...</span>
+                            <span>{uploadProgress}%</span>
+                          </div>
+                          <div className="h-1.5 rounded-full bg-bg-base overflow-hidden border border-border-subtle">
+                            <div
+                              className="h-full bg-primary transition-all duration-200"
+                              style={{ width: `${uploadProgress}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Upload Action & URL Input */}
+                      <div className="space-y-2">
+                        <label className="w-full h-10 rounded-xl bg-card border border-border-subtle hover:bg-card-hover text-text-base text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs transition">
+                          <FaUpload size={12} className="text-primary" />
+                          <span>Upload Logo File</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            disabled={uploadingLogo}
+                            onChange={handleFileUpload}
+                          />
+                        </label>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] text-text-muted font-bold pl-0.5">Or direct image URL:</span>
+                          <input
+                            type="text"
+                            value={brandForm.logo}
+                            onChange={(e) => setBrandForm({ ...brandForm, logo: e.target.value })}
+                            placeholder="https://... logo image URL"
+                            className="w-full h-9 px-3 rounded-xl border border-border-subtle bg-bg-base text-text-base placeholder:text-text-subtle text-xs font-medium focus:outline-none focus:ring-1 focus:ring-primary"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Modal Buttons Footer */}
+                <div className="px-5 sm:px-7 py-3.5 border-t border-border-subtle bg-bg-base/70 flex items-center justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="px-4 py-2 text-xs font-bold text-text-muted hover:text-text-base hover:bg-card-hover rounded-xl border border-border-subtle transition cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={uploadingLogo}
+                    className="px-6 py-2 text-xs font-bold bg-primary hover:bg-primary-hover text-compli rounded-xl shadow-xs transition cursor-pointer disabled:opacity-50"
+                  >
+                    {editingBrand ? "Save Brand" : "Add Brand"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      </div>
-    )}
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
