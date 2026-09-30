@@ -1,4 +1,5 @@
 import { DEFAULT_SOCIAL_LINKS } from "../../../services/configure/configureService";
+import ToggleButton from "../../../components/Common/ToggleButton";
 
 const PLATFORM_LABELS = {
     facebook: "Facebook",
@@ -48,15 +49,12 @@ export default function SocialTab({ draft, updateDraft }) {
                                 </span>
                             </div>
                             
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    checked={link.isActive}
-                                    onChange={(e) => update(link.platform, "isActive", e.target.checked)}
-                                    className="sr-only peer"
-                                />
-                                <div className="w-9 h-5 bg-bg-base border border-border-subtle rounded-full peer peer-checked:bg-primary peer-checked:border-primary transition relative after:absolute after:top-0.5 after:left-0.5 after:w-3.5 after:h-3.5 after:bg-text-muted peer-checked:after:bg-compli after:rounded-full after:transition-all peer-checked:after:translate-x-4 cursor-pointer" />
-                            </label>
+                            <ToggleButton
+                                checked={Boolean(link.isActive)}
+                                onChange={(val) => update(link.platform, "isActive", val)}
+                                size="sm"
+                                color="primary"
+                            />
                         </div>
 
                         {/* Input URL (collapsible/visible when active) */}

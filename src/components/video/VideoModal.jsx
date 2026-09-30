@@ -29,13 +29,16 @@ export default function VideoModal({ video, isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md p-3 sm:p-6"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
     >
-      <div
-        className="relative w-full max-w-4xl bg-bg-surface rounded-2xl md:rounded-3xl border border-border-subtle shadow-2xl overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="min-h-full flex items-center justify-center py-4 sm:py-8">
+        <div
+          className="relative w-full max-w-4xl bg-bg-surface rounded-2xl md:rounded-3xl border border-border-subtle shadow-2xl overflow-hidden flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+        >
         {/* Header Bar */}
         <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-border-subtle bg-bg-base/80">
           <div className="flex items-center gap-2.5 min-w-0 pr-4">
@@ -105,5 +108,6 @@ export default function VideoModal({ video, isOpen, onClose }) {
         )}
       </div>
     </div>
+  </div>
   );
 }

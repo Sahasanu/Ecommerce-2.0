@@ -619,9 +619,13 @@ export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving:
 
       {/* Add / Edit Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-card border border-border-subtle rounded-3xl w-full max-w-md overflow-hidden shadow-2xl space-y-5 p-6 animate-scaleUp">
-            {/* Modal Header */}
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6" role="dialog" aria-modal="true">
+          <div className="min-h-full flex items-center justify-center py-6">
+            <div
+              className="bg-card border border-border-subtle rounded-3xl w-full max-w-md overflow-hidden shadow-2xl space-y-5 p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
               <h3 className="text-sm font-extrabold text-text-base flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary text-xl">
@@ -765,7 +769,8 @@ export default function BrandsTab({ draft, updateDraft, onSave, isDirty, saving:
             </form>
           </div>
         </div>
-      )}
+      </div>
+    )}
     </div>
   );
 }

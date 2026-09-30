@@ -3,6 +3,7 @@ import ReviewStats from "./sections/ReviewStats";
 import ReviewFilters from "./sections/ReviewFilters";
 import ReviewTable from "./sections/ReviewTable";
 import DeleteReviewModal from "./sections/DeleteReviewModal";
+import ReviewDetailsModal from "./sections/ReviewDetailsModal";
 import { useReviews } from "../../hooks/common/useReviews";
 import Header from "../Components/Header";
 
@@ -19,14 +20,27 @@ function Review() {
     const [productFilter, setProductFilter] = useState("ALL");
 
     const [selectedReview, setSelectedReview] = useState(null);
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [deleting, setDeleting] = useState(false);
+
+    const handleViewReview = (review) => {
+        setSelectedReview(review);
+        setIsDetailOpen(true);
+    };
+
+    const handleDeleteRequest = (review) => {
+        setSelectedReview(review);
+        setIsDetailOpen(false);
+        setIsDeleteOpen(true);
+    };
 
     const handleDeleteConfirm = async () => {
         setDeleting(true);
         try {
             await deleteReview(selectedReview);
             setIsDeleteOpen(false);
+            setIsDetailOpen(false);
         } finally {
             setDeleting(false);
         }
@@ -68,12 +82,20 @@ function Review() {
                 reviews={filteredReviews}
                 products={products}
                 loading={loading}
-                onDelete={(review) => {
-                    setSelectedReview(review);
-                    setIsDeleteOpen(true);
-                }}
+                onViewReview={handleViewReview}
+                onDelete={handleDeleteRequest}
             />
 
+            {/* Review Full Details & Action Modal */}
+            <ReviewDetailsModal
+                open={isDetailOpen}
+                review={selectedReview}
+                products={products}
+                onClose={() => setIsDetailOpen(false)}
+                onDelete={handleDeleteRequest}
+            />
+
+            {/* Review Deletion Confirmation Modal */}
             <DeleteReviewModal
                 open={isDeleteOpen}
                 review={selectedReview}

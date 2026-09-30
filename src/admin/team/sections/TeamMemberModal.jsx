@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FaTimes, FaCamera, FaSpinner } from "react-icons/fa";
 import { uploadService } from "../../../services/upload/uploadService";
 import { toast } from "react-toastify";
@@ -50,7 +51,29 @@ export default function TeamMemberModal({
     }
   }, [memberToEdit, isOpen]);
 
-  if (!isOpen) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !mounted || typeof document === "undefined" || !document.body) return null;
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -114,15 +137,23 @@ export default function TeamMemberModal({
     onSave(formData);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-lg rounded-2xl bg-card border border-border-subtle shadow-2xl p-6 sm:p-7 space-y-5 my-8">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
-          <div>
-            <h3 className="text-lg font-bold text-text-base">
-              {memberToEdit ? "Edit Team Member" : "Add Team Member"}
-            </h3>
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md p-3 sm:p-6"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="min-h-full flex items-center justify-center py-6 sm:py-8">
+        <div
+          className="relative w-full max-w-lg rounded-2xl md:rounded-3xl bg-card border border-border-subtle shadow-2xl p-6 sm:p-7 space-y-5"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
+            <div>
+              <h3 className="text-lg font-bold text-text-base">
+                {memberToEdit ? "Edit Team Member" : "Add Team Member"}
+              </h3>
             <p className="text-xs text-text-muted mt-0.5">
               Enter staff details to display on the Bengal Tiles homepage.
             </p>
@@ -325,5 +356,7 @@ export default function TeamMemberModal({
         </form>
       </div>
     </div>
-  );
+  </div>,
+  document.body
+);
 }

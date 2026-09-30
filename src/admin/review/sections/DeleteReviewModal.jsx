@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FaStar, FaRegStar, FaExclamationTriangle } from "react-icons/fa";
 
 function StarRating({ rating = 0 }) {
@@ -15,15 +17,25 @@ function StarRating({ rating = 0 }) {
 }
 
 function DeleteReviewModal({ open, review, products = {}, deleting, onClose, onDelete }) {
-    if (!open) return null;
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!open || !mounted || typeof document === "undefined" || !document.body) return null;
 
     const productName = review?.productId
         ? products[review.productId] || review.productId
         : "—";
 
-    return (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-sm bg-card border border-border-subtle rounded-2xl shadow-xl text-xs overflow-hidden">
+    return createPortal(
+        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md p-4" role="dialog" aria-modal="true">
+            <div className="min-h-full flex items-center justify-center py-6">
+                <div
+                    className="w-full max-w-sm bg-card border border-border-subtle rounded-2xl shadow-xl text-xs overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                >
 
                 {/* Icon + Title */}
                 <div className="p-6 text-center">
@@ -78,6 +90,8 @@ function DeleteReviewModal({ open, review, products = {}, deleting, onClose, onD
 
             </div>
         </div>
+    </div>,
+    document.body
     );
 }
 

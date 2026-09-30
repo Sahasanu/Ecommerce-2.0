@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaStar, FaRegStar, FaTrash } from "react-icons/fa";
+import { FaStar, FaRegStar, FaTrash, FaEye } from "react-icons/fa";
 import TableSkeleton from "../../../components/loader/SkeletonLoader/TableSkeleton";
 import Pagination from "../../../components/Common/Pagination";
 
@@ -29,7 +29,7 @@ function formatDate(timestamp) {
     return String(timestamp);
 }
 
-function ReviewTable({ reviews = [], products = {}, loading = false, onDelete }) {
+function ReviewTable({ reviews = [], products = {}, loading = false, onDelete, onViewReview }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 
@@ -51,7 +51,11 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                 {paginatedReviews.map((review) => {
                     const productName = products[review.productId] || review.productId;
                     return (
-                        <div key={review.id} className="bg-card p-6 rounded-2xl border border-border-subtle shadow-xs space-y-4">
+                        <div
+                            key={review.id}
+                            onClick={() => onViewReview?.(review)}
+                            className="bg-card p-6 rounded-2xl border border-border-subtle shadow-xs space-y-4 cursor-pointer hover:border-primary/40 transition"
+                        >
                             <div className="flex justify-between items-start gap-2">
                                 <div className="space-y-1">
                                     <p className="font-bold text-sm text-text-base">
@@ -71,19 +75,28 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                 </div>
                             </div>
 
-                            <p className="text-sm text-text-base leading-relaxed bg-bg-base p-4 rounded-xl border border-border-subtle/50">
+                            <p className="text-sm text-text-base leading-relaxed bg-bg-base p-4 rounded-xl border border-border-subtle/50 line-clamp-3">
                                 {review.review || "—"}
                             </p>
 
                             <div className="border-t border-border-subtle my-2"></div>
 
-                            <div className="flex justify-end">
+                            <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                                 <button
+                                    type="button"
+                                    onClick={() => onViewReview?.(review)}
+                                    className="flex-1 h-11 flex items-center justify-center gap-2 text-primary bg-primary/10 border border-primary/20 hover:bg-primary/20 rounded-xl text-xs font-bold transition duration-150 cursor-pointer"
+                                >
+                                    <FaEye size={13} />
+                                    <span>View Full Review</span>
+                                </button>
+                                <button
+                                    type="button"
                                     onClick={() => onDelete(review)}
-                                    className="w-full h-11 flex items-center justify-center gap-2 text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl text-sm font-bold transition duration-150 cursor-pointer"
+                                    className="w-11 h-11 flex items-center justify-center text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 rounded-xl transition duration-150 cursor-pointer shrink-0"
+                                    title="Delete Review"
                                 >
                                     <FaTrash size={12} />
-                                    <span>Delete Review</span>
                                 </button>
                             </div>
                         </div>
@@ -111,7 +124,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                 <th className="px-6 py-4">Product</th>
                                 <th className="px-6 py-4">Review</th>
                                 <th className="px-6 py-4 w-36 hidden lg:table-cell">Date</th>
-                                <th className="px-6 py-4 w-28 text-center">Action</th>
+                                <th className="px-6 py-4 w-32 text-center">Actions</th>
                             </tr>
                         </thead>
 
@@ -134,7 +147,9 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                 return (
                                     <tr
                                         key={review.id}
-                                        className="hover:bg-card-hover transition-colors"
+                                        onClick={() => onViewReview?.(review)}
+                                        className="hover:bg-card-hover/80 transition-colors cursor-pointer group"
+                                        title="Click to view full review details"
                                     >
                                         {/* Rating stars */}
                                         <td className="px-6 py-4">
@@ -148,7 +163,7 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
 
                                         {/* Reviewer */}
                                         <td className="px-6 py-4">
-                                            <p className="font-bold text-text-base">
+                                            <p className="font-bold text-text-base group-hover:text-primary transition-colors">
                                                 {review.userName || "Anonymous"}
                                             </p>
                                             <p className="text-xs text-text-muted mt-0.5 font-mono">
@@ -179,16 +194,26 @@ function ReviewTable({ reviews = [], products = {}, loading = false, onDelete })
                                             {formatDate(review.createdAt)}
                                         </td>
 
-                                        {/* Delete Action */}
+                                        {/* Actions */}
                                         <td className="px-6 py-4 text-center">
-                                            <button
-                                                type="button"
-                                                onClick={() => onDelete(review)}
-                                                className="w-9 h-9 flex items-center justify-center text-rose-400 hover:bg-rose-500/15 rounded-xl transition duration-150 cursor-pointer mx-auto"
-                                                title="Delete Review"
-                                            >
-                                                <FaTrash size={14} />
-                                            </button>
+                                            <div className="flex items-center justify-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => onViewReview?.(review)}
+                                                    className="w-8 h-8 flex items-center justify-center text-text-muted hover:text-primary hover:bg-primary/10 rounded-xl transition duration-150 cursor-pointer"
+                                                    title="View Full Review"
+                                                >
+                                                    <FaEye size={14} />
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => onDelete(review)}
+                                                    className="w-8 h-8 flex items-center justify-center text-rose-400 hover:text-rose-500 hover:bg-rose-500/15 rounded-xl transition duration-150 cursor-pointer"
+                                                    title="Delete Review"
+                                                >
+                                                    <FaTrash size={13} />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 );
