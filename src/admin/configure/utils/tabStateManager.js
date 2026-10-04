@@ -90,6 +90,11 @@ export function getTabInitialData(tabId, config = {}) {
         },
         phones: Array.isArray(config?.phones) ? cloneDeep(config.phones) : [],
         emails: Array.isArray(config?.emails) ? cloneDeep(config.emails) : [],
+        whatsappModal: {
+          enabled: config?.whatsappModal?.enabled ?? true,
+          phoneNumber: config?.whatsappModal?.phoneNumber || "",
+          message: config?.whatsappModal?.message || "",
+        },
       };
 
     case "social":
@@ -168,6 +173,11 @@ export function getTabSavePayload(tabId, data) {
         address: data?.address || {},
         phones: Array.isArray(data?.phones) ? data.phones : [],
         emails: Array.isArray(data?.emails) ? data.emails : [],
+        whatsappModal: {
+          enabled: data?.whatsappModal?.enabled ?? true,
+          phoneNumber: data?.whatsappModal?.phoneNumber || "",
+          message: data?.whatsappModal?.message || "",
+        },
       };
 
     case "social":

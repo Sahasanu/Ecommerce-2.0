@@ -10,9 +10,27 @@ export default function WhatsAppModal() {
   const { config } = useSiteConfig();
   const companyName = config?.companyName || "Bengal Tiles";
 
+  // Check if WhatsApp modal is explicitly disabled
+  if (config?.whatsappModal?.enabled === false) {
+    return null;
+  }
+
   // Resolve WhatsApp number from site configuration
   const getWhatsAppUrl = () => {
-    // 1. Configured WhatsApp social link
+    const defaultMsg = `Hi ${companyName}, I would like to inquire about your tiles and showroom collection.`;
+    const targetMsg = config?.whatsappModal?.message?.trim() || defaultMsg;
+
+    // 0. Dedicated WhatsApp Modal form configuration (Highest Priority)
+    const modalPhone = config?.whatsappModal?.phoneNumber?.trim();
+    if (modalPhone) {
+      const digits = modalPhone.replace(/\D/g, "");
+      if (digits.length >= 10) {
+        const fullNumber = digits.length === 10 ? `91${digits}` : digits;
+        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(targetMsg)}`;
+      }
+    }
+
+    // 1. Configured WhatsApp social link (fallback)
     const waSocial = config?.socialLinks?.find(
       (s) => s.platform === "whatsapp" && s.isActive && s.url
     );
@@ -21,13 +39,11 @@ export default function WhatsAppModal() {
       if (u.startsWith("http://") || u.startsWith("https://")) return u;
       const digits = u.replace(/\D/g, "");
       if (digits) {
-        return `https://wa.me/${digits}?text=${encodeURIComponent(
-          `Hi ${companyName}, I would like to inquire about your tiles and showroom collection.`
-        )}`;
+        return `https://wa.me/${digits}?text=${encodeURIComponent(targetMsg)}`;
       }
     }
 
-    // 2. Configured phone numbers with WhatsApp enabled
+    // 2. Configured phone numbers with WhatsApp enabled (fallback)
     const waPhone =
       config?.phones?.find((p) => p.isWhatsapp && p.number) ||
       config?.phones?.[0];
@@ -36,16 +52,12 @@ export default function WhatsAppModal() {
       const digits = waPhone.number.replace(/\D/g, "");
       if (digits.length >= 10) {
         const fullNumber = digits.length === 10 ? `91${digits}` : digits;
-        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(
-          `Hi ${companyName}, I would like to inquire about your tiles and showroom collection.`
-        )}`;
+        return `https://wa.me/${fullNumber}?text=${encodeURIComponent(targetMsg)}`;
       }
     }
 
     // 3. Fallback store number
-    return `https://wa.me/919564140786?text=${encodeURIComponent(
-      `Hi ${companyName}, I would like to inquire about your tiles and showroom collection.`
-    )}`;
+    return `https://wa.me/919564140786?text=${encodeURIComponent(targetMsg)}`;
   };
 
   const whatsappUrl = getWhatsAppUrl();

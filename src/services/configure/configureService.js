@@ -39,6 +39,11 @@ export const DEFAULT_CONFIG = {
     address: { line1: "", line2: "", city: "", state: "", pincode: "", country: "India", mapUrl: "" },
     phones: [],
     emails: [],
+    whatsappModal: {
+        enabled: true,
+        phoneNumber: "",
+        message: "",
+    },
     socialLinks: DEFAULT_SOCIAL_LINKS,
     bannersCount: 0,
     collectionsCount: 0,
